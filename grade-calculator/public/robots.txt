@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /_next/static/
+Allow: /_next/image/
+
+Sitemap: https://calcunotas.com/sitemap_index.xml

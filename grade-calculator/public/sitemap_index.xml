@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://calcunotas.com</loc>
+  </url>
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://calcunotas.com/sobre-nosotros/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/faq/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/privacidad/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/terminos/</loc>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://calcunotas.com/blog/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/blog/como-calcular-el-gpa/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/blog/que-es-un-calificador-rapido/</loc>
+  </url>
+
+  <!-- Calculadoras -->
+  <url>
+    <loc>https://calcunotas.com/calculadora-de-notas/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/nota-final/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/calculadora-gpa/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/gpa-acumulado/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/calificador-rapido/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/calculadora-clase/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/calculadora-profesores/</loc>
+  </url>
+  <url>
+    <loc>https://calcunotas.com/nota-semestral/</loc>
+  </url>
+
+</urlset>
