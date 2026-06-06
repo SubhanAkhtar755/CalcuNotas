@@ -59,6 +59,10 @@ export default function RootLayout({ children }) {
           src="https://www.googletagmanager.com/gtag/js?id=G-HSSJ22GS14"
           strategy="afterInteractive"
         />
+        {/* Google Adsence */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7312405592713142"
+          crossorigin="anonymous"></script>
+
 
         <Script id="google-analytics" strategy="afterInteractive">
           {`

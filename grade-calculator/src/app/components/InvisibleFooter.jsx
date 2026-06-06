@@ -38,6 +38,7 @@ const NAV_LINKS = [
   ["Términos", "/terminos/"],
   ["Blog", "/blog/"],
   ["FAQ", "/faq/"],
+  ["Contacto", "/contacto/"],
 ];
 
 export default function InvisibleFooter() {
