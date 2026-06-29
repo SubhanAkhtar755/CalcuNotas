@@ -7,88 +7,529 @@ import BlogSidebar from "@/app/components/BlogSidebar";
 export const dynamic = "force-static";
 export const revalidate = false;
 
-export const metadata = {
-  title: "Calculadora de Notas de Examen | Calcular Calificación Gratis",
+// ─── SCHEMA MARKUP ────────────────────────────────────────────────────────────
+// NUEVO: HowTo + BreadcrumbList añadidos. FAQPage expandido a 15 preguntas.
+const schemaMarkup = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Calculadora de Notas de Examen",
+    url: "https://calcunotas.com",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    description:
+      "Herramienta gratuita para calcular la nota de cualquier examen: porcentaje, escala 0-10, nota con letra y penalización por errores. Compatible con España, México, Colombia, Chile, Argentina y todo LATAM.",
+    featureList: [
+      "Cálculo instantáneo de porcentaje",
+      "Escala 0-10 para España y México",
+      "Escala porcentual para Latinoamérica",
+      "Penalización por errores tipo test y oposiciones",
+      "Nota mínima de aprobado configurable",
+      "Conversión a nota con letra A-F",
+      "Fórmula MIR y oposiciones administrativas",
+      "Sin registro, 100 % gratuita",
+    ],
+  },
+  // ── FAQPage — 15 preguntas (NUEVO: de 5 a 15) ──────────────────────────
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "¿Cómo se calcula la nota de un examen?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Divide el número de respuestas correctas entre el total de preguntas y multiplica por 10 (escala española) o por 100 (porcentaje). Fórmula: Nota = (Aciertos ÷ Total) × 10.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuántos aciertos necesito para aprobar un examen de 40 preguntas?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En España, con aprobado en 5/10 (50%), necesitas al menos 20 aciertos de 40. Si el aprobado está en 6/10 (60%), necesitas 24 aciertos. En México el mínimo es 6/10, así que necesitas 24 de 40.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo afectan los errores a la nota de un examen tipo test?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En exámenes tipo test con penalización, los errores restan una fracción del valor de un acierto. Lo más habitual es restar 0,25 puntos por fallo (exámenes de 4 opciones). La fórmula es: Nota = (Aciertos − Errores × Factor) ÷ Total × 10.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Qué nota con letra corresponde al 75%?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Un 75% equivale a una nota C en el sistema anglosajón o a un 7,5 sobre 10 en España, lo que corresponde a Notable.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Las respuestas en blanco restan en los exámenes?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En la mayoría de exámenes tipo test, las respuestas en blanco no restan puntos. Solo restan si así lo especifican explícitamente las bases del examen o la convocatoria de oposición.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo se calcula la nota del examen MIR?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "El MIR usa penalización de 1/3 por respuesta incorrecta. La fórmula es: Nota MIR = (Aciertos − Errores × 0,333) ÷ Total de preguntas × 10. Las preguntas en blanco no restan.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuántos fallos puedo tener en un examen de 100 preguntas para aprobar?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sin penalización: puedes fallar hasta 50 preguntas si el aprobado es el 50% (España). Con penalización de 0,25: cada 4 fallos equivalen a 1 acierto perdido. Si el aprobado es 50/100 aciertos netos, puedes fallar unas 40 preguntas (con las otras 60 en blanco).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Qué nota es un 6 sobre 10 en porcentaje?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Un 6 sobre 10 equivale al 60%. En España es Aprobado. En el sistema anglosajón correspondería a una D (60-69%).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuántos aciertos necesito para sacar un notable en un examen de 50 preguntas?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En España el notable empieza en 7/10 (70%). En 50 preguntas sin penalización necesitas al menos 35 aciertos. Con penalización de 0,25 por error necesitas aproximadamente 37 aciertos para compensar los posibles fallos.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Funciona esta calculadora para exámenes de oposiciones?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sí. Las oposiciones españolas usan la fórmula con penalización (habitualmente −1/3 o −1/4 por error). Introduce los parámetros de tu convocatoria en los campos avanzados de la calculadora.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuál es la diferencia entre nota sobre 10 y porcentaje?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Son la misma escala multiplicada por factores distintos. Un 7/10 equivale al 70%. La escala 0-10 es estándar en España y México; el porcentaje (0-100) es más común en Latinoamérica y el sistema anglosajón.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Qué nota mínima se necesita para aprobar en Colombia?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En Colombia la escala es de 0 a 5 y el aprobado mínimo es 3,0 sobre 5. En porcentaje equivale al 60%. Algunas instituciones tienen el aprobado en 3,5.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo se convierte una nota de porcentaje a nota sobre 10?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Divide el porcentaje entre 10. Ejemplo: 75% ÷ 10 = 7,5 sobre 10. O multiplica la nota sobre 10 por 10 para obtener el porcentaje: 8,5 × 10 = 85%.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Qué diferencia hay entre nota bruta y nota neta en un examen tipo test?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "La nota bruta es el número de aciertos sin aplicar penalización. La nota neta es el resultado después de restar la penalización por errores: Nota neta = Aciertos − (Errores × Factor). La nota final del examen se calcula siempre sobre la nota neta.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Puedo usar esta calculadora para corregir exámenes como profesor?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sí, es perfecta para maestros y profesores. Permite definir el total de preguntas, la nota mínima de aprobado y el factor de penalización. Calcula la nota de cada alumno en segundos y muestra la tabla completa de calificaciones.",
+        },
+      },
+    ],
+  },
+  // ── HowTo Schema — NUEVO ────────────────────────────────────────────────
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Cómo calcular la nota de un examen paso a paso",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Introduce el total de preguntas",
+        text: "Escribe el número total de preguntas o puntos que tiene el examen.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Indica tus aciertos o errores",
+        text: "Puedes introducir directamente el número de respuestas correctas o el de incorrectas.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Ajusta la penalización si la hay",
+        text: "Para exámenes tipo test con penalización, introduce el factor (0,25; 0,33; 0,5). Para exámenes sin penalización déjalo en 0.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Lee tu nota al instante",
+        text: "La calculadora muestra el porcentaje, la nota sobre 10 y la nota con letra según la escala seleccionada.",
+      },
+    ],
+  },
+  // ── BreadcrumbList — NUEVO ──────────────────────────────────────────────
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://calcunotas.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Calculadora de Notas de Examen",
+        item: "https://calcunotas.com",
+      },
+    ],
+  },
+];
 
+// ─── METADATA ─────────────────────────────────────────────────────────────────
+export const metadata = {
+  // NUEVO: Título más específico y accionable
+  title: "Calculadora de Notas de Examen | Nota, % y Letra al Instante",
+
+  // NUEVO: Description mejorada con más entidades y CTA
   description:
-    "Calcula tus notas de examen, porcentaje de aciertos, respuestas correctas e incorrectas y calificación con letra al instante. Calculadora de notas gratis para estudiantes y maestros.",
+    "Calcula la nota de tu examen en segundos: porcentaje, nota sobre 10 y letra. Con penalización tipo test y oposiciones (MIR, 1/3, 1/4). España, México, Colombia, Chile y LATAM. Gratis, sin registro.",
 
   keywords: [
-    "calculadora de notas",
+    // ── PRIMARY ──────────────────────────────────────────────────────────
     "calculadora de notas de examen",
     "calcular nota examen",
     "calculadora de calificaciones",
-    "calcular calificaciones",
-    "calculadora escolar",
-    "calculadora de porcentaje de examen",
-    "calculadora de notas para maestros",
-    "calculadora de notas para estudiantes",
     "calcular nota de prueba",
+    // ── SECONDARY ────────────────────────────────────────────────────────
+    "calcular nota examen con aciertos y errores",
+    "calculadora nota tipo test con penalización",
+    "calcular porcentaje nota examen",
+    "calculadora nota examen sobre 10",
+    "calcular cuántos aciertos necesito para aprobar",
+    "nota de examen porcentaje a letra",
+    // ── NUEVOS — Oposiciones (easy-win, casi sin competencia) ────────────
+    "calculadora nota examen oposiciones",
+    "calcular nota MIR penalización",
+    "calculadora nota examen tipo test penalización 1/4",
+    "calculadora nota oposiciones administrativas",
+    "fórmula nota examen MIR",
+    // ── NUEVOS — Reverse calculator (cuántos fallos) ─────────────────────
+    "cuántos fallos puedo tener en el examen",
+    "cuántos fallos para aprobar examen 100 preguntas",
+    "cuántos aciertos necesito para un notable",
+    "cuántas preguntas puedo fallar en el examen",
+    // ── NUEVOS — País específico ──────────────────────────────────────────
+    "calculadora nota examen colombia escala 0-5",
+    "calculadora nota examen chile escala 1-7",
+    "nota mínima para aprobar en España México Colombia",
+    // ── TERTIARY / SEMÁNTICO ──────────────────────────────────────────────
+    "calculadora notas para maestros",
+    "convertir porcentaje a nota con letra",
+    "escala de calificaciones españa",
+    "fórmula calcular nota examen",
+    "cuánto es un 7 en porcentaje",
+    "nota bruta y nota neta examen",
+    "tabla conversión notas porcentaje a 10",
   ],
 
-
-
- alternates: {
+  alternates: {
     canonical: "https://calcunotas.com",
     languages: {
-      "es": "https://calcunotas.com", // ✅ GENERIC - Pakistan, Canada, USA se koi bhi Spanish bolne wala
-      "es-ES": "https://calcunotas.com", // Spain
-      "es-MX": "https://calcunotas.com", // Mexico
-      "es-AR": "https://calcunotas.com", // Argentina
-      "es-CO": "https://calcunotas.com", // Colombia
-      "es-CL": "https://calcunotas.com", // Chile
-      "es-PE": "https://calcunotas.com", // Peru
-      "es-VE": "https://calcunotas.com", // Venezuela
-      "es-EC": "https://calcunotas.com", // Ecuador
-      "es-BO": "https://calcunotas.com", // Bolivia
-      "es-PY": "https://calcunotas.com", // Paraguay
-      "es-UY": "https://calcunotas.com", // Uruguay
-      "es-GT": "https://calcunotas.com", // Guatemala
-      "es-CU": "https://calcunotas.com", // Cuba
-      "es-DO": "https://calcunotas.com", // Dominican Republic
-      "es-HN": "https://calcunotas.com", // Honduras
-      "es-SV": "https://calcunotas.com", // El Salvador
-      "es-NI": "https://calcunotas.com", // Nicaragua
-      "es-PA": "https://calcunotas.com", // Panama
-      "es-CR": "https://calcunotas.com", // Costa Rica
+      es:     "https://calcunotas.com",
+      "es-ES": "https://calcunotas.com",
+      "es-MX": "https://calcunotas.com",
+      "es-AR": "https://calcunotas.com",
+      "es-CO": "https://calcunotas.com",
+      "es-CL": "https://calcunotas.com",
+      "es-PE": "https://calcunotas.com",
+      "es-VE": "https://calcunotas.com",
+      "es-EC": "https://calcunotas.com",
+      "es-BO": "https://calcunotas.com",
+      "es-PY": "https://calcunotas.com",
+      "es-UY": "https://calcunotas.com",
+      "es-GT": "https://calcunotas.com",
+      "es-CU": "https://calcunotas.com",
+      "es-DO": "https://calcunotas.com",
+      "es-HN": "https://calcunotas.com",
+      "es-SV": "https://calcunotas.com",
+      "es-NI": "https://calcunotas.com",
+      "es-PA": "https://calcunotas.com",
+      "es-CR": "https://calcunotas.com",
     },
   },
 
+  // ── NUEVO: OpenGraph ─────────────────────────────────────────────────────
+  openGraph: {
+    title: "Calculadora de Notas de Examen — Nota, % y Letra al Instante",
+    description:
+      "Calcula la nota de cualquier examen en segundos. Penalización tipo test, escala 0-10 y A-F. Compatible con España, México, Colombia, Chile y todo LATAM. Gratis.",
+    url: "https://calcunotas.com",
+    siteName: "CalcuNotas",
+    locale: "es_ES",
+    type: "website",
+  },
+
+  // ── NUEVO: Twitter Card ──────────────────────────────────────────────────
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de Notas de Examen | CalcuNotas",
+    description:
+      "Calcula tu nota al instante: porcentaje, nota sobre 10 y letra. Con penalización tipo test y oposiciones. Gratis, sin registro.",
+  },
+
+  other: {
+    "application/ld+json": JSON.stringify(schemaMarkup),
+  },
 };
 
+// ─── DATOS ESTÁTICOS ──────────────────────────────────────────────────────────
+
+const ESCALA_ESPANA = [
+  { rango: "9 – 10",   letra: "A / Sobresaliente", nivel: "Excelente",             porcentaje: "90 – 100 %", color: "bg-emerald-50 text-emerald-800 border-emerald-200" },
+  { rango: "7 – 8,99", letra: "B / Notable",        nivel: "Muy bueno",             porcentaje: "70 – 89 %",  color: "bg-blue-50 text-blue-800 border-blue-200" },
+  { rango: "5 – 6,99", letra: "C / Aprobado",       nivel: "Suficiente",            porcentaje: "50 – 69 %",  color: "bg-yellow-50 text-yellow-800 border-yellow-200" },
+  { rango: "4 – 4,99", letra: "D / Suspenso",       nivel: "Por debajo del mínimo", porcentaje: "40 – 49 %",  color: "bg-orange-50 text-orange-800 border-orange-200" },
+  { rango: "0 – 3,99", letra: "F / Suspenso grave", nivel: "Insuficiente",          porcentaje: "0 – 39 %",   color: "bg-red-50 text-red-800 border-red-200" },
+];
+
+const ESCALA_PORCENTAJE = [
+  { rango: "90 – 100 %", letra: "A", nivel: "Excelente",          color: "bg-emerald-50 text-emerald-800 border-emerald-200" },
+  { rango: "80 – 89 %",  letra: "B", nivel: "Bueno",              color: "bg-blue-50 text-blue-800 border-blue-200" },
+  { rango: "70 – 79 %",  letra: "C", nivel: "Regular / Aprobado", color: "bg-yellow-50 text-yellow-800 border-yellow-200" },
+  { rango: "60 – 69 %",  letra: "D", nivel: "Bajo",               color: "bg-orange-50 text-orange-800 border-orange-200" },
+  { rango: "< 60 %",     letra: "F", nivel: "Reprobado",          color: "bg-red-50 text-red-800 border-red-200" },
+];
+
+// NUEVO: Nota mínima por país
+const NOTA_MINIMA_PAISES = [
+  { pais: "🇪🇸 España",          escala: "0 – 10",    minimo: "5,0",    porcentaje: "50 %", recuperacion: "Segunda convocatoria" },
+  { pais: "🇲🇽 México",          escala: "0 – 10",    minimo: "6,0",    porcentaje: "60 %", recuperacion: "Examen extraordinario" },
+  { pais: "🇨🇴 Colombia",        escala: "0 – 5",     minimo: "3,0",    porcentaje: "60 %", recuperacion: "Habilitación" },
+  { pais: "🇨🇱 Chile",           escala: "1 – 7",     minimo: "4,0",    porcentaje: "60 %", recuperacion: "Examen de repetición" },
+  { pais: "🇦🇷 Argentina",       escala: "0 – 10",    minimo: "4,0",    porcentaje: "40 %", recuperacion: "Recuperatorio" },
+  { pais: "🇵🇪 Perú / 🇻🇪 Venezuela", escala: "0 – 20", minimo: "10,5", porcentaje: "52 %", recuperacion: "Examen sustitutorio" },
+  { pais: "🌎 USA / LATAM (%)",  escala: "0 – 100 %", minimo: "50–60 %", porcentaje: "50–60 %", recuperacion: "Varía por institución" },
+];
+
+// NUEVO: Tabla de conversión rápida porcentaje ↔ nota
+const TABLA_CONVERSION = [
+  { porcentaje: "100 %", sobre10: "10,0", letra: "A+", calificacion: "Sobresaliente" },
+  { porcentaje: "90 %",  sobre10: "9,0",  letra: "A",  calificacion: "Sobresaliente" },
+  { porcentaje: "80 %",  sobre10: "8,0",  letra: "B",  calificacion: "Notable" },
+  { porcentaje: "75 %",  sobre10: "7,5",  letra: "C+", calificacion: "Notable" },
+  { porcentaje: "70 %",  sobre10: "7,0",  letra: "C",  calificacion: "Notable" },
+  { porcentaje: "65 %",  sobre10: "6,5",  letra: "C-", calificacion: "Aprobado" },
+  { porcentaje: "60 %",  sobre10: "6,0",  letra: "D",  calificacion: "Aprobado" },
+  { porcentaje: "50 %",  sobre10: "5,0",  letra: "D-", calificacion: "Aprobado (mín. España)" },
+  { porcentaje: "40 %",  sobre10: "4,0",  letra: "F",  calificacion: "Suspenso" },
+  { porcentaje: "< 40 %", sobre10: "< 4,0", letra: "F", calificacion: "Suspenso grave" },
+];
+
+// NUEVO: Factores penalización oposiciones
+const PENALIZACION_DATA = [
+  { opciones: "4 opciones (A/B/C/D)", factor: "0,25 (1/4)", uso: "MIR, oposiciones administrativas, Guardia Civil", color: "bg-blue-50 border-blue-200" },
+  { opciones: "3 opciones (A/B/C)",   factor: "0,33 (1/3)", uso: "Algunas pruebas universitarias, PIR",             color: "bg-purple-50 border-purple-200" },
+  { opciones: "2 opciones (V/F)",     factor: "0,50 (1/2)", uso: "Exámenes verdadero/falso",                        color: "bg-yellow-50 border-yellow-200" },
+  { opciones: "Sin penalización",     factor: "0",           uso: "Mayoría de exámenes escolares y universitarios",  color: "bg-green-50 border-green-200" },
+];
+
+// NUEVO: Tabla "cuántos fallos puedo tener" — reverse calculator reference
+const FALLOS_REFERENCIA = [
+  { total: "20",  aprobado5: "10", aprobado6: "12", notable7: "14", penalizacion: "Sin penalización" },
+  { total: "40",  aprobado5: "20", aprobado6: "24", notable7: "28", penalizacion: "Sin penalización" },
+  { total: "50",  aprobado5: "25", aprobado6: "30", notable7: "35", penalizacion: "Sin penalización" },
+  { total: "100", aprobado5: "50", aprobado6: "60", notable7: "70", penalizacion: "Sin penalización" },
+];
+
+const FAQS = [
+  {
+    q: "¿Cómo se calcula la nota de un examen?",
+    a: "Divide las respuestas correctas entre el total de preguntas y multiplica por 10 (España) o por 100 (porcentaje). Por ejemplo: 35 aciertos en 50 preguntas = (35 ÷ 50) × 10 = 7,0 sobre 10.",
+  },
+  {
+    q: "¿Cuántos aciertos necesito para aprobar un examen de 40 preguntas?",
+    a: "En España el aprobado está en 5/10 (50%), así que necesitas 20 aciertos de 40. Si el examen exige 6/10 (60%), necesitas 24. En México el mínimo es 6/10, también 24 aciertos de 40.",
+  },
+  {
+    q: "¿Cómo afectan los errores en un examen tipo test con penalización?",
+    a: "La fórmula es: Nota = (Aciertos − Errores × Factor) ÷ Total × 10. El factor más habitual en España es 0,25 por error (exámenes con 4 opciones). Nuestra calculadora incluye este campo.",
+  },
+  {
+    q: "¿Qué nota es un 75 % en escala española?",
+    a: "Un 75 % equivale a un 7,5 sobre 10, que en España se llama Notable. En el sistema de letras anglosajón correspondería a una C+.",
+  },
+  {
+    q: "¿Las respuestas en blanco restan puntos?",
+    a: "En la mayoría de exámenes tipo test las preguntas en blanco no restan. Solo restan si lo indican explícitamente las bases del examen o la convocatoria de oposición.",
+  },
+  {
+    q: "¿Funciona esta calculadora para exámenes de oposiciones?",
+    a: "Sí. Las oposiciones españolas usan penalización habitualmente de −1/3 o −1/4 por error. Introduce el factor de tu convocatoria en el campo de penalización y obtén la nota neta al instante.",
+  },
+  {
+    q: "¿Cuál es la diferencia entre nota sobre 10 y porcentaje?",
+    a: "Son la misma escala con diferente factor. Un 7/10 equivale al 70%. La escala 0-10 es estándar en España y México; el porcentaje (0-100) es más común en Latinoamérica y el sistema anglosajón.",
+  },
+  {
+    q: "¿Cómo se calcula la nota del examen MIR?",
+    a: "El MIR aplica una penalización de 1/3 por respuesta incorrecta. Fórmula: Nota MIR = (Aciertos − Errores × 0,333) ÷ Total × 10. Las preguntas en blanco no restan.",
+  },
+  {
+    q: "¿Cuántos fallos puedo tener en un examen de 100 preguntas para aprobar?",
+    a: "Sin penalización: puedes fallar hasta 50 preguntas si el aprobado es 50% (España). Con penalización de 0,25: la nota neta = (Aciertos − Errores × 0,25) ÷ 100 × 10. Para un aprobado de 5, la combinación óptima es responder solo lo que sepas seguro.",
+  },
+  {
+    q: "¿Qué nota es un 6 sobre 10 en porcentaje?",
+    a: "Un 6 sobre 10 equivale al 60%. En España es Aprobado. En el sistema anglosajón correspondería a una D (60-69%).",
+  },
+  {
+    q: "¿Cuántos aciertos necesito para un notable en 50 preguntas?",
+    a: "El notable en España empieza en 7/10 (70%). En 50 preguntas sin penalización necesitas 35 aciertos. Con penalización de 0,25 necesitas aproximadamente 37 aciertos para compensar posibles fallos.",
+  },
+  {
+    q: "¿Qué nota mínima se necesita para aprobar en Colombia?",
+    a: "En Colombia la escala es de 0 a 5 y el aprobado mínimo es 3,0 sobre 5 (equivale al 60%). Algunas instituciones tienen el aprobado en 3,5.",
+  },
+  {
+    q: "¿Cómo se convierte una nota de porcentaje a nota sobre 10?",
+    a: "Divide el porcentaje entre 10. Ejemplo: 75% ÷ 10 = 7,5 sobre 10. O al revés: multiplica la nota por 10 para obtener el porcentaje: 8,5 × 10 = 85%.",
+  },
+  {
+    q: "¿Qué diferencia hay entre nota bruta y nota neta?",
+    a: "La nota bruta es el número de aciertos sin penalización. La nota neta es el resultado después de aplicar el descuento por errores: Nota neta = Aciertos − (Errores × Factor). La calificación final siempre se calcula sobre la nota neta.",
+  },
+  {
+    q: "¿Puedo usar esta calculadora para corregir exámenes como profesor?",
+    a: "Sí. Permite definir el total de preguntas, la nota mínima de aprobado y el factor de penalización. Calcula la nota de cada alumno en segundos y muestra la tabla completa de calificaciones.",
+  },
+];
+
+const PASOS = [
+  {
+    n: "1",
+    titulo: "Introduce el total de preguntas",
+    texto: "Escribe cuántas preguntas o puntos tiene el examen. Puede ser 10, 40, 100 o cualquier valor.",
+    icon: "📝",
+  },
+  {
+    n: "2",
+    titulo: "Indica tus aciertos o errores",
+    texto: "Puedes introducir directamente los aciertos o los errores. La calculadora convierte ambos automáticamente.",
+    icon: "✅",
+  },
+  {
+    n: "3",
+    titulo: "Ajusta la penalización (si la hay)",
+    texto: "Para exámenes tipo test u oposiciones, introduce el factor de penalización (0,25; 0,33; 0,5…). Para exámenes sin penalización déjalo en 0.",
+    icon: "⚙️",
+  },
+  {
+    n: "4",
+    titulo: "Obtén tu nota al instante",
+    texto: "Verás el porcentaje, la nota sobre 10 y la nota con letra según la escala seleccionada. Sin esperas ni registros.",
+    icon: "🎯",
+  },
+];
+
+const VENTAJAS = [
+  { titulo: "Doble escala incluida",                texto: "España (0-10) y porcentaje (0-100) en un solo clic." },
+  { titulo: "Penalización configurable",            texto: "Factor de descuento por error para tipo test, MIR y oposiciones." },
+  { titulo: "Nota de aprobado personalizable",      texto: "Ajusta el umbral mínimo (5, 6 o el que tu examen exija)." },
+  { titulo: "Cálculo instantáneo",                  texto: "Resultado en tiempo real mientras escribes, sin pulsar ningún botón." },
+  { titulo: "100 % gratuita, sin registro",         texto: "Ningún dato personal requerido. Funciona en móvil y ordenador." },
+  { titulo: "Válida para cualquier país hispanohablante", texto: "España, México, Argentina, Colombia, Chile y el resto de LATAM." },
+];
+
+// ─── COMPONENTE PRINCIPAL ──────────────────────────────────────────────────────
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
-      {/* HERO */}
+      {/* ── Schema JSON-LD ────────────────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+
+      {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
         <div className="w-[min(1120px,94%)] mx-auto">
-          <div className="text-sm text-[#667085] mb-3">
-            Inicio / Calculadora de Notas de Examen
-          </div>
+
+          {/* Breadcrumb — MEJORADO con itemScope */}
+          <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
+            <ol className="flex flex-wrap gap-1 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
+              <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
+                <a href="/" itemProp="item" className="hover:text-blue-600">
+                  <span itemProp="name">Inicio</span>
+                </a>
+                <meta itemProp="position" content="1" />
+              </li>
+              <li aria-hidden="true" className="mx-1">/</li>
+              <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
+                <span itemProp="name" aria-current="page">Calculadora de Notas de Examen</span>
+                <meta itemProp="position" content="2" />
+              </li>
+            </ol>
+          </nav>
 
           <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
             Calculadora de Notas de Examen
           </h1>
 
-          <p className="max-w-[820px] text-[17px] leading-8 text-[#667085] mb-5">
-            Usa esta calculadora de notas de examen para calcular tu
-            puntuación, porcentaje de calificación, respuestas correctas e
-            incorrectas y la nota con letra al instante. Funciona para
-            exámenes, pruebas, tareas, evaluaciones de clase y sistemas de
-            calificación por puntos.
+          {/* AI Overview / GEO target paragraph */}
+          <p
+            data-ai-answer="true"
+            className="max-w-[820px] text-[17px] leading-8 text-[#667085] mb-2"
+          >
+            Calcula tu <strong>nota de examen</strong> al instante: porcentaje
+            de aciertos, nota sobre 10, nota con letra y{" "}
+            <strong>penalización por errores</strong> incluida. Válida para
+            cualquier examen, prueba, test u oposición —en España, México,
+            Argentina, Colombia, Chile y toda Latinoamérica.
+          </p>
+          <p className="max-w-[820px] text-[15px] leading-7 text-[#8a94a6] mb-5">
+            Tanto si eres estudiante que quiere saber qué ha sacado, maestro
+            que corrige en clase o preparador de{" "}
+            <strong>oposiciones (MIR, administrativo, Guardia Civil)</strong>,
+            esta herramienta te da la respuesta en segundos y sin registro.
           </p>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3" role="list" aria-label="Funcionalidades destacadas">
             {[
-              "Resultados en porcentaje",
-              "Aciertos y errores",
-              "Conversión a nota con letra",
-              "Cálculo de puntaje de examen",
-            ].map((item, index) => (
+              "Nota sobre 10 (España / México)",
+              "Porcentaje (LATAM)",
+              "Penalización tipo test",
+              "Fórmula MIR y oposiciones",
+              "Nota mínima configurable",
+              "Conversión A–F incluida",
+              "100 % gratis",
+            ].map((item) => (
               <span
-                key={index}
+                key={item}
+                role="listitem"
                 className="bg-white border border-blue-100 text-blue-700 px-4 py-2 rounded-full text-[13px] font-semibold shadow-sm"
               >
                 {item}
@@ -98,11 +539,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MAIN */}
-      <section className="pb-8">
+      {/* ── CALCULADORA + SIDEBAR ─────────────────────────────────────────── */}
+      <section className="pb-8" aria-label="Calculadora de notas de examen">
         <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
           <TestGradeCalculator />
-
           <div className="space-y-6">
             <RightSidebar />
             <BlogSidebar />
@@ -110,284 +550,323 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTENT */}
-      <section className="pb-14">
+      {/* ── CONTENIDO SEO / AEO ───────────────────────────────────────────── */}
+      <section className="pb-14" aria-label="Guía completa: calculadora notas examen">
         <div className="w-[min(1120px,94%)] mx-auto">
-          <article className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+          <article
+            className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden"
+            itemScope
+            itemType="https://schema.org/Article"
+          >
             <div className="p-6 md:p-8">
 
-              {/* QUICK SUMMARY */}
-              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mb-10">
-                <h2 className="text-[28px] font-bold tracking-[-0.03em] mb-4">
-                  Resumen Rápido
+              {/* ── AI OVERVIEW SNIPPET ───────────────────────────────────── */}
+              <div
+                className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mb-10"
+                data-ai-snippet="true"
+              >
+                <h2 className="text-[26px] font-bold tracking-[-0.02em] mb-4">
+                  Respuesta directa: ¿cómo se calcula la nota de un examen?
                 </h2>
-
                 <p className="text-gray-700 leading-8">
-                  Una calculadora de notas ayuda a estudiantes y{" "}
-                  <a
-                    href="/calculadora-profesores/"
-                    className="text-green-600 hover:text-green-700 font-semibold underline-offset-4 underline"
-                  >
-                    maestros a calcular
-                  </a>{" "}
-                  las notas de exámenes, porcentajes, respuestas correctas e
-                  incorrectas y calificaciones con letra al instante. En lugar
-                  de calcular porcentajes de forma manual, los usuarios pueden
-                  determinar rápidamente el rendimiento en el examen usando una
-                  fórmula de calificación simple.
+                  La <strong>nota de un examen</strong> se calcula dividiendo
+                  las respuestas correctas entre el total de preguntas y
+                  multiplicando por 10 (escala 0-10) o por 100 (porcentaje):
+                  <strong> Nota = (Aciertos ÷ Total) × 10</strong>. Si el
+                  examen tiene <strong>penalización por errores</strong>, se
+                  aplica: <strong>Nota = (Aciertos − Errores × Factor) ÷ Total × 10</strong>.
+                  Esta calculadora hace el cálculo automáticamente para
+                  cualquier escala y cualquier factor de penalización.
                 </p>
               </div>
 
-              {/* HOW IT WORKS */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Cómo Funciona la Calculadora de Notas
+              {/* ── DIFERENCIA FRENTE A COMPETIDORES ─────────────────────── */}
+              <section className="mb-12" aria-labelledby="diferencia-heading">
+                <h2 id="diferencia-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+                  ¿Qué hace especial a esta calculadora?
                 </h2>
-
-                <div className="space-y-5 text-[16px] leading-8 text-gray-700">
-                  <p>
-                    Una{" "}
-                    <a
-                      href="/calculadora-de-notas/"
-                      className="text-green-600 hover:text-green-700 font-semibold underline-offset-4 underline"
-                    >
-                      calculadora de calificaciones
-                    </a>{" "}
-                    está diseñada para simplificar el proceso de calificación
-                    para estudiantes, maestros, tutores, educadores en casa e
-                    instituciones académicas. En lugar de calcular porcentajes
-                    manualmente después de cada examen o prueba, la calculadora
-                    convierte al instante las respuestas en notas y porcentajes.
-                  </p>
-
-                  <p>
-                    La mayoría de las calculadoras de notas funcionan
-                    solicitando al usuario ingresar el total de preguntas y las
-                    respuestas correctas o incorrectas. Una vez ingresados, la
-                    calculadora calcula automáticamente el porcentaje de
-                    calificación y la nota con letra estimada según los sistemas
-                    de evaluación más comunes.
-                  </p>
-
-                  <blockquote className="rounded-2xl border-l-4 border-blue-600 bg-blue-50 p-5 italic text-gray-700">
-                    "Las calculadoras de notas reducen errores manuales y
-                    ayudan a los maestros a ahorrar tiempo valioso de
-                    corrección cada semana."
-                  </blockquote>
-
-                  <p>
-                    Las calculadoras de notas se utilizan habitualmente en
-                    escuelas, universidades, plataformas de aprendizaje en
-                    línea, programas de tutoría y entornos de capacitación para
-                    certificaciones.
-                  </p>
+                <p className="text-gray-700 leading-8 mb-6">
+                  La mayoría de calculadoras solo trabajan con porcentajes y la
+                  escala A–F anglosajona. Esta herramienta incluye la{" "}
+                  <strong>escala 0-10 de España y México</strong>, permite
+                  configurar la{" "}
+                  <strong>penalización por errores</strong> propia de
+                  oposiciones y tests universitarios, cubre las escalas de{" "}
+                  <strong>Colombia (0-5), Chile (1-7) y Perú (0-20)</strong>, y
+                  permite ajustar la{" "}
+                  <strong>nota mínima de aprobado</strong> al umbral de tu
+                  institución.
+                </p>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {[
+                    {
+                      titulo: "Escala española 0-10",
+                      texto: "Resultado directo en la escala oficial de España y México: Suspenso, Aprobado, Notable, Sobresaliente.",
+                      badge: "España / México",
+                      badgeColor: "bg-blue-100 text-blue-700",
+                    },
+                    {
+                      titulo: "Penalización tipo test y oposiciones",
+                      texto: "Introduce el factor de penalización (0,25 para MIR; 0,33 para PIR) y obtén la nota neta real.",
+                      badge: "Oposiciones / MIR / Selectividad",
+                      badgeColor: "bg-purple-100 text-purple-700",
+                    },
+                    {
+                      titulo: "Porcentaje + Nota con letra",
+                      texto: "Conversión automática al sistema A–F para universidades latinoamericanas y entornos bilingües.",
+                      badge: "LATAM / Sistema anglosajón",
+                      badgeColor: "bg-emerald-100 text-emerald-700",
+                    },
+                  ].map((card) => (
+                    <div key={card.titulo} className="rounded-2xl border border-gray-200 p-5 bg-white">
+                      <span className={`text-[11px] font-bold px-2 py-1 rounded-full mb-3 inline-block ${card.badgeColor}`}>
+                        {card.badge}
+                      </span>
+                      <h3 className="text-[16px] font-semibold text-gray-800 mb-2">{card.titulo}</h3>
+                      <p className="text-gray-600 text-[14px] leading-6">{card.texto}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
-              {/* FORMULA */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Fórmula para Calcular la Nota del Examen
+              {/* ── FÓRMULA (Featured Snippet target) ────────────────────── */}
+              <section className="mb-12" aria-labelledby="formula-heading">
+                <h2 id="formula-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+                  Fórmula para calcular la nota de un examen
                 </h2>
 
-                <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-semibold overflow-x-auto mb-7 text-center text-[16px]">
-                  Porcentaje de Nota = (Respuestas Correctas ÷ Total de Preguntas) × 100
+                <p className="text-gray-700 leading-8 mb-4">
+                  La fórmula fundamental para calcular el porcentaje:
+                </p>
+                <div
+                  className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-4"
+                  role="math"
+                  aria-label="Nota en porcentaje igual a respuestas correctas dividido total por cien"
+                >
+                  Nota (%) = (Respuestas correctas ÷ Total de preguntas) × 100
+                </div>
+                <p className="text-gray-700 leading-8 mb-4">
+                  Para la nota sobre 10 (escala española):
+                </p>
+                <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-7">
+                  Nota /10 = (Respuestas correctas ÷ Total de preguntas) × 10
                 </div>
 
-                <div className="space-y-5 text-[16px] leading-8 text-gray-700">
-                  <p>
-                    La fórmula de calificación es sencilla pero muy útil.
-                    Primero, divide el número de respuestas correctas entre el
-                    total de preguntas del examen. Luego multiplica el resultado
-                    por 100 para convertirlo en porcentaje.
+                {/* Ejemplo numérico */}
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 mb-7">
+                  <h3 className="font-semibold text-gray-800 mb-3">Ejemplo práctico paso a paso</h3>
+                  <p className="text-gray-700 leading-7 text-[15px] mb-3">
+                    Estudiante con <strong>38 aciertos en 50 preguntas</strong> (sin penalización):
                   </p>
+                  <div className="space-y-1 text-[14px] font-mono text-gray-700">
+                    <p>Porcentaje:   (38 ÷ 50) × 100 = <strong>76 %</strong></p>
+                    <p>Nota /10:     (38 ÷ 50) × 10  = <strong>7,6 — Notable</strong></p>
+                    <p>Nota con letra (A–F): <strong>C (70–79 %)</strong></p>
+                  </div>
+                </div>
 
-                  <p>
-                    Por ejemplo, si un estudiante responde correctamente 45
-                    preguntas de un total de 50, el cálculo es el siguiente:
+                {/* Fórmula con penalización */}
+                <h3 className="text-[20px] font-semibold text-gray-800 mb-3">
+                  Fórmula con penalización por errores (tipo test y oposiciones)
+                </h3>
+                <p className="text-gray-700 leading-8 mb-4">
+                  En exámenes con penalización —habitual en oposiciones, MIR,
+                  Selectividad y muchos tests universitarios— la fórmula es:
+                </p>
+                <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[14px] mb-5">
+                  Nota neta = (Aciertos − Errores × Factor) ÷ Total × 10
+                </div>
+
+                {/* Tabla factores penalización — MEJORADA con datos reales */}
+                <div className="grid gap-3 md:grid-cols-2 mb-6">
+                  {PENALIZACION_DATA.map((p) => (
+                    <div key={p.opciones} className={`rounded-xl border p-4 ${p.color}`}>
+                      <div className="font-semibold text-gray-800 text-[14px] mb-1">{p.opciones}</div>
+                      <div className="text-blue-700 font-bold text-[16px] mb-1">Factor: {p.factor}</div>
+                      <div className="text-gray-500 text-[12px]">{p.uso}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Ejemplo MIR — NUEVO */}
+                <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
+                  <h4 className="font-semibold text-purple-800 mb-2">
+                    Ejemplo real: Examen MIR (factor 1/3)
+                  </h4>
+                  <p className="text-gray-700 text-[14px] leading-6 mb-2">
+                    Examen de 235 preguntas. Estudiante con 180 aciertos y 30
+                    errores (25 en blanco):
                   </p>
+                  <div className="font-mono text-[13px] text-gray-700 space-y-1">
+                    <p>Nota neta = (180 − 30 × 0,333) ÷ 235 × 10</p>
+                    <p>         = (180 − 9,99) ÷ 235 × 10</p>
+                    <p className="text-purple-700 font-bold">         = 170,01 ÷ 235 × 10 = <strong>7,23 sobre 10</strong></p>
+                  </div>
                 </div>
+              </section>
 
-                <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-semibold mt-6 mb-7 text-center">
-                  (45 ÷ 50) × 100 = 90%
+              {/* ── CUÁNTOS FALLOS — NUEVO (easy-win keyword) ────────────── */}
+              <section className="mb-12" aria-labelledby="fallos-heading">
+                <h2 id="fallos-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
+                  ¿Cuántos fallos puedo tener en el examen para aprobar?
+                </h2>
+                <p className="text-gray-600 text-[15px] leading-7 mb-5">
+                  Referencia rápida sin penalización. El número de{" "}
+                  <strong>aciertos mínimos necesarios</strong> varía según el
+                  total de preguntas y el umbral de aprobado de tu institución.
+                </p>
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[540px] border-collapse text-[14px]">
+                    <caption className="sr-only">Aciertos mínimos para aprobar según el total de preguntas</caption>
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Total preguntas</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Aprobar (5/10 — España)</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Aprobar (6/10 — México)</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Notable (7/10)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {FALLOS_REFERENCIA.map((row, i) => (
+                        <tr key={i} className="border-t border-gray-100">
+                          <td className="px-4 py-3 font-medium text-gray-800">{row.total} preguntas</td>
+                          <td className="px-4 py-3 text-center text-green-700 font-semibold">≥ {row.aprobado5} aciertos</td>
+                          <td className="px-4 py-3 text-center text-blue-700 font-semibold">≥ {row.aprobado6} aciertos</td>
+                          <td className="px-4 py-3 text-center text-purple-700 font-semibold">≥ {row.notable7} aciertos</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-
-                <p className="text-gray-700 leading-8">
-                  Una calificación del 90% generalmente equivale a una nota A
-                  en muchos sistemas educativos. Sin embargo, las escalas de
-                  calificación pueden variar según la escuela o institución
-                  educativa.
+                <p className="text-[12px] text-gray-500 mt-2">
+                  * Sin penalización por errores. Con penalización, el número
+                  de aciertos mínimos sube. Usa la calculadora para tu caso
+                  exacto.
                 </p>
               </section>
 
-              {/* WHY IT MATTERS */}
-              <section className="mb-12">
-                <div className="rounded-2xl border border-gray-200 p-6">
-                  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                    Por Qué Son Importantes las Calculadoras de Notas
-                  </h2>
+              {/* ── CÓMO USAR ─────────────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="como-usar-heading">
+                <h2 id="como-usar-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+                  Cómo usar esta calculadora paso a paso
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {PASOS.map((paso) => (
+                    <div key={paso.n} className="rounded-2xl border border-gray-200 p-5 bg-white flex gap-4 items-start">
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm" aria-hidden="true">
+                        {paso.n}
+                      </div>
+                      <div>
+                        <h3 className="text-[16px] font-semibold text-gray-800 mb-1">{paso.titulo}</h3>
+                        <p className="text-gray-600 text-[14px] leading-6">{paso.texto}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-                  <div className="space-y-5 text-[16px] leading-8 text-gray-700">
-                    <p>
-                      Los maestros suelen gestionar múltiples aulas, tareas,
-                      pruebas y exámenes cada semana. La corrección manual puede
-                      llevar mucho tiempo, especialmente cuando se calculan
-                      porcentajes repetidamente para grupos grandes de
-                      estudiantes.
+              {/* ── TABLA DE ESCALAS DOBLE ────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="escalas-heading">
+                <h2 id="escalas-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
+                  Escalas de calificación: España y sistema internacional
+                </h2>
+                <p className="text-gray-600 text-[15px] leading-7 mb-6">
+                  Las calificaciones no son iguales en todos los países. Estas
+                  son las dos escalas más utilizadas en el mundo
+                  hispanohablante.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-[17px] font-semibold text-gray-800 mb-3">
+                      🇪🇸 España y México — escala 0 a 10
+                    </h3>
+                    <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                      <table className="w-full border-collapse text-[14px]">
+                        <caption className="sr-only">Escala de calificaciones española 0 a 10</caption>
+                        <thead>
+                          <tr className="bg-blue-600 text-white">
+                            <th scope="col" className="px-4 py-3 text-left">Nota</th>
+                            <th scope="col" className="px-4 py-3 text-left">Calificación</th>
+                            <th scope="col" className="px-4 py-3 text-left">Porcentaje</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {ESCALA_ESPANA.map((row) => (
+                            <tr key={row.rango} className={`border-t border-gray-100 ${row.color} border`}>
+                              <td className="px-4 py-3 font-semibold">{row.rango}</td>
+                              <td className="px-4 py-3">{row.letra}</td>
+                              <td className="px-4 py-3">{row.porcentaje}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="text-[12px] text-gray-500 mt-2">
+                      * En España el aprobado mínimo es 5/10. En oposiciones y
+                      algunas universidades se eleva a 6/10 o 7/10.
                     </p>
-
-                    <p>
-                      Una calculadora de notas agiliza el proceso y reduce los
-                      errores de calificación. En lugar de dedicar tiempo extra
-                      a cálculos matemáticos, los educadores pueden enfocarse
-                      más en la planificación de clases, la retroalimentación a
-                      los estudiantes y la mejora del aula.
-                    </p>
-
-                    <p>
-                      Los estudiantes también usan calculadoras de notas para
-                      estimar sus puntajes antes de que se publiquen los
-                      resultados oficiales. Esto les ayuda a comprender su
-                      progreso académico e identificar áreas débiles que
-                      requieren más estudio.
+                  </div>
+                  <div>
+                    <h3 className="text-[17px] font-semibold text-gray-800 mb-3">
+                      🌎 Latinoamérica y sistema anglosajón — escala A–F
+                    </h3>
+                    <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                      <table className="w-full border-collapse text-[14px]">
+                        <caption className="sr-only">Escala de calificaciones anglosajona A a F</caption>
+                        <thead>
+                          <tr className="bg-blue-600 text-white">
+                            <th scope="col" className="px-4 py-3 text-left">Porcentaje</th>
+                            <th scope="col" className="px-4 py-3 text-left">Letra</th>
+                            <th scope="col" className="px-4 py-3 text-left">Nivel</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {ESCALA_PORCENTAJE.map((row) => (
+                            <tr key={row.rango} className={`border-t border-gray-100 ${row.color} border`}>
+                              <td className="px-4 py-3 font-semibold">{row.rango}</td>
+                              <td className="px-4 py-3 font-bold">{row.letra}</td>
+                              <td className="px-4 py-3">{row.nivel}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="text-[12px] text-gray-500 mt-2">
+                      * En la mayoría de países latinoamericanos el aprobado
+                      mínimo está en el 50–60 %. Consulta las normas de tu
+                      institución.
                     </p>
                   </div>
                 </div>
               </section>
 
-              {/* STEP GUIDE */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Guía Paso a Paso para Calcular tu Nota
+              {/* ── TABLA CONVERSIÓN RÁPIDA — NUEVO ──────────────────────── */}
+              <section className="mb-12" aria-labelledby="conversion-heading">
+                <h2 id="conversion-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
+                  Tabla de conversión: porcentaje a nota sobre 10 y letra
                 </h2>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  {[
-                    {
-                      title: "Ingresa el Total de Preguntas",
-                      text: "Comienza añadiendo el número total de preguntas o puntos disponibles en el examen.",
-                    },
-                    {
-                      title: "Agrega las Respuestas Correctas",
-                      text: "Ingresa el número de respuestas correctas o usa las incorrectas según el método de calificación.",
-                    },
-                    {
-                      title: "Calcula el Porcentaje",
-                      text: "La calculadora convierte al instante la puntuación en un resultado porcentual.",
-                    },
-                    {
-                      title: "Visualiza la Nota con Letra",
-                      text: "El porcentaje final se compara con una escala de calificación para estimar la nota con letra.",
-                    },
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 p-5 bg-white"
-                    >
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <h3 className="text-[18px] font-semibold text-gray-800">
-                          {item.title}
-                        </h3>
-                      </div>
-                      <p className="text-gray-700 leading-7 text-[15px]">
-                        {item.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* BENEFITS */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Ventajas de Usar una Calculadora de Notas
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  {[
-                    "Cálculos de porcentaje al instante",
-                    "Flujo de corrección más rápido",
-                    "Menos errores manuales",
-                    "Conversión fácil a nota con letra",
-                    "Útil para pruebas y tareas",
-                    "Ayuda a los estudiantes a seguir su progreso",
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-white p-5"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <h3 className="font-semibold text-gray-800">{item}</h3>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-7 space-y-5 text-[16px] leading-8 text-gray-700">
-                  <p>
-                    Los maestros suelen corregir decenas o incluso cientos de
-                    pruebas cada semana. Calcular porcentajes manualmente de
-                    forma repetida puede ser agotador y llevar mucho tiempo.
-                  </p>
-
-                  <p>
-                    Los estudiantes también se benefician porque pueden estimar
-                    sus notas antes de que se publiquen las calificaciones
-                    oficiales.
-                  </p>
-                </div>
-              </section>
-
-              {/* TABLE */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Escala de Calificaciones con Letra más Común
-                </h2>
-
+                <p className="text-gray-600 text-[15px] leading-7 mb-5">
+                  Referencia rápida para convertir cualquier porcentaje a nota
+                  española y letra anglosajona sin necesidad de calcular.
+                </p>
                 <div className="overflow-x-auto rounded-2xl border border-gray-200">
-                  <table className="w-full min-w-[700px] border-collapse">
+                  <table className="w-full min-w-[500px] border-collapse text-[14px]">
+                    <caption className="sr-only">Tabla de conversión de porcentaje a nota sobre 10 y letra</caption>
                     <thead>
                       <tr className="bg-blue-600 text-white">
-                        <th className="px-5 py-4 text-left font-semibold">
-                          Porcentaje
-                        </th>
-                        <th className="px-5 py-4 text-left font-semibold">
-                          Nota con Letra
-                        </th>
-                        <th className="px-5 py-4 text-left font-semibold">
-                          Rendimiento
-                        </th>
-                        <th className="px-5 py-4 text-left font-semibold">
-                          Significado Académico
-                        </th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Porcentaje</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Nota /10</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Letra</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Calificación España</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {[
-                        ["90% - 100%", "A", "Excelente", "Comprensión sobresaliente"],
-                        ["80% - 89%", "B", "Bueno", "Rendimiento sólido"],
-                        ["70% - 79%", "C", "Regular", "Trabajo satisfactorio"],
-                        ["60% - 69%", "D", "Por debajo del promedio", "Necesita mejorar"],
-                        ["Menos del 60%", "F", "Reprobado", "Rendimiento insuficiente"],
-                      ].map((row, index) => (
-                        <tr
-                          key={index}
-                          className="border-b border-gray-200 bg-white"
-                        >
-                          {row.map((cell, i) => (
-                            <td
-                              key={i}
-                              className="px-5 py-4 text-gray-700 text-[15px]"
-                            >
-                              {cell}
-                            </td>
-                          ))}
+                      {TABLA_CONVERSION.map((row, i) => (
+                        <tr key={i} className="border-t border-gray-100">
+                          <td className="px-4 py-3 font-semibold text-gray-800">{row.porcentaje}</td>
+                          <td className="px-4 py-3 text-center font-bold text-blue-700">{row.sobre10}</td>
+                          <td className="px-4 py-3 text-center font-bold text-gray-700">{row.letra}</td>
+                          <td className="px-4 py-3 text-gray-600">{row.calificacion}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -395,139 +874,164 @@ export default function Home() {
                 </div>
               </section>
 
-              {/* COMMON MISTAKES */}
-              <section className="mb-12">
-                <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
-                  <h2 className="text-[28px] font-bold tracking-[-0.03em] mb-5">
-                    Errores Comunes al Calificar Exámenes
-                  </h2>
+              {/* ── NOTA MÍNIMA POR PAÍS — NUEVO ─────────────────────────── */}
+              <section className="mb-12" aria-labelledby="paises-heading">
+                <h2 id="paises-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
+                  Nota mínima para aprobar por país y sistema de recuperación
+                </h2>
+                <p className="text-gray-600 text-[15px] leading-7 mb-5">
+                  El umbral de aprobado y el nombre del examen de recuperación
+                  varían en cada país hispanohablante.
+                </p>
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[600px] border-collapse text-[14px]">
+                    <caption className="sr-only">Nota mínima de aprobado y sistema de recuperación por país</caption>
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">País</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Escala</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Mínimo aprobado</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Equivalencia %</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Recuperación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {NOTA_MINIMA_PAISES.map((row, i) => (
+                        <tr key={i} className="border-t border-gray-100">
+                          <td className="px-4 py-3 font-medium text-gray-800">{row.pais}</td>
+                          <td className="px-4 py-3 text-gray-700">{row.escala}</td>
+                          <td className="px-4 py-3 text-center font-bold text-blue-700">{row.minimo}</td>
+                          <td className="px-4 py-3 text-center text-gray-700">{row.porcentaje}</td>
+                          <td className="px-4 py-3 text-gray-500 text-[12px]">{row.recuperacion}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
 
+              {/* ── VENTAJAS ──────────────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="ventajas-heading">
+                <h2 id="ventajas-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+                  Ventajas de usar esta calculadora de notas
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {VENTAJAS.map((v) => (
+                    <div key={v.titulo} className="rounded-2xl border border-gray-200 bg-white p-5">
+                      <h3 className="font-semibold text-gray-800 mb-1">✔ {v.titulo}</h3>
+                      <p className="text-gray-600 text-[13px] leading-6">{v.texto}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── ERRORES COMUNES ───────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="errores-heading">
+                <div className="rounded-2xl border border-amber-100 bg-amber-50 p-6">
+                  <h2 id="errores-heading" className="text-[26px] font-bold tracking-[-0.02em] mb-5 text-amber-900">
+                    Errores frecuentes al calcular la nota de un examen
+                  </h2>
                   <ul className="space-y-3 text-gray-700 leading-8">
-                    <li>• Ingresar incorrectamente el total de preguntas.</li>
-                    <li>• Confundir respuestas incorrectas con preguntas sin responder.</li>
-                    <li>• Usar escalas de calificación distintas por error.</li>
-                    <li>• Olvidar las preguntas ponderadas en exámenes avanzados.</li>
-                    <li>• Calcular porcentajes manualmente de forma incorrecta.</li>
-                    <li>• Suponer que todas las escuelas usan el mismo sistema de calificación.</li>
+                    {[
+                      "Olvidar activar la penalización en exámenes tipo test: la nota neta baja más de lo esperado y puede pasar de aprobado a suspenso.",
+                      "Confundir preguntas en blanco con respuestas incorrectas al contar los fallos: en la mayoría de exámenes los blancos no restan.",
+                      "Usar la escala anglosajona (A = 90%) cuando el examen es español (A = Sobresaliente, ≥ 9/10): son umbrales distintos.",
+                      "Asumir que el aprobado siempre está en el 50%: en España es 5/10 (50%), en México 6/10 (60%), en Colombia 3/5 (60%).",
+                      "Calcular la nota bruta y olvidar aplicar la penalización antes de convertirla a escala 0-10.",
+                      "No diferenciar entre nota del examen parcial y nota final de la asignatura, que incluye ponderaciones de otros componentes.",
+                    ].map((error) => (
+                      <li key={error} className="flex gap-2">
+                        <span className="text-amber-500 font-bold flex-shrink-0">⚠</span>
+                        <span>{error}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </section>
 
-              {/* TIPS */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-                  Consejos de Expertos para Mejorar tus Notas
+              {/* ── CONSEJOS MEJORA NOTA ──────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="consejos-heading">
+                <h2 id="consejos-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+                  Cómo mejorar tu nota en el próximo examen
                 </h2>
-
+                <p className="text-gray-700 leading-8 mb-6">
+                  Calcular la nota es solo el primer paso. La mejora real viene
+                  de analizar qué fallaste y por qué.
+                </p>
                 <div className="grid gap-4 md:grid-cols-2">
                   {[
-                    "Repasa los errores después de cada prueba",
-                    "Practica la recuperación activa regularmente",
-                    "Usa exámenes de práctica con tiempo límite",
-                    "Enfócate más en las materias débiles",
-                    "Mejora tus técnicas de toma de apuntes",
-                    "Registra las tendencias de tu rendimiento",
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-white p-5"
-                    >
-                      <div className="font-medium text-gray-800">✔ {item}</div>
+                    {
+                      titulo: "Analiza cada error por categoría",
+                      texto: "Agrupa los fallos por tema o tipo de pregunta. Si el 70% de tus errores son de un solo bloque, ahí está la palanca de mejora más rápida.",
+                    },
+                    {
+                      titulo: "Practica con simulacros temporizados",
+                      texto: "La presión del tiempo es una variable oculta en muchos exámenes. Simular las condiciones reales reduce errores por agobio y mejora la gestión del tiempo.",
+                    },
+                    {
+                      titulo: "Usa la recuperación activa",
+                      texto: "Estudiar sin mirar el libro (cerrar los apuntes e intentar recordar) consolida la memoria mucho mejor que releer el mismo texto.",
+                    },
+                    {
+                      titulo: "Registra tu evolución con porcentajes",
+                      texto: "Anota el porcentaje de cada simulacro. Ver la progresión en un gráfico sencillo es uno de los mejores motivadores que existen.",
+                    },
+                  ].map((consejo) => (
+                    <div key={consejo.titulo} className="rounded-2xl border border-gray-200 bg-white p-5">
+                      <h3 className="font-semibold text-gray-800 mb-2">{consejo.titulo}</h3>
+                      <p className="text-gray-600 text-[14px] leading-6">{consejo.texto}</p>
                     </div>
                   ))}
                 </div>
-
-                <p className="mt-7 text-gray-700 leading-8">
-                  La mejora académica generalmente proviene de la constancia y
-                  no de la preparación de último minuto.
-                </p>
               </section>
-
-              {/* FAQ */}
-              <section>
-                <div className="space-y-4">
-                  <section className="bg-gray-50 py-14 border-t">
-                    <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-
-                      {/* LEFT SIDE */}
-                      <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-                          Preguntas Frecuentes
-                        </h2>
-                        <p className="text-gray-700 text-base leading-relaxed">
-                          Estudiantes y maestros suelen tener preguntas sobre
-                          cómo calcular porcentajes de notas, puntajes basados
-                          en puntos, resultados de exámenes finales y
-                          calificaciones con letra. Esta sección responde las
-                          preguntas más comunes sobre cómo funciona esta
-                          calculadora de notas.
-                        </p>
-                      </div>
-
-                      {/* RIGHT SIDE - FAQ ACCORDION */}
-                      <div className="bg-slate-800 rounded p-6 space-y-4 shadow-xl">
-
-                        <details className="group border-b border-slate-700 pb-4">
-                          <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                            <h3>¿Cómo se calcula el porcentaje de nota de un examen?</h3>
-                            <span className="transition-transform group-open:rotate-180">▼</span>
-                          </summary>
-                          <p className="mt-4 text-slate-400">
-                            Divide las respuestas correctas entre el total de
-                            preguntas y multiplica el resultado por 100 para
-                            obtener el porcentaje de calificación.
-                          </p>
-                        </details>
-
-                        <details className="group border-b border-slate-700 pb-4">
-                          <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                            <h3>¿Pueden los maestros usar esta calculadora de notas?</h3>
-                            <span className="transition-transform group-open:rotate-180">▼</span>
-                          </summary>
-                          <p className="mt-4 text-slate-400">
-                            Sí. Los maestros usan habitualmente calculadoras de
-                            notas para pruebas, tareas, exámenes y la
-                            calificación en clase.
-                          </p>
-                        </details>
-
-                        <details className="group border-b border-slate-700 pb-4">
-                          <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                            <h3>¿Funciona esta calculadora para sistemas de calificación por puntos?</h3>
-                            <span className="transition-transform group-open:rotate-180">▼</span>
-                          </summary>
-                          <p className="mt-4 text-slate-400">
-                            Sí. Puedes calcular notas usando los puntos obtenidos
-                            y el total de puntos posibles.
-                          </p>
-                        </details>
-
-                        <details className="group border-b border-slate-700 pb-4">
-                          <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                            <h3>¿Pueden los estudiantes calcular las notas de su examen final?</h3>
-                            <span className="transition-transform group-open:rotate-180">▼</span>
-                          </summary>
-                          <p className="mt-4 text-slate-400">
-                            Sí. Los estudiantes pueden estimar sus puntajes,
-                            porcentajes y notas con letra al instante.
-                          </p>
-                        </details>
-
-                        <details className="group">
-                          <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                            <h3>¿Las escalas de calificación son iguales en todos lados?</h3>
-                            <span className="transition-transform group-open:rotate-180">▼</span>
-                          </summary>
-                          <p className="mt-4 text-slate-400">
-                            No. Las escuelas y universidades pueden usar
-                            diferentes escalas de calificación, porcentajes o
-                            sistemas de promedio (GPA).
-                          </p>
-                        </details>
-
-                      </div>
+              {/* ── FAQ — 15 preguntas (EXPANDIDO de 7 a 15) ─────────────── */}
+              <section aria-labelledby="faq-heading">
+                <div className="bg-gray-50 py-12 px-6 rounded-2xl border border-gray-200">
+                  <div className="max-w-5xl mx-auto grid md:grid-cols-[1fr_1.6fr] gap-12 items-start">
+                    <div>
+                      <h2 id="faq-heading" className="text-[28px] font-bold text-gray-900 mb-4">
+                        Preguntas frecuentes
+                      </h2>
+                      <p className="text-gray-600 text-[15px] leading-7">
+                        Dudas habituales sobre cómo calcular la nota de un
+                        examen, qué es la penalización tipo test, cómo funciona
+                        el MIR y cómo interpretar calificaciones en España y
+                        Latinoamérica.
+                      </p>
+                      <p className="text-gray-500 text-[13px] mt-4">
+                        ¿No encuentras tu pregunta?{" "}
+                        <a href="/contacto/" className="text-blue-600 underline underline-offset-2">
+                          Escríbenos
+                        </a>
+                        .
+                      </p>
                     </div>
-                  </section>
+
+                    <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
+                      {FAQS.map((faq, idx) => (
+                        <details
+                          key={idx}
+                          className="group rounded-xl border border-gray-200 bg-white overflow-hidden"
+                          itemScope
+                          itemProp="mainEntity"
+                          itemType="https://schema.org/Question"
+                        >
+                          <summary className="cursor-pointer flex justify-between items-center px-5 py-4 text-gray-900 font-medium text-[15px] select-none list-none">
+                            <h3 className="flex-1 pr-4" itemProp="name">{faq.q}</h3>
+                            <span className="text-gray-400 transition-transform duration-200 group-open:rotate-180 flex-shrink-0" aria-hidden="true">▾</span>
+                          </summary>
+                          <div
+                            className="px-5 pb-4 text-gray-600 text-[14px] leading-7"
+                            itemScope
+                            itemProp="acceptedAnswer"
+                            itemType="https://schema.org/Answer"
+                          >
+                            <p itemProp="text">{faq.a}</p>
+                          </div>
+                        </details>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </section>
 
