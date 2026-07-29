@@ -49,7 +49,7 @@ export default function InvisibleFooter() {
 
   return (
     <footer className="bg-gray-50 border-t border-gray-200 text-black">
-      <div className="max-w-6xl mx-auto px-6 py-10">
+      <div className="px-8 mx-auto px-6 py-10">
         <div className="grid md:grid-cols-4 gap-10">
           {/* BRAND */}
           <div>

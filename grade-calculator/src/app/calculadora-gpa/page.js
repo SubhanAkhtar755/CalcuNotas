@@ -256,7 +256,7 @@ export const metadata = {
   alternates: {
     canonical: "https://calcunotas.com/calculadora-gpa/",
     languages: {
-      es:      "https://calcunotas.com/calculadora-gpa/",
+      es: "https://calcunotas.com/calculadora-gpa/",
       "es-ES": "https://calcunotas.com/calculadora-gpa/",
       "es-MX": "https://calcunotas.com/calculadora-gpa/",
       "es-AR": "https://calcunotas.com/calculadora-gpa/",
@@ -307,46 +307,46 @@ export const metadata = {
 
 // Escala GPA completa con más y menos
 const ESCALA_GPA = [
-  { letra: "A+", puntos: "4.3", porcentaje: "97–100 %", espana: "10,0",   nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
-  { letra: "A",  puntos: "4.0", porcentaje: "93–96 %",  espana: "9,3–9,6", nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
-  { letra: "A-", puntos: "3.7", porcentaje: "90–92 %",  espana: "9,0–9,2", nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
-  { letra: "B+", puntos: "3.3", porcentaje: "87–89 %",  espana: "8,7–8,9", nivel: "Notable",       color: "bg-blue-50 text-blue-800" },
-  { letra: "B",  puntos: "3.0", porcentaje: "83–86 %",  espana: "8,3–8,6", nivel: "Notable",       color: "bg-blue-50 text-blue-800" },
-  { letra: "B-", puntos: "2.7", porcentaje: "80–82 %",  espana: "8,0–8,2", nivel: "Notable",       color: "bg-blue-50 text-blue-800" },
-  { letra: "C+", puntos: "2.3", porcentaje: "77–79 %",  espana: "7,7–7,9", nivel: "Aprobado",      color: "bg-yellow-50 text-yellow-800" },
-  { letra: "C",  puntos: "2.0", porcentaje: "73–76 %",  espana: "7,3–7,6", nivel: "Aprobado",      color: "bg-yellow-50 text-yellow-800" },
-  { letra: "C-", puntos: "1.7", porcentaje: "70–72 %",  espana: "7,0–7,2", nivel: "Aprobado",      color: "bg-yellow-50 text-yellow-800" },
-  { letra: "D+", puntos: "1.3", porcentaje: "67–69 %",  espana: "6,7–6,9", nivel: "Suspenso",      color: "bg-orange-50 text-orange-800" },
-  { letra: "D",  puntos: "1.0", porcentaje: "63–66 %",  espana: "6,3–6,6", nivel: "Suspenso",      color: "bg-orange-50 text-orange-800" },
-  { letra: "D-", puntos: "0.7", porcentaje: "60–62 %",  espana: "6,0–6,2", nivel: "Suspenso",      color: "bg-orange-50 text-orange-800" },
-  { letra: "F",  puntos: "0.0", porcentaje: "< 60 %",   espana: "< 6,0",   nivel: "Reprobado",     color: "bg-red-50 text-red-800" },
+  { letra: "A+", puntos: "4.3", porcentaje: "97–100 %", espana: "10,0", nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
+  { letra: "A", puntos: "4.0", porcentaje: "93–96 %", espana: "9,3–9,6", nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
+  { letra: "A-", puntos: "3.7", porcentaje: "90–92 %", espana: "9,0–9,2", nivel: "Sobresaliente", color: "bg-emerald-50 text-emerald-800" },
+  { letra: "B+", puntos: "3.3", porcentaje: "87–89 %", espana: "8,7–8,9", nivel: "Notable", color: "bg-blue-50 text-blue-800" },
+  { letra: "B", puntos: "3.0", porcentaje: "83–86 %", espana: "8,3–8,6", nivel: "Notable", color: "bg-blue-50 text-blue-800" },
+  { letra: "B-", puntos: "2.7", porcentaje: "80–82 %", espana: "8,0–8,2", nivel: "Notable", color: "bg-blue-50 text-blue-800" },
+  { letra: "C+", puntos: "2.3", porcentaje: "77–79 %", espana: "7,7–7,9", nivel: "Aprobado", color: "bg-yellow-50 text-yellow-800" },
+  { letra: "C", puntos: "2.0", porcentaje: "73–76 %", espana: "7,3–7,6", nivel: "Aprobado", color: "bg-yellow-50 text-yellow-800" },
+  { letra: "C-", puntos: "1.7", porcentaje: "70–72 %", espana: "7,0–7,2", nivel: "Aprobado", color: "bg-yellow-50 text-yellow-800" },
+  { letra: "D+", puntos: "1.3", porcentaje: "67–69 %", espana: "6,7–6,9", nivel: "Suspenso", color: "bg-orange-50 text-orange-800" },
+  { letra: "D", puntos: "1.0", porcentaje: "63–66 %", espana: "6,3–6,6", nivel: "Suspenso", color: "bg-orange-50 text-orange-800" },
+  { letra: "D-", puntos: "0.7", porcentaje: "60–62 %", espana: "6,0–6,2", nivel: "Suspenso", color: "bg-orange-50 text-orange-800" },
+  { letra: "F", puntos: "0.0", porcentaje: "< 60 %", espana: "< 6,0", nivel: "Reprobado", color: "bg-red-50 text-red-800" },
 ];
 
 // NUEVO: Conversión GPA ↔ escalas LATAM
 const CONVERSION_LATAM = [
   { gpa: "4.0", espana: "10,0", colombia: "5,0", chile: "7,0", mexico: "10,0", nivel: "Sobresaliente / Excelente" },
-  { gpa: "3.7", espana: "9,3",  colombia: "4,6", chile: "6,6", mexico: "9,3",  nivel: "Sobresaliente" },
-  { gpa: "3.5", espana: "8,75", colombia: "4,4", chile: "6,3", mexico: "8,8",  nivel: "Notable alto" },
-  { gpa: "3.0", espana: "7,5",  colombia: "3,75",chile: "5,5", mexico: "7,5",  nivel: "Notable / Bueno" },
-  { gpa: "2.5", espana: "6,25", colombia: "3,1", chile: "4,75",mexico: "6,3",  nivel: "Aprobado" },
-  { gpa: "2.0", espana: "5,0",  colombia: "2,5", chile: "4,0", mexico: "5,0",  nivel: "Mínimo aprobado (varía)" },
-  { gpa: "1.0", espana: "2,5",  colombia: "1,25",chile: "2,5", mexico: "2,5",  nivel: "Reprobado" },
-  { gpa: "0.0", espana: "0,0",  colombia: "0,0", chile: "1,0", mexico: "0,0",  nivel: "Reprobado" },
+  { gpa: "3.7", espana: "9,3", colombia: "4,6", chile: "6,6", mexico: "9,3", nivel: "Sobresaliente" },
+  { gpa: "3.5", espana: "8,75", colombia: "4,4", chile: "6,3", mexico: "8,8", nivel: "Notable alto" },
+  { gpa: "3.0", espana: "7,5", colombia: "3,75", chile: "5,5", mexico: "7,5", nivel: "Notable / Bueno" },
+  { gpa: "2.5", espana: "6,25", colombia: "3,1", chile: "4,75", mexico: "6,3", nivel: "Aprobado" },
+  { gpa: "2.0", espana: "5,0", colombia: "2,5", chile: "4,0", mexico: "5,0", nivel: "Mínimo aprobado (varía)" },
+  { gpa: "1.0", espana: "2,5", colombia: "1,25", chile: "2,5", mexico: "2,5", nivel: "Reprobado" },
+  { gpa: "0.0", espana: "0,0", colombia: "0,0", chile: "1,0", mexico: "0,0", nivel: "Reprobado" },
 ];
 
 // NUEVO: ¿Qué GPA es bueno?
 const QUE_GPA_BUENO = [
-  { rango: "3.9 – 4.0+", clasificacion: "Excelente",     descripcion: "Top académico. Elegible para honor roll y becas competitivas.", color: "bg-emerald-50 border-emerald-200 text-emerald-800" },
-  { rango: "3.5 – 3.89", clasificacion: "Muy bueno",     descripcion: "Por encima del promedio. Elegible para la mayoría de programas de becas.", color: "bg-blue-50 border-blue-200 text-blue-800" },
-  { rango: "3.0 – 3.49", clasificacion: "Bueno",          descripcion: "Promedio sólido. Cumple los requisitos mínimos de la mayoría de becas.", color: "bg-yellow-50 border-yellow-200 text-yellow-800" },
-  { rango: "2.0 – 2.99", clasificacion: "Aceptable",      descripcion: "Aprobado, pero puede ser insuficiente para ciertas becas o programas.", color: "bg-orange-50 border-orange-200 text-orange-800" },
-  { rango: "< 2.0",      clasificacion: "En riesgo",      descripcion: "Riesgo de probation académica. Requiere acción inmediata.", color: "bg-red-50 border-red-200 text-red-800" },
+  { rango: "3.9 – 4.0+", clasificacion: "Excelente", descripcion: "Top académico. Elegible para honor roll y becas competitivas.", color: "bg-emerald-50 border-emerald-200 text-emerald-800" },
+  { rango: "3.5 – 3.89", clasificacion: "Muy bueno", descripcion: "Por encima del promedio. Elegible para la mayoría de programas de becas.", color: "bg-blue-50 border-blue-200 text-blue-800" },
+  { rango: "3.0 – 3.49", clasificacion: "Bueno", descripcion: "Promedio sólido. Cumple los requisitos mínimos de la mayoría de becas.", color: "bg-yellow-50 border-yellow-200 text-yellow-800" },
+  { rango: "2.0 – 2.99", clasificacion: "Aceptable", descripcion: "Aprobado, pero puede ser insuficiente para ciertas becas o programas.", color: "bg-orange-50 border-orange-200 text-orange-800" },
+  { rango: "< 2.0", clasificacion: "En riesgo", descripcion: "Riesgo de probation académica. Requiere acción inmediata.", color: "bg-red-50 border-red-200 text-red-800" },
 ];
 
 // NUEVO: GPA ponderado AP/IB
 const GPA_PONDERADO = [
-  { tipo: "Clase regular",          extra: "+0.0", ejemplo: "A = 4.0, B = 3.0", color: "bg-gray-50" },
-  { tipo: "Clase Honores (Honor)",  extra: "+0.5", ejemplo: "A = 4.5, B = 3.5", color: "bg-blue-50" },
+  { tipo: "Clase regular", extra: "+0.0", ejemplo: "A = 4.0, B = 3.0", color: "bg-gray-50" },
+  { tipo: "Clase Honores (Honor)", extra: "+0.5", ejemplo: "A = 4.5, B = 3.5", color: "bg-blue-50" },
   { tipo: "AP / IB / Doble inscripción", extra: "+1.0", ejemplo: "A = 5.0, B = 4.0", color: "bg-purple-50" },
 ];
 
@@ -416,7 +416,7 @@ const FAQS = [
 // ─── COMPONENTE PRINCIPAL ──────────────────────────────────────────────────────
 export default function CalculadoraGPAPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
       {/* ── Schema JSON-LD ────────────────────────────────────────────────── */}
@@ -426,8 +426,8 @@ export default function CalculadoraGPAPage() {
       />
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="grid lg:grid-cols-[1fr_280px] gap-6 items-center">
             <div>
               {/* Breadcrumb — NUEVO con itemScope */}
@@ -509,7 +509,7 @@ export default function CalculadoraGPAPage() {
 
       {/* ── CALCULADORA + SIDEBAR ─────────────────────────────────────────── */}
       <section className="pb-8 pt-8" aria-label="Calculadora GPA semestral y acumulado">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start px-8">
           <GPACalculatorLab />
           <div className="space-y-6">
             <RightSidebar />
@@ -520,7 +520,7 @@ export default function CalculadoraGPAPage() {
 
       {/* ── CONTENIDO SEO / AEO ───────────────────────────────────────────── */}
       <section className="pb-14" aria-label="Guía completa calculadora GPA">
-        <div className="w-[min(1120px,94%)] mx-auto">
+        <div className=" mx-auto">
           <article
             className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden"
             itemScope
@@ -640,10 +640,10 @@ export default function CalculadoraGPAPage() {
                     </thead>
                     <tbody>
                       {[
-                        ["Matemáticas", "A",  "4.0", "3", "12.0"],
-                        ["Ciencias",    "B",  "3.0", "4", "12.0"],
-                        ["Español",     "A-", "3.7", "3", "11.1"],
-                        ["Historia",    "B+", "3.3", "2", "6.6"],
+                        ["Matemáticas", "A", "4.0", "3", "12.0"],
+                        ["Ciencias", "B", "3.0", "4", "12.0"],
+                        ["Español", "A-", "3.7", "3", "11.1"],
+                        ["Historia", "B+", "3.3", "2", "6.6"],
                       ].map(([m, c, p, cr, pc], i) => (
                         <tr key={i} className="border-t border-gray-100">
                           <td className="px-4 py-3 text-gray-700">{m}</td>
@@ -826,6 +826,240 @@ export default function CalculadoraGPAPage() {
                   <strong>Importante:</strong> Las reglas del GPA ponderado
                   varían por institución. Consulta la política oficial de tu
                   escuela antes de usar el GPA ponderado para admisiones o becas.
+                </div>
+              </section>
+
+
+              {/* ── GPA PARA BECAS ───────────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="becas-heading">
+                <h2
+                  id="becas-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  GPA para Becas Universitarias
+                </h2>
+
+                <div className="space-y-4 text-gray-700 leading-8">
+                  <p>
+                    El GPA es uno de los factores más importantes para obtener becas
+                    académicas. Muchas universidades utilizan el promedio acumulado para
+                    determinar si un estudiante cumple los requisitos mínimos para recibir
+                    ayuda financiera o incentivos por mérito académico.
+                  </p>
+
+                  <p>
+                    Cuanto más alto sea el GPA, mayores serán las posibilidades de acceder
+                    a becas competitivas. Aunque algunas ayudas aceptan estudiantes con GPA
+                    moderado, los programas más selectivos suelen exigir resultados
+                    académicos sobresalientes.
+                  </p>
+                </div>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200 mt-6">
+                  <table className="w-full min-w-[520px] border-collapse text-[14px]">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-4 py-3 text-left">Tipo de Beca</th>
+                        <th className="px-4 py-3 text-center">GPA Recomendado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Beca universitaria básica</td>
+                        <td className="px-4 py-3 text-center">2.0+</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Beca académica</td>
+                        <td className="px-4 py-3 text-center">3.0+</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Beca de mérito</td>
+                        <td className="px-4 py-3 text-center">3.5+</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Beca competitiva</td>
+                        <td className="px-4 py-3 text-center">3.8+</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              {/* ── GPA PARA ADMISIONES ─────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="admisiones-heading">
+                <h2
+                  id="admisiones-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  GPA para Admisiones Universitarias
+                </h2>
+
+                <div className="space-y-4 text-gray-700 leading-8">
+                  <p>
+                    Las universidades utilizan el GPA para evaluar el rendimiento
+                    académico de los estudiantes durante varios años. Un GPA elevado suele
+                    reflejar consistencia, disciplina y capacidad para mantener buenos
+                    resultados en diferentes materias.
+                  </p>
+
+                  <p>
+                    Aunque el GPA no es el único criterio de admisión, suele tener un peso
+                    importante junto con exámenes, actividades extracurriculares y cartas
+                    de recomendación.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 mt-6">
+                  {[
+                    {
+                      rango: "3.8 – 4.0",
+                      titulo: "Muy competitivo",
+                      texto: "Excelente perfil para universidades selectivas.",
+                    },
+                    {
+                      rango: "3.5 – 3.79",
+                      titulo: "Competitivo",
+                      texto: "Cumple los requisitos de muchas universidades.",
+                    },
+                    {
+                      rango: "3.0 – 3.49",
+                      titulo: "Aceptable",
+                      texto: "Adecuado para numerosos programas académicos.",
+                    },
+                    {
+                      rango: "< 3.0",
+                      titulo: "Limitado",
+                      texto: "Puede requerir requisitos adicionales.",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.rango}
+                      className="rounded-2xl border border-gray-200 p-5 bg-white"
+                    >
+                      <div className="text-[22px] font-bold text-blue-700 mb-2">
+                        {item.rango}
+                      </div>
+                      <h3 className="font-semibold mb-2">{item.titulo}</h3>
+                      <p className="text-[14px] text-gray-600">{item.texto}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── GPA Y HONOR ROLL ───────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="honor-roll-heading">
+                <h2
+                  id="honor-roll-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  GPA y Honor Roll
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Muchas instituciones reconocen a los estudiantes con mejor rendimiento
+                  académico mediante listas de honor conocidas como Honor Roll o Dean's
+                  List. Estas distinciones suelen basarse directamente en el GPA.
+                </p>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[
+                    {
+                      title: "Honor Roll",
+                      gpa: "3.0+",
+                    },
+                    {
+                      title: "High Honor Roll",
+                      gpa: "3.5+",
+                    },
+                    {
+                      title: "Dean's List",
+                      gpa: "3.7+",
+                    },
+                    {
+                      title: "Highest Honors",
+                      gpa: "3.9+",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-2xl border border-gray-200 p-5 bg-white"
+                    >
+                      <h3 className="font-semibold text-gray-800 mb-2">
+                        {item.title}
+                      </h3>
+                      <div className="text-[24px] font-bold text-blue-700">
+                        {item.gpa}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── GPA PARA POSGRADO ─────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="posgrado-heading">
+                <h2
+                  id="posgrado-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  GPA para Programas de Posgrado
+                </h2>
+
+                <div className="space-y-4 text-gray-700 leading-8">
+                  <p>
+                    Las maestrías, especializaciones y programas de doctorado suelen
+                    considerar el GPA acumulado obtenido durante la licenciatura.
+                  </p>
+
+                  <p>
+                    En muchos casos, un GPA de 3.0 representa el requisito mínimo de
+                    admisión, mientras que los programas más competitivos suelen buscar
+                    candidatos con GPA de 3.5 o superior.
+                  </p>
+
+                  <p>
+                    Además del GPA, las universidades también valoran experiencia
+                    profesional, investigación, publicaciones y cartas de recomendación.
+                  </p>
+                </div>
+              </section>
+
+              {/* ── DIFERENCIA ENTRE GPA Y PROMEDIO ───────────────────────── */}
+              <section className="mb-12" aria-labelledby="promedio-heading">
+                <h2
+                  id="promedio-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  Diferencia Entre GPA y Promedio Tradicional
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Aunque ambos sistemas miden el rendimiento académico, el GPA y el
+                  promedio tradicional utilizan escalas diferentes.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[520px] border-collapse text-[14px]">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-4 py-3 text-left">GPA</th>
+                        <th className="px-4 py-3 text-left">Promedio Tradicional</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Escala 4.0</td>
+                        <td className="px-4 py-3">Escala 0-10 o 0-100</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Usa puntos de grado</td>
+                        <td className="px-4 py-3">Usa notas numéricas</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="px-4 py-3">Común en EE.UU.</td>
+                        <td className="px-4 py-3">Común en España y LATAM</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </section>
 

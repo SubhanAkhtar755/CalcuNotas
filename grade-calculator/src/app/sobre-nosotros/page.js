@@ -23,19 +23,77 @@ export const metadata = {
     "calculadora de calificacion para profesores",
     "calculadoras educativas",
   ],
+
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+  
+  openGraph: {
+    title: "Sobre Nosotros | CalcuNotas",
+    description:
+      "Conoce CalcuNotas, un sitio web gratuito de calculadoras educativas para notas, GPA y exámenes.",
+    url: "https://calcunotas.com/sobre-nosotros/",
+    type: "website",
+  },
+
   alternates: {
     canonical: "https://calcunotas.com/sobre-nosotros/",
   },
 };
 
+// ────────────────────────────────────────────────────────────
+// GAP FIX: About page par pehle koi JSON-LD nahi tha.
+// AboutPage + Organization + BreadcrumbList add kiya — "who runs this site"
+// wali entity clarity dene ke liye, jo E-E-A-T ke liye About page ka core kaam hai.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "Sobre Nosotros | CalcuNotas",
+    url: "https://calcunotas.com/sobre-nosotros/",
+    description:
+      "CalcuNotas es un sitio web gratuito de calculadoras educativas para calcular notas, GPA, nota final, nota semestral y calificación de exámenes.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CalcuNotas",
+    url: "https://calcunotas.com",
+    logo: "https://calcunotas.com/logo.png",
+    description:
+      "Sitio web gratuito de calculadoras educativas para estudiantes, profesores y padres: notas, GPA, nota final y calificación rápida.",
+    email: "info@calcunotas.com",
+    knowsAbout: [
+      "Cálculo de notas",
+      "GPA",
+      "Nota final",
+      "Nota semestral",
+      "Calificación de exámenes",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      { "@type": "ListItem", position: 2, name: "Sobre Nosotros", item: "https://calcunotas.com/sobre-nosotros/" },
+    ],
+  },
+];
+
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-gray-500 mb-3">
             Inicio / Sobre Nosotros
           </div>
@@ -54,8 +112,8 @@ export default function AboutPage() {
       </section>
 
       {/* CONTENT + SIDEBAR */}
-      <section className="py-12">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+      <section className="py-12 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
 
           {/* MAIN CONTENT */}
           <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-7 md:p-9">

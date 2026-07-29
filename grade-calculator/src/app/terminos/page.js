@@ -21,19 +21,76 @@ export const metadata = {
     "términos calcunotas",
     "términos sitio web calculadora",
   ],
+
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+  
+  openGraph: {
+    title: "Términos de Servicio | CalcuNotas",
+    description:
+      "Reglas y condiciones para usar las calculadoras de notas, GPA, nota final y calificación rápida de CalcuNotas.",
+    url: "https://calcunotas.com/terminos/",
+    type: "website",
+  },
+
   alternates: {
     canonical: "https://calcunotas.com/terminos/",
   },
 };
 
+// ────────────────────────────────────────────────────────────
+// GAP FIX: Terms page par pehle koi JSON-LD nahi tha.
+// WebPage (with machine-readable dateModified) + BreadcrumbList add kiya,
+// bilkul Privacy page ke pattern ki tarah — dono legal pages consistent rahen.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Términos de Servicio | CalcuNotas",
+    url: "https://calcunotas.com/terminos/",
+    description:
+      "Términos de Servicio de CalcuNotas: reglas y condiciones para usar nuestras calculadoras de notas, GPA, nota final y calificación rápida.",
+    dateModified: "2026-01-01",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Términos de Servicio",
+        item: "https://calcunotas.com/terminos/",
+      },
+    ],
+  },
+];
+
 export default function Terms() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 px-8 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-gray-500 mb-3">
             Inicio / Términos de Servicio
           </div>
@@ -53,8 +110,8 @@ export default function Terms() {
       </section>
 
       {/* CONTENT + SIDEBAR */}
-      <section className="py-12">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+      <section className="py-12 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
 
           {/* MAIN CONTENT */}
           <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-7 md:p-9">

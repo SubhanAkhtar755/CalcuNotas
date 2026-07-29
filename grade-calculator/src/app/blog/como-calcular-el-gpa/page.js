@@ -28,32 +28,41 @@ export const metadata = {
     "consejos GPA estudiantes",
   ],
 
-   alternates: {
-    canonical: "https://calcunotas.com/blog/como-calcular-el-gpa/",
-    languages: {
-      "es": "https://calcunotas.com/blog/como-calcular-el-gpa/", // ✅ GENERIC - Pakistan, Canada, USA se koi bhi Spanish bolne wala
-      "es-ES": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Spain
-      "es-MX": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Mexico
-      "es-AR": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Argentina
-      "es-CO": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Colombia
-      "es-CL": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Chile
-      "es-PE": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Peru
-      "es-VE": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Venezuela
-      "es-EC": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Ecuador
-      "es-BO": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Bolivia
-      "es-PY": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Paraguay
-      "es-UY": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Uruguay
-      "es-GT": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Guatemala
-      "es-CU": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Cuba
-      "es-DO": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Dominican Republic
-      "es-HN": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Honduras
-      "es-SV": "https://calcunotas.com/blog/como-calcular-el-gpa/", // El Salvador
-      "es-NI": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Nicaragua
-      "es-PA": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Panama
-      "es-CR": "https://calcunotas.com/blog/como-calcular-el-gpa/", // Costa Rica
-    },
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+
+  openGraph: {
+    title: "Cómo Calcular el GPA Fácilmente | Guía Completa de GPA",
+    description:
+      "Guía completa sobre cómo calcular el GPA: fórmulas, ejemplos y consejos.",
+    url: "https://calcunotas.com/blog/como-calcular-el-gpa/",
+    type: "article",
   },
 
+  alternates: {
+    canonical: "https://calcunotas.com/blog/como-calcular-el-gpa/",
+    languages: {
+      "es": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-ES": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-MX": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-AR": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-CO": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-CL": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-PE": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-VE": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-EC": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-BO": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-PY": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-UY": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-GT": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-CU": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-DO": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-HN": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-SV": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-NI": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-PA": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      "es-CR": "https://calcunotas.com/blog/como-calcular-el-gpa/",
+    },
+  },
 };
 
 const faqs = [
@@ -89,13 +98,83 @@ const faqs = [
   },
 ];
 
+// ────────────────────────────────────────────────────────────
+// GAP FIX #1: Is page ka apna JSON-LD pehle inject hi nahi ho raha tha.
+// FAQPage + Article + BreadcrumbList yahan add kiya taake jo FAQs
+// screen par visible hain wo rich results me bhi eligible hon.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Cómo Calcular el GPA Fácilmente",
+    description:
+      "Guía completa sobre cómo calcular el GPA paso a paso con fórmulas, ejemplos y consejos.",
+    image: "https://calcunotas.com/og/como-calcular-el-gpa.jpg",
+    author: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    reviewedBy: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://calcunotas.com/logo.png",
+      },
+    },
+    datePublished: "2024-02-10",
+    dateModified: "2026-07-25",
+    mainEntityOfPage: "https://calcunotas.com/blog/como-calcular-el-gpa/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://calcunotas.com/blog/" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Cómo Calcular el GPA Fácilmente",
+        item: "https://calcunotas.com/blog/como-calcular-el-gpa/",
+      },
+    ],
+  },
+];
+
 export default function BlogPostPage() {
   return (
-    <main className="min-h-screen bg-[#f5f7fb] text-[#111827]">
+    <main className=" min-h-screen bg-[#f5f7fb] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
-      <section className="py-10">
-        <div className="w-[min(1180px,94%)] mx-auto grid gap-6 lg:grid-cols-[1fr_320px] items-start">
+      <section className="py-10 px-8">
+        <div className=" mx-auto grid gap-6 lg:grid-cols-[1fr_320px] items-start">
           <article className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.06)]">
             <div className="p-6 md:p-10">
               <div className="mb-8 flex flex-wrap items-center gap-3 text-sm text-gray-500">
@@ -117,9 +196,21 @@ export default function BlogPostPage() {
                 </span>
               </div>
 
-          <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+              <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
                 Cómo Calcular el GPA Fácilmente
               </h1>
+
+              {/* GAP FIX: visible author + date byline — E-E-A-T sirf schema me
+                  nahi, user ko bhi dikhna chahiye ke content kis ne likha/review kiya */}
+              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-6">
+                <span>
+                  Por <strong className="text-gray-700">Equipo CalcuNotas</strong>
+                </span>
+                <span>•</span>
+                <span>Publicado: 10 feb 2024</span>
+                <span>•</span>
+                <span>Actualizado: 25 jul 2026</span>
+              </div>
 
               <p className="text-[18px] text-gray-600 leading-8 mb-10 max-w-4xl">
                 Aprende cómo calcular el GPA manualmente usando calificaciones, horas crédito,
@@ -600,6 +691,144 @@ export default function BlogPostPage() {
                       </summary>
                       <p className="mt-4 leading-8 text-gray-700">{faq.answer}</p>
                     </details>
+                  ))}
+                </div>
+              </section>
+              <section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  GPA Semestral vs GPA Acumulado
+                </h2>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="rounded-3xl border border-gray-200 bg-white p-8">
+                    <h3 className="text-2xl font-black mb-4">
+                      GPA Semestral
+                    </h3>
+                    <p className="text-gray-700 leading-8">
+                      El GPA semestral mide el rendimiento académico durante un único
+                      semestre. Solo incluye los cursos completados en ese período
+                      específico.
+                    </p>
+                  </div>
+
+                  <div className="rounded-3xl border border-gray-200 bg-white p-8">
+                    <h3 className="text-2xl font-black mb-4">
+                      GPA Acumulado
+                    </h3>
+                    <p className="text-gray-700 leading-8">
+                      El GPA acumulado combina todos los cursos completados a lo largo
+                      de varios semestres y proporciona una visión más completa del
+                      rendimiento académico general.
+                    </p>
+                  </div>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Cómo las Horas Crédito Afectan el GPA
+                </h2>
+
+                <div className="space-y-6 text-[17px] leading-8 text-gray-700">
+                  <p>
+                    No todas las materias tienen el mismo impacto en el GPA.
+                    Los cursos con más horas crédito influyen más en el promedio final.
+                  </p>
+
+                  <p>
+                    Por ejemplo, una calificación baja en una materia de 5 créditos
+                    puede afectar más el GPA que una calificación baja en una materia
+                    de 1 crédito.
+                  </p>
+
+                  <p>
+                    Comprender el peso de las horas crédito ayuda a los estudiantes
+                    a planificar mejor su carga académica.
+                  </p>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  GPA Requerido para Becas
+                </h2>
+
+                <div className="overflow-x-auto rounded-3xl border border-gray-200">
+                  <table className="w-full min-w-[700px] border-collapse">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-4 text-left">GPA</th>
+                        <th className="px-5 py-4 text-left">Elegibilidad</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["3.8 - 4.0", "Excelente para becas competitivas"],
+                        ["3.5 - 3.7", "Fuerte para muchas becas"],
+                        ["3.0 - 3.4", "Elegible para algunas ayudas"],
+                        ["Menos de 3.0", "Opciones más limitadas"],
+                      ].map((row, index) => (
+                        <tr key={index} className="border-b border-gray-200">
+                          {row.map((cell, i) => (
+                            <td key={i} className="px-5 py-4">{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section><section className="mb-14">
+                <div className="rounded-3xl border border-purple-200 bg-purple-50 p-8">
+                  <h2 className="text-3xl font-black tracking-[-0.03em] mb-5">
+                    Factores que Pueden Reducir tu GPA
+                  </h2>
+
+                  <ul className="space-y-3 text-gray-700 leading-8">
+                    <li>• Faltar frecuentemente a clases.</li>
+                    <li>• Entregar tareas fuera de plazo.</li>
+                    <li>• Reprobar cursos obligatorios.</li>
+                    <li>• Mala gestión del tiempo.</li>
+                    <li>• Sobrecargar el horario académico.</li>
+                    <li>• No buscar ayuda cuando aparecen dificultades.</li>
+                  </ul>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Herramientas para Calcular el GPA Más Rápido
+                </h2>
+
+                <div className="space-y-6 text-[17px] leading-8 text-gray-700">
+                  <p>
+                    Aunque es importante entender la fórmula manual, muchos estudiantes
+                    utilizan calculadoras GPA para ahorrar tiempo y evitar errores.
+                  </p>
+
+                  <p>
+                    Estas herramientas permiten ingresar calificaciones, créditos y
+                    cursos para obtener resultados instantáneos.
+                  </p>
+
+                  <p>
+                    Las calculadoras GPA también son útiles para planificar escenarios
+                    futuros y estimar el GPA necesario para alcanzar objetivos académicos.
+                  </p>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Preguntas que los Estudiantes Hacen Sobre el GPA
+                </h2>
+
+                <div className="grid gap-5 md:grid-cols-2">
+                  {[
+                    "¿Qué GPA necesito para una beca?",
+                    "¿Cómo aumentar mi GPA rápidamente?",
+                    "¿Un curso reprobado afecta el GPA?",
+                    "¿Cuál es un GPA universitario competitivo?",
+                    "¿Las materias AP mejoran el GPA?",
+                    "¿Cómo calcular el GPA acumulado?",
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-gray-200 bg-white p-6"
+                    >
+                      <p className="font-semibold text-gray-700">{item}</p>
+                    </div>
                   ))}
                 </div>
               </section>

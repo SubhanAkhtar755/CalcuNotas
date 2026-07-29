@@ -21,19 +21,108 @@ export const metadata = {
     "sugerencias calcunotas",
     "reportar error calculadora notas",
   ],
+
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+  
+  openGraph: {
+    title: "Contacto | CalcuNotas",
+    description:
+      "Contáctanos en CalcuNotas para preguntas, sugerencias o reportar errores en nuestras calculadoras.",
+    url: "https://calcunotas.com/contacto/",
+    type: "website",
+  },
+
   alternates: {
     canonical: "https://calcunotas.com/contacto/",
   },
 };
 
+// FAQ data ko ek array me nikala taake schema aur UI dono isi se render ho
+// (pehle ye sirf JSX ke andar hardcoded thay, schema ke liye reuse nahi ho sakte thay)
+const contactFaqs = [
+  {
+    question: "¿Cuánto tiempo tardan en responder?",
+    answer:
+      "Generalmente respondemos dentro de 1 a 3 días hábiles. En períodos de mayor actividad puede tomar un poco más, pero intentamos contestar todos los mensajes.",
+  },
+  {
+    question: "¿Pueden calcular mis notas por mí?",
+    answer:
+      "Nuestras calculadoras están diseñadas para que tú mismo puedas ingresar tus datos y obtener el resultado al instante mediante la calculadora de notas del sitio.",
+  },
+  {
+    question: "¿Puedo colaborar o contribuir al sitio?",
+    answer:
+      "Si tienes ideas, herramientas o contenido que crees que podría beneficiar a la comunidad de CalcuNotas, puedes escribirnos y evaluaremos tu propuesta con gusto.",
+  },
+];
+
+// ────────────────────────────────────────────────────────────
+// GAP FIX: Contact page par pehle koi JSON-LD nahi tha.
+// ContactPage + Organization (with contactPoint) + FAQPage + BreadcrumbList
+// add kiya — contact/EEAT pages ke liye contactPoint sabse zyada zaroori signal hai.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contacto | CalcuNotas",
+    url: "https://calcunotas.com/contacto/",
+    description:
+      "Página de contacto de CalcuNotas para preguntas, sugerencias y reportes de error sobre nuestras calculadoras académicas.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CalcuNotas",
+    url: "https://calcunotas.com",
+    logo: "https://calcunotas.com/logo.png",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: "info@calcunotas.com",
+        contactType: "customer support",
+        areaServed: "ES-419",
+        availableLanguage: ["Spanish"],
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: contactFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      { "@type": "ListItem", position: 2, name: "Contacto", item: "https://calcunotas.com/contacto/" },
+    ],
+  },
+];
+
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-gray-500 mb-3">
             <a href="/" className="hover:text-blue-600 transition">Inicio</a> / Contacto
           </div>
@@ -51,8 +140,8 @@ export default function ContactPage() {
       </section>
 
       {/* CONTENT + SIDEBAR */}
-      <section className="py-12">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+      <section className="py-12 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
 
           {/* MAIN CONTENT */}
           <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-7 md:p-9">
@@ -224,47 +313,17 @@ export default function ContactPage() {
               </h2>
 
               <div className="space-y-4">
-                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                  <div className="flex items-start gap-3">
-                    <FaQuestionCircle className="text-blue-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-bold text-gray-900 mb-2">¿Cuánto tiempo tardan en responder?</h3>
-                      <p className="text-gray-700 leading-7 text-[15px]">
-                        Generalmente respondemos dentro de 1 a 3 días hábiles. En períodos
-                        de mayor actividad puede tomar un poco más, pero intentamos contestar
-                        todos los mensajes.
-                      </p>
+                {contactFaqs.map((faq, index) => (
+                  <div key={index} className="rounded-2xl border border-gray-200 p-5 bg-white">
+                    <div className="flex items-start gap-3">
+                      <FaQuestionCircle className="text-blue-500 mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-bold text-gray-900 mb-2">{faq.question}</h3>
+                        <p className="text-gray-700 leading-7 text-[15px]">{faq.answer}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                  <div className="flex items-start gap-3">
-                    <FaQuestionCircle className="text-blue-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-bold text-gray-900 mb-2">¿Pueden calcular mis notas por mí?</h3>
-                      <p className="text-gray-700 leading-7 text-[15px]">
-                        Nuestras calculadoras están diseñadas para que tú mismo puedas
-                        ingresar tus datos y obtener el resultado al instante. Te invitamos
-                        a usar la <a href="/calculadora-de-notas/" className="text-green-600 hover:text-green-700 font-semibold underline">calculadora de notas</a> directamente.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                  <div className="flex items-start gap-3">
-                    <FaQuestionCircle className="text-blue-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-bold text-gray-900 mb-2">¿Puedo colaborar o contribuir al sitio?</h3>
-                      <p className="text-gray-700 leading-7 text-[15px]">
-                        Si tienes ideas, herramientas o contenido que crees que podría
-                        beneficiar a la comunidad de CalcuNotas, puedes escribirnos y
-                        evaluaremos tu propuesta con gusto.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
 

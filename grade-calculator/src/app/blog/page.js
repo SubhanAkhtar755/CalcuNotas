@@ -74,12 +74,12 @@ export const metadata = {
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 px-8 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-[#667085] mb-3">
             Inicio / Blog
           </div>
@@ -116,8 +116,8 @@ export default function BlogPage() {
       </section>
 
       {/* MAIN */}
-      <section className="py-8">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+      <section className="py-8 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
 
           {/* LEFT BLOGS */}
           <div className="space-y-6">

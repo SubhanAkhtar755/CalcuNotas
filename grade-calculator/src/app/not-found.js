@@ -12,7 +12,7 @@ export default function NotFoundPage() {
   return (
     <>
       <InvisibleHeader />
-      <main className="bg-white flex items-center justify-center py-9 -mt-5">
+      <main className=" bg-white flex items-center justify-center py-9 -mt-5">
         <div className="max-w-2xl w-full text-center">
           <h1 className="text-7xl md:text-8xl font-bold text-blue-600 mb-4">
             404

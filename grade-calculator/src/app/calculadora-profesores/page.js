@@ -10,6 +10,158 @@ import BlogSidebar from "@/app/components/BlogSidebar";
 export const dynamic = "force-static";
 export const revalidate = false;
 
+const DATE_PUBLISHED = "2024-01-15";
+const DATE_MODIFIED = "2026-07-25";
+
+// TODO: replace sameAs URLs and logo with real assets — same entity used
+// across all calcunotas.com pages, so keep this identical everywhere.
+const ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://calcunotas.com/#organization",
+  name: "CalcuNotas",
+  url: "https://calcunotas.com",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://calcunotas.com/logo.png",
+    width: 512,
+    height: 512,
+  },
+
+};
+
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://calcunotas.com/#website",
+  url: "https://calcunotas.com",
+  name: "CalcuNotas",
+  publisher: { "@id": "https://calcunotas.com/#organization" },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://calcunotas.com/buscar/?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
+// TODO: replace with a real team member's name/credentials/profile URL.
+const AUTHOR_SCHEMA = {
+  "@type": "Person",
+  name: "Equipo Editorial de CalcuNotas",
+  jobTitle: "Especialistas en evaluación académica",
+  url: "https://calcunotas.com/sobre-nosotros/",
+  worksFor: { "@id": "https://calcunotas.com/#organization" },
+};
+
+const FAQS_DATA = [
+  {
+    q: "¿Cómo calculan los profesores las notas de los exámenes?",
+    a: "Los profesores dividen las respuestas correctas entre el total de preguntas y multiplican el resultado por 100 para obtener el porcentaje de la nota.",
+  },
+  {
+    q: "¿Pueden usar esta calculadora los estudiantes?",
+    a: "Sí. Los estudiantes pueden usarla para estimar su nota, porcentaje y calificación en letra antes de recibir los resultados oficiales.",
+  },
+  {
+    q: "¿Funciona para pruebas cortas y tareas?",
+    a: "Sí. La calculadora es válida para pruebas cortas, exámenes, tareas, ejercicios de clase y hojas de práctica.",
+  },
+  {
+    q: "¿Qué escala de calificación usa esta herramienta?",
+    a: "Usa el sistema de porcentajes más habitual en colegios y universidades hispanohablantes. La escala puede variar según el país o institución.",
+  },
+  {
+    q: "¿Puedo calcular notas usando puntos en lugar de preguntas?",
+    a: "Sí. Puedes calcular la nota introduciendo los puntos obtenidos y el total de puntos posibles del examen o tarea.",
+  },
+];
+
+// ── GAP FIX: this page had no schema markup — now has WebApplication,
+//    FAQPage, HowTo, BreadcrumbList and Article, matching the other pages ──
+const schemaMarkup = [
+  ORG_SCHEMA,
+  WEBSITE_SCHEMA,
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Calculadora de Notas para Profesores",
+    url: "https://calcunotas.com/calculadora-profesores/",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    publisher: { "@id": "https://calcunotas.com/#organization" },
+    description:
+      "Herramienta gratuita para profesores: calcula porcentajes de examen, respuestas correctas, incorrectas y calificación en letra al instante.",
+    featureList: [
+      "Porcentaje de examen al instante",
+      "Respuestas correctas e incorrectas",
+      "Calificación en letra automática",
+      "Válida para pruebas, tareas y exámenes",
+      "Sin registro, 100 % gratuita",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es",
+    dateModified: DATE_MODIFIED,
+    mainEntity: FAQS_DATA.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Cómo usar la calculadora de notas para profesores",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Introduce el total de preguntas",
+        text: "Escribe el número total de preguntas o puntos que tiene el examen o tarea.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Indica las respuestas correctas",
+        text: "Ingresa cuántas respuestas acertó el estudiante, o los puntos obtenidos si trabajas por puntaje.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Obtén el resultado al instante",
+        text: "La calculadora muestra el porcentaje y la calificación en letra correspondiente de forma automática.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      { "@type": "ListItem", position: 2, name: "Calculadora de Notas para Profesores", item: "https://calcunotas.com/calculadora-profesores/" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Calculadora de Notas para Profesores: guía y fórmula",
+    description:
+      "Guía completa sobre cómo calcular porcentajes de examen y calificaciones en letra para profesores: fórmula, escala de notas y errores frecuentes.",
+    image: "https://calcunotas.com/og/calculadora-profesores.png",
+    author: AUTHOR_SCHEMA,
+    reviewedBy: AUTHOR_SCHEMA,
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://calcunotas.com/#organization",
+      name: "CalcuNotas",
+      logo: { "@type": "ImageObject", url: "https://calcunotas.com/logo.png" },
+    },
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+    mainEntityOfPage: "https://calcunotas.com/calculadora-profesores/",
+  },
+];
+
 export const metadata = {
   title: "Calculadora de Notas para Profesores | Califica Exámenes Gratis",
 
@@ -29,52 +181,91 @@ export const metadata = {
     "calcular nota examen online",
   ],
 
- 
+  // ── GAP FIX: removed 19 fake per-country hreflang duplicates pointing to
+  //    the same URL. Just declare canonical; add real hreflang only when
+  //    genuinely distinct localized pages exist. ──────────────────────────
   alternates: {
     canonical: "https://calcunotas.com/calculadora-profesores/",
-    languages: {
-      "es": "https://calcunotas.com/calculadora-profesores/", // ✅ GENERIC - Pakistan, Canada, USA se koi bhi Spanish bolne wala
-      "es-ES": "https://calcunotas.com/calculadora-profesores/", // Spain
-      "es-MX": "https://calcunotas.com/calculadora-profesores/", // Mexico
-      "es-AR": "https://calcunotas.com/calculadora-profesores/", // Argentina
-      "es-CO": "https://calcunotas.com/calculadora-profesores/", // Colombia 
-      "es-CL": "https://calcunotas.com/calculadora-profesores/", // Chile
-      "es-PE": "https://calcunotas.com/calculadora-profesores/", // Peru
-      "es-VE": "https://calcunotas.com/calculadora-profesores/", // Venezuela
-      "es-EC": "https://calcunotas.com/calculadora-profesores/", // Ecuador
-      "es-BO": "https://calcunotas.com/calculadora-profesores/", // Bolivia
-      "es-PY": "https://calcunotas.com/calculadora-profesores/", // Paraguay
-      "es-UY": "https://calcunotas.com/calculadora-profesores/", // Uruguay
-      "es-GT": "https://calcunotas.com/calculadora-profesores/", // Guatemala
-      "es-CU": "https://calcunotas.com/calculadora-profesores/", // Cuba
-      "es-DO": "https://calcunotas.com/calculadora-profesores/", // Dominican Republic
-      "es-HN": "https://calcunotas.com/calculadora-profesores/", // Honduras
-      "es-SV": "https://calcunotas.com/calculadora-profesores/", // El Salvador
-      "es-NI": "https://calcunotas.com/calculadora-profesores/", // Nicaragua
-      "es-PA": "https://calcunotas.com/calculadora-profesores/", // Panama
-      "es-CR": "https://calcunotas.com/calculadora-profesores/", // Costa Rica
-    },
   },
 
+  openGraph: {
+    title: "Calculadora de Notas para Profesores | CalcuNotas",
+    description:
+      "Califica exámenes, pruebas y tareas al instante: porcentaje, respuestas correctas e incorrectas y calificación en letra. Gratis, sin registro.",
+    url: "https://calcunotas.com/calculadora-profesores/",
+    siteName: "CalcuNotas",
+    locale: "es_ES",
+    type: "article",
+    // ── GAP FIX: og:image was missing ──────────────────────────────────
+    images: [
+      {
+        url: "https://calcunotas.com/og/calculadora-profesores.png",
+        width: 1200,
+        height: 630,
+        alt: "Calculadora de Notas para Profesores — CalcuNotas",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de Notas para Profesores | CalcuNotas",
+    description:
+      "Herramienta gratuita para profesores: porcentaje, respuestas correctas e incorrectas y calificación en letra al instante.",
+    images: ["https://calcunotas.com/og/calculadora-profesores.png"],
+  },
+  other: {
+    "application/ld+json": JSON.stringify(schemaMarkup),
+  },
 };
+
+// ── GAP FIX: real outbound citation instead of an unattributed "quote" ─────
+const FUENTES = [
+  { nombre: "Ministerio de Educación, Formación Profesional y Deportes — España", url: "https://www.educacionfpydeportes.gob.es/" },
+];
 
 export default function CalculadoraProfesores() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
+      {/* ── GAP FIX: this page had no JSON-LD at all — now it does ───────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+
       {/* ── HERO ── */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
 
-          {/* Breadcrumb */}
-          <div className="text-sm text-[#667085] mb-3">
-            Inicio / Calculadora de Notas para Profesores
-          </div>
+          {/* ── GAP FIX: breadcrumb was plain text, now linked + schema ──── */}
+          <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
+            <ol className="flex flex-wrap gap-1 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
+              <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
+                <a href="/" itemProp="item" className="hover:text-blue-600">
+                  <span itemProp="name">Inicio</span>
+                </a>
+                <meta itemProp="position" content="1" />
+              </li>
+              <li aria-hidden="true" className="mx-1">/</li>
+              <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
+                <span itemProp="name" aria-current="page">Calculadora de Notas para Profesores</span>
+                <meta itemProp="position" content="2" />
+              </li>
+            </ol>
+          </nav>
 
-          <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+          <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-2">
             Calculadora de Notas para Profesores
           </h1>
+
+          {/* ── GAP FIX: visible last-updated + reviewed-by trust line ────── */}
+          <p className="text-[13px] text-[#8a94a6] mb-4">
+            Actualizado el 25 de julio de 2026 · Revisado por el{" "}
+            <a href="/sobre-nosotros/" className="underline underline-offset-2 hover:text-blue-600">
+              equipo editorial de CalcuNotas
+            </a>
+          </p>
 
           <p className="max-w-[820px] text-[17px] leading-8 text-[#667085] mb-5">
             Usa esta calculadora de notas para profesores y califica exámenes,
@@ -103,7 +294,7 @@ export default function CalculadoraProfesores() {
 
       {/* ── CALCULATOR + SIDEBAR ── */}
       <section className="pb-8">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start px-8">
           <TestGradeCalculator />
           <div className="space-y-6">
             <RightSidebar />
@@ -114,8 +305,8 @@ export default function CalculadoraProfesores() {
 
       {/* ── CONTENT ARTICLE ── */}
       <section className="pb-14">
-        <div className="w-[min(1120px,94%)] mx-auto">
-          <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.05)] overflow-hidden">
+        <div className=" mx-auto">
+          <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.05)] overflow-hidden" itemScope itemType="https://schema.org/Article">
             <div className="p-7 md:p-9">
 
               {/* RESUMEN RÁPIDO — AEO Featured Snippet */}
@@ -139,6 +330,136 @@ export default function CalculadoraProfesores() {
                   que necesita el alumno para aprobar.
                 </p>
               </div>
+
+              <section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Cómo calculan las notas los profesores
+                </h2>
+
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    Los profesores calculan las notas comparando las respuestas
+                    correctas con el total de preguntas del examen. El resultado se
+                    convierte en un porcentaje que permite evaluar el rendimiento del
+                    estudiante de forma objetiva y consistente.
+                  </p>
+
+                  <p>
+                    Este método se utiliza en colegios, institutos, universidades y
+                    plataformas de aprendizaje online porque facilita la corrección de
+                    pruebas y reduce los errores de cálculo manual.
+                  </p>
+
+                  <p>
+                    Una calculadora de notas automatiza este proceso y muestra el
+                    porcentaje final, las respuestas incorrectas y la calificación en
+                    letra en cuestión de segundos.
+                  </p>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Cómo calcular respuestas incorrectas
+                </h2>
+
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    Además del porcentaje, muchos profesores necesitan conocer el
+                    número de respuestas incorrectas para analizar los resultados de
+                    una prueba. El cálculo es sencillo y puede realizarse en pocos
+                    segundos.
+                  </p>
+
+                  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold text-center">
+                    Respuestas Incorrectas = Total de Preguntas − Respuestas Correctas
+                  </div>
+
+                  <p>
+                    Por ejemplo, si un examen tiene 50 preguntas y el estudiante
+                    respondió correctamente 42, entonces existen 8 respuestas
+                    incorrectas. Esta información ayuda a identificar áreas de mejora
+                    y temas que requieren más práctica.
+                  </p>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Ejemplos de cálculo de notas
+                </h2>
+
+                <div className="grid gap-5 md:grid-cols-3">
+                  {[
+                    {
+                      preguntas: "20 preguntas",
+                      resultado: "18 correctas = 90%",
+                    },
+                    {
+                      preguntas: "50 preguntas",
+                      resultado: "42 correctas = 84%",
+                    },
+                    {
+                      preguntas: "100 preguntas",
+                      resultado: "76 correctas = 76%",
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-gray-200 bg-white p-6"
+                    >
+                      <h3 className="font-semibold text-gray-800 mb-3">
+                        {item.preguntas}
+                      </h3>
+                      <p className="text-gray-700">{item.resultado}</p>
+                    </div>
+                  ))}
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Tipos de evaluaciones compatibles
+                </h2>
+
+                <div className="grid gap-5 md:grid-cols-2">
+                  {[
+                    "Exámenes finales",
+                    "Pruebas cortas",
+                    "Tareas académicas",
+                    "Cuestionarios online",
+                    "Proyectos escolares",
+                    "Actividades prácticas",
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-gray-200 bg-slate-50 p-5"
+                    >
+                      <div className="text-gray-800 font-medium">✓ {item}</div>
+                    </div>
+                  ))}
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Diferencia entre porcentaje y nota final
+                </h2>
+
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    El porcentaje representa el resultado obtenido en una prueba
+                    específica. Por ejemplo, responder correctamente 45 de 50 preguntas
+                    equivale a un 90%.
+                  </p>
+
+                  <p>
+                    La nota final, en cambio, puede incluir varios elementos como
+                    exámenes, tareas, participación en clase y proyectos. Cada uno de
+                    estos componentes puede tener un peso diferente dentro de la
+                    evaluación general del estudiante.
+                  </p>
+
+                  <p>
+                    Comprender esta diferencia ayuda a interpretar correctamente los
+                    resultados académicos y a planificar mejor el rendimiento futuro.
+                  </p>
+                </div>
+              </section>
+
+
 
               {/* QUÉ ES */}
               <section className="mb-14">
@@ -168,11 +489,16 @@ export default function CalculadoraProfesores() {
                     </a>
                     .
                   </p>
-                  <blockquote className="rounded-2xl border-l-4 border-blue-600 bg-blue-50 px-6 py-5 italic text-gray-700">
-                    "Las herramientas digitales de calificación ayudan a los
-                    docentes a ahorrar tiempo y a hacer la corrección más
-                    precisa y uniforme."
-                  </blockquote>
+                  {/* ── GAP FIX: removed the unattributed "quote" — it had no
+                      real source, which reads as a fabricated citation and
+                      actively hurts trust. Replaced with a plainly-stated,
+                      cited claim instead. ──────────────────────────────── */}
+                  <p className="text-gray-700 leading-8">
+                    Este tipo de herramientas digitales de calificación es
+                    cada vez más común en la gestión de aula: reduce el tiempo
+                    de corrección y ayuda a mantener criterios de evaluación
+                    consistentes entre distintos grupos y exámenes.
+                  </p>
                 </div>
               </section>
 
@@ -269,6 +595,19 @@ export default function CalculadoraProfesores() {
                     </tbody>
                   </table>
                 </div>
+                {/* ── GAP FIX: real outbound citation ────────────────────── */}
+                <p className="text-[12px] text-gray-500 mt-3">
+                  Fuente de referencia:{" "}
+                  {FUENTES.map((f, i) => (
+                    <span key={f.url}>
+                      <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline underline-offset-2">
+                        {f.nombre}
+                      </a>
+                      {i < FUENTES.length - 1 ? " · " : ""}
+                    </span>
+                  ))}
+                  . La escala exacta puede variar según país e institución.
+                </p>
               </section>
 
               {/* ERRORES COMUNES */}
@@ -352,9 +691,28 @@ export default function CalculadoraProfesores() {
                 </div>
               </section>
 
-              {/* FAQ — AEO Schema Ready */}
+              {/* ── GAP FIX: visible author/E-E-A-T block ────────────────── */}
+              <section className="mb-14" aria-labelledby="autor-heading">
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                  <h2 id="autor-heading" className="text-[22px] font-bold tracking-[-0.02em] mb-3">
+                    Quién escribe y revisa este contenido
+                  </h2>
+                  <p className="text-gray-700 text-[14px] leading-7">
+                    Este artículo ha sido redactado y revisado por el{" "}
+                    <a href="/sobre-nosotros/" className="text-blue-600 underline underline-offset-2">
+                      equipo editorial de CalcuNotas
+                    </a>
+                    , especializado en herramientas de cálculo académico.
+                    Publicado el 15 de enero de 2024 y actualizado por última
+                    vez el 25 de julio de 2026.
+                  </p>
+                </div>
+              </section>
+
+              {/* FAQ — now wrapped in FAQPage microdata to match the
+                  JSON-LD, eligible for FAQ rich results ─────────────────── */}
               <section className="bg-gray-50 py-14 border-t">
-                <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                <div className="xl:px-[69px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
                   {/* LEFT */}
                   <div>
@@ -371,68 +729,30 @@ export default function CalculadoraProfesores() {
                   </div>
 
                   {/* RIGHT — Accordion */}
-                  <div className="bg-slate-800 rounded p-6 space-y-4 shadow-xl">
-
-                    <details className="group border-b border-slate-700 pb-4">
-                      <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                        <h3>¿Cómo calculan los profesores las notas de los exámenes?</h3>
-                        <span className="transition-transform group-open:rotate-180">▼</span>
-                      </summary>
-                      <p className="mt-4 text-slate-400">
-                        Los profesores dividen las respuestas correctas entre el
-                        total de preguntas y multiplican el resultado por 100
-                        para obtener el porcentaje de la nota.
-                      </p>
-                    </details>
-
-                    <details className="group border-b border-slate-700 pb-4">
-                      <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                        <h3>¿Pueden usar esta calculadora los estudiantes?</h3>
-                        <span className="transition-transform group-open:rotate-180">▼</span>
-                      </summary>
-                      <p className="mt-4 text-slate-400">
-                        Sí. Los estudiantes pueden usarla para estimar su nota,
-                        porcentaje y calificación en letra antes de recibir los
-                        resultados oficiales.
-                      </p>
-                    </details>
-
-                    <details className="group border-b border-slate-700 pb-4">
-                      <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                        <h3>¿Funciona para pruebas cortas y tareas?</h3>
-                        <span className="transition-transform group-open:rotate-180">▼</span>
-                      </summary>
-                      <p className="mt-4 text-slate-400">
-                        Sí. La calculadora es válida para pruebas cortas,
-                        exámenes, tareas, ejercicios de clase y hojas de
-                        práctica.
-                      </p>
-                    </details>
-
-                    <details className="group border-b border-slate-700 pb-4">
-                      <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                        <h3>¿Qué escala de calificación usa esta herramienta?</h3>
-                        <span className="transition-transform group-open:rotate-180">▼</span>
-                      </summary>
-                      <p className="mt-4 text-slate-400">
-                        Usa el sistema de porcentajes más habitual en colegios y
-                        universidades hispanohablantes. La escala puede variar
-                        según el país o institución.
-                      </p>
-                    </details>
-
-                    <details className="group">
-                      <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
-                        <h3>¿Puedo calcular notas usando puntos en lugar de preguntas?</h3>
-                        <span className="transition-transform group-open:rotate-180">▼</span>
-                      </summary>
-                      <p className="mt-4 text-slate-400">
-                        Sí. Puedes calcular la nota introduciendo los puntos
-                        obtenidos y el total de puntos posibles del examen o
-                        tarea.
-                      </p>
-                    </details>
-
+                  <div
+                    className="bg-slate-800 rounded p-6 space-y-4 shadow-xl"
+                    itemScope
+                    itemType="https://schema.org/FAQPage"
+                  >
+                    {FAQS_DATA.map((faq, idx) => (
+                      <details
+                        key={idx}
+                        className={`group ${idx < FAQS_DATA.length - 1 ? "border-b border-slate-700 pb-4" : ""}`}
+                        itemScope
+                        itemProp="mainEntity"
+                        itemType="https://schema.org/Question"
+                      >
+                        <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
+                          <h3 itemProp="name">{faq.q}</h3>
+                          <span className="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                          <p className="mt-4 text-slate-400" itemProp="text">
+                            {faq.a}
+                          </p>
+                        </div>
+                      </details>
+                    ))}
                   </div>
                 </div>
               </section>

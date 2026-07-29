@@ -27,33 +27,42 @@ export const metadata = {
     "porcentaje de calificación del profesor",
     "fórmula de calificación",
   ],
- 
-   alternates: {
-    canonical: "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
-    languages: {
-      "es": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // ✅ GENERIC - Pakistan, Canada, USA se koi bhi Spanish bolne wala
-      "es-ES": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Spain
-      "es-MX": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Mexico
-      "es-AR": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Argentina
-      "es-CO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Colombia
-      "es-CL": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Chile
-      "es-PE": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Peru
-      "es-VE": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Venezuela
-      "es-EC": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Ecuador
-      "es-BO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Bolivia
-      "es-PY": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Paraguay
-      "es-UY": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Uruguay
-      "es-GT": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Guatemala
-      "es-CU": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Cuba
-      "es-DO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Dominican Republic
-      "es-HN": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Honduras
-      "es-SV": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // El Salvador
-      "es-NI": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Nicaragua
-      "es-PA": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Panama
-      "es-CR": "https://calcunotas.com/blog/que-es-un-calificador-rapido/", // Costa Rica
-    },
+
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+
+  openGraph: {
+    title: "Guía del Calificador Rápido para Profesores | CalcuNotas",
+    description:
+      "Cómo funcionan los calificadores rápidos: fórmulas, tablas de calificación y estrategias para profesores.",
+    url: "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+    type: "article",
   },
 
+  alternates: {
+    canonical: "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+    languages: {
+      "es": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-ES": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-MX": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-AR": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-CO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-CL": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-PE": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-VE": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-EC": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-BO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-PY": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-UY": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-GT": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-CU": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-DO": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-HN": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-SV": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-NI": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-PA": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      "es-CR": "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+    },
+  },
 };
 
 const faqs = [
@@ -89,13 +98,83 @@ const faqs = [
   },
 ];
 
+// ────────────────────────────────────────────────────────────
+// GAP FIX #1: Is page ka apna JSON-LD pehle inject hi nahi ho raha tha.
+// FAQPage + Article + BreadcrumbList yahan add kiya taake jo FAQs
+// screen par visible hain wo rich results me bhi eligible hon.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Guía del Calificador Rápido para Profesores y Educadores",
+    description:
+      "Cómo funcionan los calificadores rápidos, fórmulas de porcentaje, tablas de calificación y estrategias de calificación en el aula.",
+    image: "https://calcunotas.com/og/calificador-rapido.jpg",
+    author: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    reviewedBy: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://calcunotas.com/logo.png",
+      },
+    },
+    datePublished: "2024-03-05",
+    dateModified: "2026-07-25",
+    mainEntityOfPage: "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://calcunotas.com/blog/" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Qué Es Un Calificador Rápido",
+        item: "https://calcunotas.com/blog/que-es-un-calificador-rapido/",
+      },
+    ],
+  },
+];
+
 export default function WhatIsAnEasyGraderPage() {
   return (
-    <main className="min-h-screen bg-[#f5f7fb] text-[#111827]">
+    <main className=" min-h-screen bg-[#f5f7fb] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
-      <section className="py-10">
-        <div className="w-[min(1180px,94%)] mx-auto grid lg:grid-cols-[1fr_320px] gap-6 items-start">
+      <section className="py-10 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_320px] gap-6 items-start">
           <article className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.06)]">
             <div className="p-6 md:p-10">
 
@@ -118,12 +197,24 @@ export default function WhatIsAnEasyGraderPage() {
                 </span>
               </div>
 
-          <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+              <h1 className="text-[clamp(24px,4vw,42px)] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
                 Guía del Calificador Rápido
                 <span className="block text-blue-600 mt-2">
                   para Profesores y Educadores
                 </span>
               </h1>
+
+              {/* GAP FIX: visible author + date byline — E-E-A-T sirf schema me
+                  nahi, user ko bhi dikhna chahiye ke content kis ne likha/review kiya */}
+              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-6">
+                <span>
+                  Por <strong className="text-gray-700">Equipo CalcuNotas</strong>
+                </span>
+                <span>•</span>
+                <span>Publicado: 5 mar 2024</span>
+                <span>•</span>
+                <span>Actualizado: 25 jul 2026</span>
+              </div>
 
               <p className="text-[18px] text-gray-600 leading-8 mb-10 max-w-4xl">
                 Aprende cómo funcionan los calificadores rápidos, cómo los profesores calculan
@@ -319,7 +410,135 @@ export default function WhatIsAnEasyGraderPage() {
                   ))}
                 </div>
               </section>
+              <section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Cómo Convertir Porcentajes en Calificaciones Letra
+                </h2>
 
+                <div className="space-y-6 text-[17px] leading-8 text-gray-700">
+                  <p>
+                    Después de calcular un porcentaje, los profesores suelen convertir
+                    ese resultado en una calificación letra. Este proceso ayuda a
+                    simplificar la evaluación y permite comparar el rendimiento de los
+                    estudiantes de forma consistente.
+                  </p>
+
+                  <p>
+                    Aunque las escalas pueden variar entre escuelas y universidades,
+                    la mayoría utiliza rangos estándar para asignar A, B, C, D o F.
+                  </p>
+
+                  <p>
+                    Muchos calificadores rápidos realizan esta conversión
+                    automáticamente para evitar errores y acelerar la corrección de
+                    exámenes y cuestionarios.
+                  </p>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Sistemas de Calificación Más Utilizados
+                </h2>
+
+                <div className="grid gap-5 md:grid-cols-3">
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">Escala Tradicional</h3>
+                    <p className="text-gray-700 leading-7">
+                      Utiliza letras como A, B, C, D y F para representar el
+                      rendimiento académico.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">Escala con Más y Menos</h3>
+                    <p className="text-gray-700 leading-7">
+                      Incluye variaciones como A-, B+ o C+ para ofrecer una evaluación
+                      más detallada.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">Escala por Porcentaje</h3>
+                    <p className="text-gray-700 leading-7">
+                      Evalúa directamente el porcentaje obtenido en pruebas y tareas.
+                    </p>
+                  </div>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Cómo Calificar un Examen Paso a Paso
+                </h2>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[
+                    "Contar respuestas correctas",
+                    "Determinar el total de preguntas",
+                    "Calcular el porcentaje",
+                    "Convertir el resultado en una letra",
+                    "Registrar la calificación final",
+                    "Revisar posibles errores"
+                  ].map((item, index) => (
+                    <div key={index} className="rounded-2xl border border-gray-200 bg-white p-5">
+                      <div className="font-bold text-blue-600 mb-2">
+                        Paso {index + 1}
+                      </div>
+                      <p className="text-gray-700">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Calificador Rápido vs Cálculo Manual
+                </h2>
+
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-2xl font-bold mb-3">
+                      Calificador Rápido
+                    </h3>
+                    <ul className="space-y-3 text-gray-700">
+                      <li>• Resultados instantáneos</li>
+                      <li>• Menos errores matemáticos</li>
+                      <li>• Ideal para grupos grandes</li>
+                      <li>• Conversión automática de letras</li>
+                    </ul>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-2xl font-bold mb-3">
+                      Cálculo Manual
+                    </h3>
+                    <ul className="space-y-3 text-gray-700">
+                      <li>• Más lento</li>
+                      <li>• Mayor riesgo de errores</li>
+                      <li>• Requiere cálculos repetitivos</li>
+                      <li>• Menor eficiencia en clases grandes</li>
+                    </ul>
+                  </div>
+                </div>
+              </section><section className="mb-14">
+                <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
+                  Cuándo Utilizar un Calificador Rápido
+                </h2>
+
+                <div className="space-y-6 text-[17px] leading-8 text-gray-700">
+                  <p>
+                    Los calificadores rápidos son especialmente útiles cuando los
+                    profesores necesitan corregir una gran cantidad de evaluaciones en
+                    poco tiempo.
+                  </p>
+
+                  <p>
+                    Son comunes en exámenes de opción múltiple, cuestionarios
+                    semanales, actividades de práctica, pruebas diagnósticas y
+                    evaluaciones rápidas realizadas durante la clase.
+                  </p>
+
+                  <p>
+                    También ayudan a mantener la consistencia de la calificación entre
+                    distintos grupos y periodos académicos.
+                  </p>
+                </div>
+              </section>
               <section className="mb-10">
                 <h2 className="text-4xl font-black tracking-[-0.04em] mb-6">
                   Reflexiones Finales

@@ -283,7 +283,7 @@ const schemaMarkup = {
    ───────────────────────────────────────────── */
 export default function CalculadoraDeNotas() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -295,9 +295,9 @@ export default function CalculadoraDeNotas() {
       {/* ── HERO ── */}
       <section
         aria-label="Encabezado de la calculadora de notas"
-        className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]"
+        className="pt-10 pb-10 px-8 bg-gradient-to-b from-blue-50 to-[#f7f9fc]"
       >
-        <div className="w-[min(1120px,94%)] mx-auto">
+        <div className=" mx-auto">
 
           {/* Breadcrumb — STEP 9 */}
           <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
@@ -349,7 +349,7 @@ export default function CalculadoraDeNotas() {
 
       {/* ── CALCULATOR + SIDEBARS ── */}
       <section aria-label="Calculadora de notas interactiva" className="pb-8">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start px-8">
           <GradeCalculatorLab />
           <div className="space-y-6">
             <RightSidebar />
@@ -360,7 +360,7 @@ export default function CalculadoraDeNotas() {
 
       {/* ── CONTENT ARTICLE ── */}
       <section aria-label="Guía completa de la calculadora de notas" className="pb-14">
-        <div className="w-[min(1120px,94%)] mx-auto">
+        <div className=" mx-auto">
           <article
             className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] overflow-hidden"
             itemScope
@@ -835,7 +835,220 @@ export default function CalculadoraDeNotas() {
                   </ul>
                 </div>
               </section>
+              {/* ── SECTION 1 ── */}
+              <section className="mb-12" aria-labelledby="como-calcular-heading">
+                <h2
+                  id="como-calcular-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Cómo Calcular una Nota
+                </h2>
 
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Calcular una nota consiste en convertir tus resultados académicos en una
+                    calificación final usando porcentajes, puntos o evaluaciones ponderadas.
+                    La mayoría de escuelas y universidades utilizan sistemas donde cada
+                    evaluación tiene un peso específico dentro de la nota total del curso.
+                  </p>
+
+                  <p>
+                    Para conocer tu rendimiento real, debes multiplicar cada nota por su
+                    porcentaje correspondiente y luego sumar todos los resultados. Este
+                    método permite obtener una visión precisa de tu desempeño académico.
+                  </p>
+
+                  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                    <p>
+                      <strong>Ejemplo rápido:</strong> Si obtuviste 90% en una tarea que vale
+                      20% y 80% en un examen que vale 80%, tu nota final será:
+                    </p>
+                    <p className="mt-3 font-bold">
+                      (90 × 0.20) + (80 × 0.80) = 82%
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── SECTION 2 ── */}
+              <section className="mb-12" aria-labelledby="promedio-heading">
+                <h2
+                  id="promedio-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Calculadora de Promedio Ponderado
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Un promedio ponderado asigna diferentes niveles de importancia a cada
+                    evaluación. No todas las tareas o exámenes tienen el mismo impacto en tu
+                    nota final, por lo que es necesario aplicar pesos específicos.
+                  </p>
+
+                  <p>
+                    Este sistema es ampliamente utilizado en universidades, colegios y cursos
+                    técnicos porque refleja de manera más justa el desempeño del estudiante.
+                  </p>
+
+                  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 text-center">
+                    <p className="text-slate-400 mb-2">
+                      Fórmula del Promedio Ponderado
+                    </p>
+                    <p className="font-bold">
+                      Σ (Nota × Peso) ÷ Σ Peso
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── SECTION 3 ── */}
+              <section className="mb-12" aria-labelledby="nota-final-heading">
+                <h2
+                  id="nota-final-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Cómo Calcular la Nota Final del Curso
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    La nota final representa el resultado global de todas las evaluaciones
+                    realizadas durante el curso. Para calcularla correctamente es necesario
+                    considerar tareas, exámenes, proyectos y cualquier actividad evaluada.
+                  </p>
+
+                  <p>
+                    Cada elemento debe multiplicarse por su peso correspondiente. Después se
+                    suman todos los resultados para obtener la calificación final.
+                  </p>
+
+                  <div className="rounded-2xl border border-gray-200 p-5">
+                    <h3 className="font-bold mb-3">Ejemplo</h3>
+                    <ul className="space-y-2">
+                      <li>Tareas: 90% (20%)</li>
+                      <li>Pruebas: 85% (30%)</li>
+                      <li>Proyecto: 95% (20%)</li>
+                      <li>Examen Final: 80% (30%)</li>
+                    </ul>
+
+                    <p className="mt-4 font-bold text-blue-700">
+                      Nota Final = 87.5%
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── SECTION 4 ── */}
+              <section className="mb-12" aria-labelledby="aprobar-heading">
+                <h2
+                  id="aprobar-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Qué Nota Necesito para Aprobar
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Muchos estudiantes desean saber exactamente qué nota necesitan en el
+                    examen final para aprobar una materia o alcanzar una meta académica
+                    específica.
+                  </p>
+
+                  <p>
+                    Conociendo tu promedio actual y el peso del examen final, puedes calcular
+                    fácilmente la puntuación requerida.
+                  </p>
+
+                  <div className="rounded-2xl bg-green-50 border border-green-100 p-5">
+                    <p>
+                      <strong>Ejemplo:</strong> Si tienes 78% actualmente y deseas terminar
+                      con 85%, mientras el examen final vale 40%, necesitarás aproximadamente
+                      95.5% en el examen.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── SECTION 5 ── */}
+              <section className="mb-12" aria-labelledby="escalas-heading">
+                <h2
+                  id="escalas-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Escalas de Calificación Más Utilizadas
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Los sistemas educativos utilizan diferentes escalas de calificación según
+                    el país o la institución. Sin embargo, todas pueden convertirse a
+                    porcentajes para facilitar el cálculo.
+                  </p>
+
+                  <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="bg-blue-600 text-white">
+                          <th className="px-5 py-4 text-left">País</th>
+                          <th className="px-5 py-4 text-left">Escala</th>
+                          <th className="px-5 py-4 text-left">Aprobación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b">
+                          <td className="px-5 py-4">Chile</td>
+                          <td className="px-5 py-4">1.0 – 7.0</td>
+                          <td className="px-5 py-4">4.0</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="px-5 py-4">Colombia</td>
+                          <td className="px-5 py-4">0.0 – 5.0</td>
+                          <td className="px-5 py-4">3.0</td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="px-5 py-4">México</td>
+                          <td className="px-5 py-4">0 – 10</td>
+                          <td className="px-5 py-4">6.0</td>
+                        </tr>
+                        <tr>
+                          <td className="px-5 py-4">España</td>
+                          <td className="px-5 py-4">0 – 10</td>
+                          <td className="px-5 py-4">5.0</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── SECTION 6 ── */}
+              <section className="mb-12" aria-labelledby="ventajas-heading">
+                <h2
+                  id="ventajas-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Ventajas de Utilizar una Calculadora de Notas
+                </h2>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[
+                    "Resultados instantáneos",
+                    "Cálculos matemáticamente exactos",
+                    "Compatible con cualquier sistema educativo",
+                    "Permite planificar el examen final",
+                    "Evita errores manuales",
+                    "Gratis y accesible desde cualquier dispositivo",
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="rounded-2xl border border-gray-200 p-5 bg-white"
+                    >
+                      <p className="font-semibold text-gray-800">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
               {/* ── TIPS ── */}
               <section className="mb-12" aria-labelledby="consejos-heading">
                 <h2 id="consejos-heading" className="text-[28px] font-black tracking-[-0.04em] mb-5">
@@ -965,7 +1178,7 @@ export default function CalculadoraDeNotas() {
                 className="bg-gray-50 py-14 border-t -mx-7 md:-mx-9 -mb-9"
                 aria-labelledby="faq-heading"
               >
-                <div className="max-w-6xl mx-auto px-6">
+                <div className="xl:px-[69px] mx-auto px-6">
                   <h2
                     id="faq-heading"
                     className="text-3xl md:text-4xl font-bold text-black mb-3 text-center"

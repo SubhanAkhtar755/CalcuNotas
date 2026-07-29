@@ -7,6 +7,176 @@ import BlogSidebar from "@/app/components/BlogSidebar";
 export const dynamic = "force-static";
 export const revalidate = false;
 
+// ─── SCHEMA MARKUP ────────────────────────────────────────────────────────────
+const schemaMarkup = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Calculadora de Nota Semestral",
+    url: "https://calcunotas.com/nota-semestral/",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    description:
+      "Calculadora gratuita para calcular tu nota semestral por porcentaje, letra o puntos, con pesos por categoría y estimación de la nota necesaria en el examen final.",
+    featureList: [
+      "Cálculo de promedio ponderado por categoría",
+      "Conversión entre porcentaje, letra y puntos",
+      "Estimación de la nota necesaria en el examen final",
+      "Comparación entre nota ponderada y no ponderada",
+      "Sin registro, 100 % gratuita",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "¿Qué es una calculadora de nota semestral?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Es una herramienta que te ayuda a calcular tu nota semestral global usando puntajes de tareas, notas de exámenes, pesos por categoría, créditos o puntos.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo calculo mi nota del semestre?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Multiplica cada nota por su peso, suma todos los puntajes ponderados y divide entre el peso total. Eso te da tu porcentaje semestral final.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Esta calculadora funciona con notas ponderadas?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sí. Puedes ingresar tareas, pruebas, proyectos, parciales y exámenes finales con sus pesos en porcentaje para obtener tu nota global.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo calculo la nota que necesito en el examen final?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Necesitas tu nota actual, tu nota objetivo y el peso del examen final. La calculadora usa esos valores para estimar el puntaje que necesitas en el final para alcanzar tu nota deseada.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuál es la diferencia entre nota actual y nota semestral?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Tu nota actual incluye solo el trabajo completado. Tu nota semestral puede incluir trabajos completados más exámenes, proyectos, participación y el examen final que aún no has presentado.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Puedo usar puntos en lugar de porcentajes?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sí. Si tu clase usa puntos, divide los puntos obtenidos entre el total posible y multiplica por 100. Eso te da tu nota en porcentaje.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Todas las escuelas usan la misma escala de calificación semestral?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Colegios, universidades y profesores pueden usar escalas de calificación distintas. Consulta siempre el programa del curso o la política oficial de calificación para la escala correcta.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo se convierte una nota en letra a puntos GPA?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Cada letra corresponde a un valor en la escala GPA de 4.0: A equivale a 4.0, B a 3.0, C a 2.0, D a 1.0 y F a 0.0. El GPA final es el promedio de esos valores, ponderado por los créditos de cada curso.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Qué pasa si los pesos de mis categorías no suman 100%?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "La fórmula de promedio ponderado sigue funcionando: se divide la suma de (nota × peso) entre la suma total de los pesos, aunque no sumen 100%. Aun así, es recomendable verificar los pesos con el programa oficial del curso.",
+        },
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Cómo calcular la nota semestral paso a paso",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Agrega tus evaluaciones",
+        text: "Ingresa cada tarea, prueba, examen, proyecto o examen final incluido en tu nota semestral.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Ingresa tu calificación",
+        text: "Añade la nota que obtuviste en cada evaluación, en porcentaje, letra o puntos.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Agrega el peso de cada categoría",
+        text: "Indica cuánto cuenta cada categoría en tu nota semestral final.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Calcula tu resultado",
+        text: "La calculadora combina tus notas y pesos para mostrar tu calificación semestral al instante.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://calcunotas.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Calculadora de Nota Semestral",
+        item: "https://calcunotas.com/nota-semestral/",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Calculadora de Nota Semestral: Guía completa de promedio ponderado",
+    description:
+      "Guía completa sobre cómo calcular la nota semestral: fórmula de promedio ponderado, nota necesaria en el examen final, escalas de letra y GPA.",
+    author: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    reviewedBy: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    datePublished: "2024-02-10",
+    dateModified: "2026-07-25",
+    mainEntityOfPage: "https://calcunotas.com/nota-semestral/",
+  },
+];
+
 export const metadata = {
   title: "Calculadora de Nota Semestral | Calcula tu Promedio del Semestre",
   description:
@@ -23,8 +193,12 @@ export const metadata = {
     "calcular promedio con pesos",
     "nota necesaria examen final",
   ],
- 
-   alternates: {
+
+  authors: [{ name: "CalcuNotas", url: "https://calcunotas.com" }],
+  creator: "CalcuNotas",
+  publisher: "CalcuNotas",
+
+  alternates: {
     canonical: "https://calcunotas.com/nota-semestral/",
     languages: {
       "es": "https://calcunotas.com/nota-semestral/", // ✅ GENERIC - Pakistan, Canada, USA se koi bhi Spanish bolne wala
@@ -54,12 +228,12 @@ export const metadata = {
 
 export default function NotaSemestral() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 px-8 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-[#667085] mb-3">
             Inicio / Calculadora de Nota Semestral
           </div>
@@ -102,7 +276,7 @@ export default function NotaSemestral() {
 
       {/* MAIN */}
       <section className="pb-8">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start px-8">
           <SemesterGradeCalculatorLab />
           <div className="space-y-6">
             <RightSidebar />
@@ -113,7 +287,7 @@ export default function NotaSemestral() {
 
       {/* CONTENT */}
       <section className="pb-14">
-        <div className="w-[min(1120px,94%)] mx-auto">
+        <div className=" mx-auto">
           <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] overflow-hidden">
             <div className="p-7 md:p-9">
 
@@ -453,7 +627,222 @@ export default function NotaSemestral() {
                   ))}
                 </div>
               </section>
+              {/* REAL WORLD USE CASES */}
+              <section className="mb-12">
 
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Casos reales donde calcular la nota semestral resulta útil
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-8">
+                  La mayoría de los estudiantes utilizan una calculadora de nota semestral únicamente antes de los exámenes finales, pero también puede ayudarte durante todo el semestre. Conocer tu promedio actualizado facilita la planificación del estudio, permite detectar materias en riesgo y ayuda a establecer objetivos realistas antes de cada evaluación.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-5">
+
+                  <div className="rounded-2xl border border-gray-200 p-6">
+                    <h3 className="font-bold text-xl mb-3">Antes de un examen parcial</h3>
+                    <p className="text-gray-700 leading-7">
+                      Calcula cuánto influirá el próximo examen en tu promedio y decide cuánto tiempo dedicar a cada asignatura.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6">
+                    <h3 className="font-bold text-xl mb-3">Antes del examen final</h3>
+                    <p className="text-gray-700 leading-7">
+                      Descubre la nota mínima que necesitas para aprobar o alcanzar una determinada calificación final.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6">
+                    <h3 className="font-bold text-xl mb-3">Durante todo el semestre</h3>
+                    <p className="text-gray-700 leading-7">
+                      Actualiza tus resultados después de cada tarea, proyecto o prueba para controlar tu progreso académico.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6">
+                    <h3 className="font-bold text-xl mb-3">Al finalizar el curso</h3>
+                    <p className="text-gray-700 leading-7">
+                      Comprueba si tu promedio coincide con la nota oficial publicada por el profesor o la universidad.
+                    </p>
+                  </div>
+
+                </div>
+
+              </section>{/* HOW UNIVERSITIES CALCULATE */}
+              <section className="mb-12">
+
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Cómo suelen calcular las universidades la nota semestral
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Cada institución utiliza un sistema diferente, aunque la mayoría combina tareas, proyectos, exámenes parciales, participación y un examen final mediante porcentajes ponderados.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+
+                  <table className="w-full">
+
+                    <thead>
+
+                      <tr className="bg-blue-600 text-white">
+
+                        <th className="px-5 py-4 text-left">Elemento</th>
+
+                        <th className="px-5 py-4 text-left">Peso habitual</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr className="border-b">
+
+                        <td className="px-5 py-4">Tareas</td>
+
+                        <td className="px-5 py-4">10%–30%</td>
+
+                      </tr>
+
+                      <tr className="border-b">
+
+                        <td className="px-5 py-4">Proyectos</td>
+
+                        <td className="px-5 py-4">15%–30%</td>
+
+                      </tr>
+
+                      <tr className="border-b">
+
+                        <td className="px-5 py-4">Exámenes parciales</td>
+
+                        <td className="px-5 py-4">20%–40%</td>
+
+                      </tr>
+
+                      <tr>
+
+                        <td className="px-5 py-4">Examen final</td>
+
+                        <td className="px-5 py-4">20%–40%</td>
+
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </section>{/* WHEN RESULTS ARE DIFFERENT */}
+              <section className="mb-12">
+
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-7">
+
+                  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                    ¿Por qué tu resultado puede ser diferente al de tu profesor?
+                  </h2>
+
+                  <p className="text-gray-700 leading-8 mb-5">
+                    Si el resultado obtenido con la calculadora no coincide exactamente con la nota publicada por tu profesor, normalmente se debe a diferencias en el sistema de evaluación utilizado.
+                  </p>
+
+                  <ul className="space-y-3 text-gray-700">
+
+                    <li>• Créditos adicionales.</li>
+
+                    <li>• Redondeo de decimales.</li>
+
+                    <li>• Participación en clase.</li>
+
+                    <li>• Asistencia.</li>
+
+                    <li>• Penalizaciones.</li>
+
+                    <li>• Escalas propias de la institución.</li>
+
+                  </ul>
+
+                </div>
+
+              </section>{/* GLOSSARY */}
+              <section className="mb-12">
+
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Glosario de términos
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-5">
+
+                  <div className="rounded-xl border p-5">
+
+                    <h3 className="font-bold mb-2">
+                      Promedio ponderado
+                    </h3>
+
+                    <p className="text-gray-700 leading-7">
+                      Sistema donde cada evaluación tiene un peso diferente.
+                    </p>
+
+                  </div>
+
+                  <div className="rounded-xl border p-5">
+
+                    <h3 className="font-bold mb-2">
+                      Nota objetivo
+                    </h3>
+
+                    <p className="text-gray-700 leading-7">
+                      Calificación que deseas conseguir al finalizar el semestre.
+                    </p>
+
+                  </div>
+
+                  <div className="rounded-xl border p-5">
+
+                    <h3 className="font-bold mb-2">
+                      Créditos
+                    </h3>
+
+                    <p className="text-gray-700 leading-7">
+                      Valor académico asignado a una asignatura.
+                    </p>
+
+                  </div>
+
+                  <div className="rounded-xl border p-5">
+
+                    <h3 className="font-bold mb-2">
+                      GPA
+                    </h3>
+
+                    <p className="text-gray-700 leading-7">
+                      Promedio académico utilizado principalmente en universidades.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </section>{/* FINAL NOTE */}
+              <section className="mb-12">
+
+                <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 p-8 text-white">
+
+                  <h2 className="text-3xl font-black mb-4">
+                    Planifica tu semestre con mayor precisión
+                  </h2>
+
+                  <p className="leading-8 text-blue-100">
+                    Utilizar una calculadora de nota semestral de forma regular te permite conocer tu rendimiento académico en cualquier momento del curso. En lugar de esperar al resultado final, puedes calcular tu promedio después de cada evaluación, identificar las asignaturas que requieren más atención y tomar decisiones basadas en datos antes de que sea demasiado tarde.
+                  </p>
+
+                </div>
+
+              </section>
               {/* COMMON MISTAKES */}
               <section className="mb-12">
                 <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
@@ -507,7 +896,7 @@ export default function NotaSemestral() {
               {/* FAQ */}
               <section>
                 <section className="bg-gray-50 py-14 border-t">
-                  <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                  <div className="xl:px-[69px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
                     {/* LEFT */}
                     <div>

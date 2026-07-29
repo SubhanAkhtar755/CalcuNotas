@@ -481,7 +481,7 @@ const FAQS = [
 // ─── COMPONENTE PRINCIPAL ──────────────────────────────────────────────────────
 export default function CalificadorRapidoPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
       {/* ── Schema JSON-LD ────────────────────────────────────────────────── */}
@@ -491,8 +491,8 @@ export default function CalificadorRapidoPage() {
       />
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
 
           {/* Breadcrumb — NUEVO con itemScope */}
           <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
@@ -557,9 +557,75 @@ export default function CalificadorRapidoPage() {
         </div>
       </section>
 
+<section className="mb-12 px-8">
+  <h2 className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    Calificador Rápido vs Calculadora de Notas
+  </h2>
+
+  <div className="grid md:grid-cols-2 gap-5">
+    <div className="border rounded-2xl p-5 bg-blue-50">
+      <h3 className="font-semibold mb-3">
+        Calificador Rápido
+      </h3>
+      <ul className="space-y-2 text-gray-700">
+        <li>✓ Genera una tabla completa</li>
+        <li>✓ Ideal para profesores</li>
+        <li>✓ Muestra todos los puntajes posibles</li>
+        <li>✓ Útil para imprimir y corregir exámenes</li>
+      </ul>
+    </div>
+
+    <div className="border rounded-2xl p-5 bg-green-50">
+      <h3 className="font-semibold mb-3">
+        Calculadora de Notas
+      </h3>
+      <ul className="space-y-2 text-gray-700">
+        <li>✓ Calcula un resultado específico</li>
+        <li>✓ Ideal para estudiantes</li>
+        <li>✓ Solo muestra una nota</li>
+        <li>✓ Útil para revisar resultados individuales</li>
+      </ul>
+    </div>
+  </div>
+</section><section className="mb-12 px-8">
+  <h2 className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    Preguntas en Blanco y Penalización por Error
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-4">
+    La mayoría de los exámenes escolares califican únicamente las respuestas
+    correctas. En estos casos, las preguntas en blanco y las respuestas
+    incorrectas tienen el mismo efecto: no suman puntos.
+  </p>
+
+  <p className="text-gray-700 leading-8">
+    Algunos exámenes tipo test aplican penalización por error. Cuando existe
+    penalización, cada respuesta incorrecta reduce parte del puntaje obtenido.
+    En esos casos es recomendable utilizar una calculadora específica para
+    exámenes con corrección negativa.
+  </p>
+</section><section className="mb-12 px-8">
+  <h2 className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    Cómo Imprimir una Tabla de Calificaciones
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-4">
+    Muchos profesores imprimen tablas de calificación para corregir exámenes
+    más rápidamente en el aula o en casa.
+  </p>
+
+  <ol className="list-decimal pl-6 text-gray-700 space-y-2">
+    <li>Ingresa el total de preguntas.</li>
+    <li>Genera la tabla completa.</li>
+    <li>Presiona Ctrl + P en Windows o Cmd + P en Mac.</li>
+    <li>Selecciona guardar como PDF o imprimir.</li>
+  </ol>
+</section>
+
+
       {/* ── CALCULADORA + SIDEBAR ─────────────────────────────────────────── */}
       <section className="pb-8" aria-label="Calificador rápido de exámenes">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start px-8">
           <EasyGradeCalculatorLab />
           <div className="space-y-6">
             <RightSidebar />
@@ -570,7 +636,7 @@ export default function CalificadorRapidoPage() {
 
       {/* ── CONTENIDO SEO / AEO ───────────────────────────────────────────── */}
       <section className="pb-14" aria-label="Guía completa: calificador rápido para profesores">
-        <div className="w-[min(1120px,94%)] mx-auto">
+        <div className=" mx-auto">
           <article
             className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden"
             itemScope

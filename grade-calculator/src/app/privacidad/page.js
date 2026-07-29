@@ -21,19 +21,77 @@ export const metadata = {
     "política de privacidad sitio web calculadora",
     "privacidad calculadora notas estudiantes",
   ],
+
+  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
+  
+  openGraph: {
+    title: "Política de Privacidad | CalcuNotas",
+    description:
+      "Cómo CalcuNotas maneja la información en sus calculadoras de notas, GPA, nota final y calificación rápida.",
+    url: "https://calcunotas.com/privacidad/",
+    type: "website",
+  },
+
   alternates: {
     canonical: "https://calcunotas.com/privacidad/",
   },
 };
 
+// ────────────────────────────────────────────────────────────
+// GAP FIX: Privacy page par pehle koi JSON-LD nahi tha.
+// WebPage (with machine-readable dateModified) + BreadcrumbList add kiya.
+// "Última actualización: Enero 2026" pehle sirf visual text tha, ab
+// dateModified se bhi backed hai taake Google ise date ke sath samjhe.
+// ────────────────────────────────────────────────────────────
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Política de Privacidad | CalcuNotas",
+    url: "https://calcunotas.com/privacidad/",
+    description:
+      "Política de Privacidad de CalcuNotas: cómo manejamos la información en nuestras calculadoras de notas, GPA, nota final y calificación rápida.",
+    dateModified: "2026-01-01",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Política de Privacidad",
+        item: "https://calcunotas.com/privacidad/",
+      },
+    ],
+  },
+];
+
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#111827]">
+    <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
+      {/* GAP FIX: schema script tag page me pehli baar add hua */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       <InvisibleHeader />
 
       {/* HERO */}
-      <section className="pt-10 pb-10 bg-gradient-to-b from-blue-50 to-[#f7f9fc]">
-        <div className="w-[min(1120px,94%)] mx-auto">
+      <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
+        <div className=" mx-auto">
           <div className="text-sm text-gray-500 mb-3">
             Inicio / Política de Privacidad
           </div>
@@ -52,8 +110,8 @@ export default function PrivacyPage() {
       </section>
 
       {/* CONTENT + SIDEBAR */}
-      <section className="py-12">
-        <div className="w-[min(1120px,94%)] mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
+      <section className="py-12 px-8">
+        <div className=" mx-auto grid lg:grid-cols-[1fr_310px] gap-6 items-start">
 
           {/* MAIN CONTENT */}
           <article className="bg-white border border-gray-200 rounded-2xl shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-7 md:p-9">
