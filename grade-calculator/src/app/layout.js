@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         {/* Google Adsence */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7312405592713142"
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1059794943801498"
           crossorigin="anonymous"></script>
 
 
