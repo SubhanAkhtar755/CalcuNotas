@@ -569,7 +569,282 @@ export default function NotaSemestral() {
                   </table>
                 </div>
               </section>
+              {/* ── GAP 1: EXTRA CREDIT ─────────────────────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Cómo afecta el crédito extra a tu nota semestral?
+                </h2>
 
+                <p className="text-gray-700 leading-8 mb-5">
+                  Algunas clases permiten obtener puntos adicionales mediante tareas
+                  opcionales, actividades de recuperación, participación o proyectos
+                  especiales. El crédito extra puede aumentar tu nota, pero la forma de
+                  calcularlo depende de cómo lo defina el profesor.
+                </p>
+
+                <div className="grid gap-5 md:grid-cols-2 mb-6">
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Puntos adicionales
+                    </h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Si el profesor suma puntos directamente a tu resultado, por ejemplo
+                      450 puntos obtenidos más 20 puntos de crédito extra sobre una base de
+                      500 puntos, el cálculo debe seguir exactamente la regla establecida
+                      para ese curso.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Porcentaje adicional
+                    </h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      En otros cursos, el crédito extra puede añadirse como un porcentaje
+                      adicional. Por ejemplo, un profesor puede otorgar hasta 2 puntos
+                      porcentuales sobre la nota final.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                  <p className="text-gray-700 leading-8">
+                    <strong>Importante:</strong> no existe una única fórmula universal para
+                    el crédito extra. Antes de añadir puntos a la calculadora, comprueba si
+                    el profesor los suma a una categoría, al total de puntos o directamente
+                    al porcentaje final.
+                  </p>
+                </div>
+              </section>{/* ── GAP 2: DROP LOWEST GRADE ────────────────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Qué pasa si el profesor elimina la nota más baja?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Algunos cursos permiten eliminar la calificación más baja de una serie de
+                  tareas, pruebas o exámenes. En ese caso, no debes incluir automáticamente
+                  todas las notas en el promedio: primero hay que identificar qué evaluación
+                  se elimina y después recalcular el promedio con las restantes.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-6">
+                  <table className="w-full min-w-[620px] border-collapse">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-4 text-left font-bold">Prueba</th>
+                        <th className="px-5 py-4 text-left font-bold">Nota</th>
+                        <th className="px-5 py-4 text-left font-bold">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["Prueba 1", "82%", "Cuenta"],
+                        ["Prueba 2", "91%", "Cuenta"],
+                        ["Prueba 3", "68%", "Se elimina"],
+                        ["Prueba 4", "88%", "Cuenta"],
+                      ].map((row, index) => (
+                        <tr key={index} className="border-b border-gray-200 bg-white">
+                          {row.map((cell, i) => (
+                            <td key={i} className="px-5 py-4 text-gray-700 text-[15px]">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                  <p className="text-gray-700 leading-8">
+                    Si las cuatro pruebas tienen el mismo peso y se elimina el 68%, el
+                    promedio restante sería:
+                    <strong> (82 + 91 + 88) ÷ 3 = 87%</strong>.
+                    Si las pruebas tienen pesos diferentes, primero debes aplicar los pesos
+                    correspondientes y confirmar qué evaluación puede eliminarse según las
+                    reglas del curso.
+                  </p>
+                </div>
+              </section>{/* ── GAP 3: MISSING / FUTURE GRADES ──────────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Cómo calcular tu promedio si todavía faltan algunas notas?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Durante el semestre normalmente no tienes todas las calificaciones. Puedes
+                  calcular tu promedio actual utilizando únicamente las evaluaciones que ya
+                  están calificadas y después estimar qué resultado necesitas en las
+                  evaluaciones pendientes.
+                </p>
+
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Promedio actual
+                    </h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Incluye solamente las categorías o evaluaciones que ya tienen una
+                      calificación. Esto te permite saber dónde estás antes de presentar
+                      los próximos exámenes o proyectos.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Promedio proyectado
+                    </h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Puedes introducir una nota estimada para las evaluaciones pendientes
+                      y comprobar cómo cambiaría tu promedio si obtienes ese resultado.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5 mt-6">
+                  <h3 className="font-bold text-purple-900 mb-2">
+                    Consejo de planificación
+                  </h3>
+                  <p className="text-gray-700 leading-7">
+                    Si todavía falta el examen final, no interpretes tu promedio actual como
+                    tu calificación definitiva. El peso de las evaluaciones pendientes puede
+                    cambiar considerablemente el resultado final.
+                  </p>
+                </div>
+              </section>{/* ── GAP 4: IMPOSSIBLE TARGET ────────────────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Qué significa si necesitas más de 100% en el examen final?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Si el cálculo indica que necesitas más de 100% en el examen final,
+                  matemáticamente significa que tu nota objetivo ya no puede alcanzarse
+                  utilizando únicamente esa evaluación. No significa que la calculadora
+                  esté equivocada.
+                </p>
+
+                <div className="rounded-2xl border border-red-100 bg-red-50 p-6 mb-5">
+                  <h3 className="text-xl font-bold text-red-900 mb-3">
+                    Ejemplo
+                  </h3>
+
+                  <p className="text-gray-700 leading-7 mb-4">
+                    Imagina que tu promedio actual es 65% y el examen final representa solo
+                    el 20% del curso. Si quieres terminar con 90%, incluso una puntuación
+                    perfecta en el examen puede no ser suficiente.
+                  </p>
+
+                  <div className="font-mono text-[14px] text-gray-700">
+                    <p>Máximo aporte del final = 100% × 20% = 20 puntos</p>
+                    <p className="mt-2">
+                      Si el resto del curso no permite alcanzar la meta, el resultado será
+                      superior al 100%.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-gray-700 leading-8">
+                  Cuando esto ocurre, revisa si todavía existen otras oportunidades como
+                  crédito extra, tareas pendientes, recuperación de evaluaciones o cambios
+                  permitidos en la ponderación. La política concreta depende del curso.
+                </p>
+              </section>{/* ── GAP 5: FINAL EXAM SCENARIOS ─────────────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Cómo cambiaría tu nota según el resultado del examen final?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Una forma práctica de planificar el final es comparar varios resultados
+                  posibles. Supón que tienes un promedio actual del 84% y que el examen final
+                  representa el 30% de la nota del curso.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[620px] border-collapse">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-4 text-left font-bold">Nota en el final</th>
+                        <th className="px-5 py-4 text-left font-bold">Aporte del final</th>
+                        <th className="px-5 py-4 text-left font-bold">Nota final estimada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["60%", "18 puntos", "79,2%"],
+                        ["70%", "21 puntos", "82,2%"],
+                        ["80%", "24 puntos", "85,2%"],
+                        ["90%", "27 puntos", "88,2%"],
+                        ["100%", "30 puntos", "91,2%"],
+                      ].map((row, index) => (
+                        <tr key={index} className="border-b border-gray-200 bg-white">
+                          {row.map((cell, i) => (
+                            <td key={i} className="px-5 py-4 text-gray-700 text-[15px]">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <p className="text-gray-500 text-[13px] mt-3">
+                  Ejemplo basado en un promedio previo del 84% que representa el 70% del
+                  curso y un examen final que representa el 30%.
+                </p>
+              </section>{/* ── GAP 6: CREDIT-HOUR WEIGHTED AVERAGE ─────────────────────────────── */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  ¿Cómo influyen los créditos de cada asignatura en el promedio?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  En algunas universidades, las asignaturas no tienen todas el mismo número
+                  de créditos. Una materia de 4 créditos puede influir más en el promedio
+                  académico que una materia de 2 créditos. En estos casos se utiliza un
+                  promedio ponderado por créditos.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-6">
+                  <table className="w-full min-w-[650px] border-collapse">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-4 text-left font-bold">Asignatura</th>
+                        <th className="px-5 py-4 text-left font-bold">Nota</th>
+                        <th className="px-5 py-4 text-left font-bold">Créditos</th>
+                        <th className="px-5 py-4 text-left font-bold">Nota × Créditos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["Matemáticas", "90", "4", "360"],
+                        ["Historia", "80", "3", "240"],
+                        ["Biología", "85", "2", "170"],
+                      ].map((row, index) => (
+                        <tr key={index} className="border-b border-gray-200 bg-white">
+                          {row.map((cell, i) => (
+                            <td key={i} className="px-5 py-4 text-gray-700 text-[15px]">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                  <p className="text-gray-700 leading-8">
+                    Promedio ponderado =
+                    <strong> (360 + 240 + 170) ÷ (4 + 3 + 2) = 85,56%</strong>.
+                    De esta forma, una asignatura con más créditos tiene una influencia
+                    proporcionalmente mayor sobre el promedio.
+                  </p>
+                </div>
+              </section>
               {/* WHO CAN USE */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
@@ -927,7 +1202,41 @@ export default function NotaSemestral() {
                           exámenes, pesos por categoría, créditos o puntos.
                         </p>
                       </details>
-
+                      {/* ── GAP 7A: FAQ — DROP LOWEST GRADE ────────────────────────────────── */}
+                      <details className="group border-b border-slate-700 pb-4">
+                        <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
+                          <h3>¿Cómo calculo mi promedio si se elimina mi nota más baja?</h3>
+                          <span className="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p className="mt-4 text-slate-400">
+                          Primero identifica la evaluación que el profesor permite eliminar y después
+                          calcula el promedio utilizando únicamente las notas que cuentan. Si las
+                          evaluaciones tienen pesos diferentes, debes aplicar también esos pesos.
+                        </p>
+                      </details>{/* ── GAP 7B: FAQ — EXTRA CREDIT ─────────────────────────────────────── */}
+                      <details className="group border-b border-slate-700 pb-4">
+                        <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
+                          <h3>¿Puedo incluir crédito extra en mi nota semestral?</h3>
+                          <span className="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p className="mt-4 text-slate-400">
+                          Sí, pero primero debes comprobar cómo aplica el crédito extra tu profesor.
+                          Puede añadirse a una categoría, al total de puntos o directamente al
+                          porcentaje final. No existe una única regla para todos los cursos.
+                        </p>
+                      </details>{/* ── GAP 7C: FAQ — REQUIRED FINAL OVER 100 ───────────────────────────── */}
+                      <details className="group border-b border-slate-700 pb-4">
+                        <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
+                          <h3>¿Qué significa si necesito más de 100% en el examen final?</h3>
+                          <span className="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p className="mt-4 text-slate-400">
+                          Significa que tu nota objetivo no puede alcanzarse únicamente con el examen
+                          final y las ponderaciones actuales. Revisa si existen otras evaluaciones,
+                          crédito extra, recuperación u oportunidades adicionales permitidas por tu
+                          curso.
+                        </p>
+                      </details>
                       <details className="group border-b border-slate-700 pb-4">
                         <summary className="cursor-pointer list-none flex justify-between items-center text-white font-medium">
                           <h3>¿Cómo calculo mi nota del semestre?</h3>

@@ -600,6 +600,31 @@ const FAQS = [
     q: "¿Cómo calculo la nota final con varios parciales de distintos porcentajes?",
     a: "Multiplica cada nota parcial por su porcentaje (en decimal) y suma los resultados. Eso es tu nota acumulada. Ejemplo: Parcial 1 (6,0 × 0,20) + Parcial 2 (7,0 × 0,30) + Trabajos (5,5 × 0,10) = 1,2 + 2,1 + 0,55 = 3,85 sobre el 60 % acumulado.",
   },
+  // ── GAP 7: NUEVAS FAQS LONG-TAIL ───────────────────────────────────────
+{
+  q: "¿Cuál es la nota máxima que puedo obtener si saco la puntuación máxima en el examen?",
+  a: "Puedes calcularla suponiendo que obtienes la nota máxima de tu escala en el examen. Usa: Nota máxima = Nota actual × (1 − Peso) + Nota máxima del examen × Peso. Esto permite comprobar si una meta alta todavía es matemáticamente alcanzable.",
+},
+{
+  q: "¿Qué pasa si necesito exactamente un 10 en el examen final?",
+  a: "Si la calculadora indica exactamente 10, significa que necesitas obtener la puntuación máxima de la escala para alcanzar tu meta. Matemáticamente es posible si 10 es el máximo, pero no existe margen para perder puntos en el examen. Si el resultado supera 10, la meta ya no puede alcanzarse únicamente con el examen final.",
+},
+{
+  q: "¿Cómo sé si ya tengo aprobado antes de hacer el examen final?",
+  a: "Calcula tu nota final suponiendo diferentes resultados en el examen, incluido el mínimo permitido por tu asignatura. Si incluso con una nota baja mantienes la calificación aprobatoria, tienes margen. Sin embargo, algunas asignaturas exigen una nota mínima específica en el examen final aunque el promedio ponderado sea suficiente.",
+},
+{
+  q: "¿Cuánto cambia mi nota final por cada punto que saco en el examen?",
+  a: "El cambio depende del peso del examen. Si el final vale el 40 %, cada punto adicional en el examen aporta 0,40 puntos a la nota final. Si vale el 60 %, cada punto adicional aporta 0,60 puntos.",
+},
+{
+  q: "¿Cómo calculo qué nota necesito si el examen final vale solo el 20 %?",
+  a: "Utiliza la misma fórmula: Nota necesaria = (Meta − Nota actual × (1 − 0,20)) ÷ 0,20. Como el examen pesa poco, la nota actual tiene mucho más impacto y puede resultar imposible alcanzar metas muy superiores al promedio acumulado.",
+},
+{
+  q: "¿Es mejor calcular la nota mínima o una nota objetivo con margen?",
+  a: "La nota mínima representa el resultado matemático necesario para alcanzar la meta. Para estudiar, puede ser más prudente utilizar un objetivo algo superior, porque un examen real puede contener preguntas más difíciles de lo esperado y no siempre conviene depender de una puntuación exacta.",
+},
   {
     q: "¿Cuál es la diferencia entre nota mínima y nota de corte?",
     a: "La nota mínima es el umbral para aprobar una asignatura (p. ej. 5/10 en España). La nota de corte es la calificación mínima para acceder a un programa universitario en el proceso de admisión. Son conceptos distintos: la nota mínima la fija el docente; la nota de corte la fija la institución o el sistema de acceso.",
@@ -1062,7 +1087,365 @@ export default function NotaFinalPage() {
                   </table>
                 </div>
               </section>
+{/* ── GAP 1: NOTA MÁXIMA POSIBLE ─────────────────────────────────────── */}
+<section className="mb-12" aria-labelledby="maxima-heading">
+  <h2
+    id="maxima-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    ¿Cuál es la nota máxima que puedes obtener en el curso?
+  </h2>
 
+  <p className="text-gray-700 leading-8 mb-4">
+    Si quieres saber hasta dónde puedes llegar antes de presentar el examen,
+    calcula tu <strong>nota máxima posible</strong> suponiendo que obtienes la
+    puntuación máxima en el final. Esto es especialmente útil cuando tu objetivo
+    es un notable, sobresaliente o una calificación concreta.
+  </p>
+
+  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-5">
+    Nota máxima = Nota actual × (1 − Peso) + Nota máxima del examen × Peso
+  </div>
+
+  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+    <h3 className="font-semibold text-gray-800 mb-3">
+      Ejemplo: nota actual 6,5 y examen final del 40 %
+    </h3>
+
+    <p className="text-gray-700 text-[15px] leading-7 mb-3">
+      En una escala de 0 a 10, si llevas un <strong>6,5</strong> y el examen
+      representa el <strong>40 %</strong>, incluso sacando un 10 en el final tu
+      nota máxima será:
+    </p>
+
+    <div className="space-y-1 text-[14px] font-mono text-gray-700">
+      <p>6,5 × 0,60 + 10 × 0,40</p>
+      <p>= 3,90 + 4,00</p>
+      <p className="text-blue-700 font-bold">
+        = 7,90 sobre 10
+      </p>
+    </div>
+
+    <p className="text-gray-600 text-[13px] leading-6 mt-3">
+      Por tanto, una meta de 8,0 ya no sería alcanzable únicamente mediante
+      este examen. Esta comprobación permite saber tu techo real antes de
+      invertir tiempo en una meta imposible.
+    </p>
+  </div>
+</section>{/* ── GAP 2: COMPARACIÓN NUMÉRICA DEL PESO ───────────────────────────── */}
+<section className="mb-12" aria-labelledby="comparacion-peso-heading">
+  <h2
+    id="comparacion-peso-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    ¿Cómo cambia tu nota según el peso del examen final?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    El mismo resultado en un examen puede tener un impacto muy diferente
+    dependiendo de su porcentaje. Por ejemplo, si tienes una nota actual de
+    <strong> 6,0 sobre 10</strong>, observa cómo cambia la nota definitiva si
+    obtienes un <strong>8,0</strong> en el examen.
+  </p>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200">
+    <table className="w-full min-w-[620px] border-collapse text-[14px]">
+      <caption className="sr-only">
+        Impacto del peso del examen final sobre una nota actual de 6 y un examen de 8
+      </caption>
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th scope="col" className="px-4 py-3 text-left font-semibold">
+            Peso del final
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Nota actual
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Nota examen
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Nota definitiva
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Cambio
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ["20 %", "6,0", "8,0", "6,40", "+0,40"],
+          ["30 %", "6,0", "8,0", "6,60", "+0,60"],
+          ["40 %", "6,0", "8,0", "6,80", "+0,80"],
+          ["50 %", "6,0", "8,0", "7,00", "+1,00"],
+          ["60 %", "6,0", "8,0", "7,20", "+1,20"],
+        ].map((row, i) => (
+          <tr key={i} className="border-t border-gray-100">
+            <td className="px-4 py-3 font-medium text-gray-800">
+              {row[0]}
+            </td>
+            <td className="px-4 py-3 text-center text-gray-700">
+              {row[1]}
+            </td>
+            <td className="px-4 py-3 text-center text-gray-700">
+              {row[2]}
+            </td>
+            <td className="px-4 py-3 text-center font-bold text-gray-800">
+              {row[3]}
+            </td>
+            <td className="px-4 py-3 text-center font-semibold text-green-700">
+              {row[4]}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p className="text-[13px] text-gray-500 mt-2">
+    Cuanto mayor sea el peso del examen, mayor será el efecto de cada punto que
+    obtengas en esa prueba sobre tu calificación definitiva.
+  </p>
+</section>{/* ── GAP 3: EJEMPLO REAL CON VARIOS COMPONENTES ─────────────────────── */}
+<section className="mb-12" aria-labelledby="ejemplo-componentes-heading">
+  <h2
+    id="ejemplo-componentes-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    Ejemplo real: parciales, trabajos y examen final
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    En muchas asignaturas la nota actual no es una única calificación, sino
+    el resultado de varias evaluaciones. Antes de calcular qué necesitas en
+    el examen final, primero debes convertir todas esas actividades en una
+    nota acumulada correctamente ponderada.
+  </p>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-5">
+    <table className="w-full min-w-[620px] border-collapse text-[14px]">
+      <caption className="sr-only">
+        Ejemplo de cálculo de nota acumulada antes del examen final
+      </caption>
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th scope="col" className="px-4 py-3 text-left font-semibold">
+            Evaluación
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Nota
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Peso
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Aporte
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          ["Parcial 1", "6,0", "20 %", "1,20"],
+          ["Parcial 2", "7,0", "20 %", "1,40"],
+          ["Trabajos", "8,0", "10 %", "0,80"],
+          ["Prácticas", "7,0", "10 %", "0,70"],
+        ].map((row, i) => (
+          <tr key={i} className="border-t border-gray-100">
+            <td className="px-4 py-3 font-medium text-gray-800">{row[0]}</td>
+            <td className="px-4 py-3 text-center text-gray-700">{row[1]}</td>
+            <td className="px-4 py-3 text-center text-gray-700">{row[2]}</td>
+            <td className="px-4 py-3 text-center font-semibold text-blue-700">
+              {row[3]}
+            </td>
+          </tr>
+        ))}
+        <tr className="border-t border-gray-200 bg-gray-50">
+          <td className="px-4 py-3 font-bold text-gray-800" colSpan={3}>
+            Total acumulado antes del final
+          </td>
+          <td className="px-4 py-3 text-center font-bold text-gray-800">
+            4,10 / 10
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+    <h3 className="font-semibold text-gray-800 mb-2">
+      Ahora calcula el examen final
+    </h3>
+    <p className="text-gray-700 text-[15px] leading-7">
+      Las evaluaciones anteriores representan el <strong>60 %</strong> del
+      curso y el examen final el <strong>40 %</strong>. Si tu objetivo es
+      terminar con un <strong>5,0</strong>, no debes introducir 4,10 como si
+      fuera un promedio independiente del 60 %. Debes comprobar que el formato
+      de la calculadora corresponde a una nota acumulada sobre la escala final
+      utilizada por tu asignatura.
+    </p>
+  </div>
+</section>{/* ── GAP 4: NOTA ACTUAL VS PUNTOS ACUMULADOS ────────────────────────── */}
+<section className="mb-12" aria-labelledby="nota-actual-heading">
+  <h2
+    id="nota-actual-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    Nota actual y puntos acumulados: ¿son lo mismo?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    No siempre. Una de las confusiones más comunes es introducir en la
+    calculadora los <strong>puntos que ya has acumulado</strong> en lugar de
+    tu <strong>nota de presentación expresada en la misma escala</strong> que
+    utiliza el resultado final.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+      <h3 className="font-semibold text-blue-900 mb-2">
+        Nota de presentación
+      </h3>
+      <p className="text-gray-700 text-[14px] leading-6">
+        Es la calificación que llevas hasta ese momento según las reglas de
+        tu asignatura. Es el dato que debes utilizar cuando la calculadora
+        solicita tu nota actual.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 bg-white p-5">
+      <h3 className="font-semibold text-gray-800 mb-2">
+        Puntos acumulados
+      </h3>
+      <p className="text-gray-600 text-[14px] leading-6">
+        Son los puntos que has obtenido dentro del porcentaje ya evaluado.
+        No deben confundirse automáticamente con una nota final sobre 10, 7,
+        5 o 20.
+      </p>
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 mt-4 text-[14px] text-gray-700 leading-6">
+    <strong>Regla práctica:</strong> antes de introducir tu dato, comprueba si
+    tu profesor o plataforma muestra una nota de presentación ya normalizada.
+    Si solo muestra puntos acumulados, convierte primero esos puntos según el
+    sistema de evaluación de la asignatura.
+  </div>
+</section>{/* ── GAP 5: MARGEN DE SEGURIDAD ─────────────────────────────────────── */}
+<section className="mb-12" aria-labelledby="margen-heading">
+  <h2
+    id="margen-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    ¿Debes apuntar exactamente a la nota mínima?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    La calculadora te muestra la puntuación matemática mínima para alcanzar
+    tu objetivo, pero esa cifra no siempre debería ser tu objetivo de estudio.
+    Si necesitas exactamente un <strong>5,0</strong>, intentar sacar justo un
+    5,0 deja poco margen ante errores, preguntas difíciles o diferencias de
+    redondeo.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    {[
+      {
+        titulo: "Mínimo matemático",
+        texto:
+          "Es la nota exacta que necesitas según la fórmula para alcanzar tu meta.",
+      },
+      {
+        titulo: "Objetivo recomendado",
+        texto:
+          "Una puntuación algo superior al mínimo ofrece un margen adicional ante pequeños errores o variaciones de corrección.",
+      },
+      {
+        titulo: "Meta ambiciosa",
+        texto:
+          "Si necesitas mejorar mucho tu promedio, utiliza una meta superior para comprobar qué rendimiento exigiría realmente el examen.",
+      },
+    ].map((c) => (
+      <div
+        key={c.titulo}
+        className="rounded-2xl border border-gray-200 bg-white p-5"
+      >
+        <h3 className="font-semibold text-gray-800 mb-2">
+          {c.titulo}
+        </h3>
+        <p className="text-gray-600 text-[14px] leading-6">
+          {c.texto}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <p className="text-gray-500 text-[13px] leading-6 mt-4">
+    Importante: el margen recomendado depende de las reglas de tu institución.
+    La calculadora proporciona el resultado matemático; la decisión de qué
+    objetivo estudiar debe considerar también tu situación académica.
+  </p>
+</section>{/* ── GAP 6: VALOR DE CADA PUNTO DEL EXAMEN ──────────────────────────── */}
+<section className="mb-12" aria-labelledby="valor-punto-heading">
+  <h2
+    id="valor-punto-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
+  >
+    ¿Cuánto cambia tu nota final por cada punto del examen?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Una forma rápida de entender el peso del examen es calcular cuánto aporta
+    <strong> un punto adicional</strong> obtenido en el final. Si el examen
+    vale el 40 %, cada punto que subas en ese examen aporta 0,40 puntos a la
+    calificación final, siempre que el sistema utilice una ponderación lineal.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    {[
+      {
+        peso: "20 %",
+        aporte: "0,20 puntos",
+        texto:
+          "Subir de 7 a 8 en el examen aumenta la nota final en 0,20 puntos.",
+      },
+      {
+        peso: "30 %",
+        aporte: "0,30 puntos",
+        texto:
+          "Un punto adicional en el examen aporta 0,30 puntos a la nota final.",
+      },
+      {
+        peso: "40 %",
+        aporte: "0,40 puntos",
+        texto:
+          "Un punto adicional en el examen aporta 0,40 puntos a la nota final.",
+      },
+      {
+        peso: "60 %",
+        aporte: "0,60 puntos",
+        texto:
+          "Un punto adicional en el examen tiene un efecto considerable sobre la nota definitiva.",
+      },
+    ].map((c) => (
+      <div
+        key={c.peso}
+        className="rounded-2xl border border-gray-200 p-5 bg-white"
+      >
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <h3 className="font-semibold text-gray-800">
+            Examen: {c.peso}
+          </h3>
+          <span className="text-[12px] font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-700">
+            {c.aporte}
+          </span>
+        </div>
+        <p className="text-gray-600 text-[14px] leading-6">
+          {c.texto}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
               {/* ── ESCENARIOS REALES ─────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="escenarios-heading">
                 <h2

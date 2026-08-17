@@ -407,6 +407,15 @@ const FAQS = [
     q: "¿Qué pasa con el GPA si repito una materia?",
     a: "Depende de la institución. Algunas aplican 'grade forgiveness' y reemplazan la nota original. Otras promedian ambas notas. Consulta el reglamento académico de tu universidad antes de repetir una materia.",
   },
+  // ── GAP 6: SPECIAL-CASE FAQS ────────────────────────────────────────────
+{
+  q: "¿Cómo califico un examen si cada pregunta vale una cantidad diferente de puntos?",
+  a: "No debes contar solamente las respuestas correctas. Suma los puntos obtenidos por el estudiante, compáralos con el total de puntos posibles y calcula: (Puntos obtenidos ÷ Puntos posibles) × 100.",
+},
+{
+  q: "¿Cómo se calcula una nota cuando las respuestas incorrectas restan puntos?",
+  a: "Primero aplica la penalización indicada por el examen. Por ejemplo, si cada error resta 0,25 puntos, multiplica los errores por 0,25 y resta ese resultado de los puntos obtenidos antes de convertir la puntuación a porcentaje.",
+},
   {
     q: "¿Esta calculadora GPA es válida para bachillerato y universidad?",
     a: "Sí. Funciona para bachillerato, preparatoria, universidad y posgrado. El cálculo GPA en escala 4.0 es el mismo en todos los niveles. Los puntos adicionales para AP/IB solo aplican en bachillerato.",
@@ -765,7 +774,270 @@ export default function CalculadoraGPAPage() {
                   variar según la institución.
                 </p>
               </section>
+{/* ── GAP 1: LIMITACIONES Y CASOS ESPECIALES ─────────────────────────── */}
+<section className="mb-12" aria-labelledby="limitaciones-heading">
+  <h2
+    id="limitaciones-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    ¿Cuándo no debes usar la tabla de calificación estándar?
+  </h2>
 
+  <div className="space-y-5 text-gray-700 leading-8">
+    <p>
+      El calificador rápido funciona mejor cuando todas las preguntas tienen
+      el mismo valor y cada respuesta correcta suma el mismo número de puntos.
+      Si el examen utiliza reglas especiales, el porcentaje debe calcularse
+      primero con esas reglas antes de consultar una escala de notas.
+    </p>
+
+    <div className="grid gap-4 md:grid-cols-2">
+      {[
+        {
+          titulo: "Preguntas con diferente valor",
+          texto:
+            "Si una pregunta vale 5 puntos y otra vale 1 punto, contar ambas como una sola pregunta puede producir un porcentaje incorrecto. En este caso debes trabajar con puntos obtenidos y puntos posibles.",
+        },
+        {
+          titulo: "Penalización por respuestas incorrectas",
+          texto:
+            "Si una respuesta incorrecta resta puntos, no basta con restar los fallos del total. Primero aplica la penalización establecida por el examen.",
+        },
+        {
+          titulo: "Crédito parcial",
+          texto:
+            "Una respuesta puede recibir parte de los puntos aunque no sea completamente correcta. El resultado debe basarse en los puntos obtenidos, no simplemente en el número de preguntas acertadas.",
+        },
+        {
+          titulo: "Bonificaciones o puntos extra",
+          texto:
+            "Los puntos adicionales deben aplicarse según las reglas de la evaluación. No asumas que todos los exámenes permiten superar el 100 %.",
+        },
+      ].map((item) => (
+        <div
+          key={item.titulo}
+          className="rounded-2xl border border-gray-200 p-5 bg-white"
+        >
+          <h3 className="font-semibold text-gray-800 mb-2">
+            {item.titulo}
+          </h3>
+          <p className="text-gray-600 text-[14px] leading-6">
+            {item.texto}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div className="rounded-2xl border border-amber-100 bg-amber-50 p-5">
+      <p className="text-gray-700 text-[14px] leading-7">
+        <strong>Regla práctica:</strong> si todas las preguntas valen lo mismo,
+        puedes trabajar con el número de correctas e incorrectas. Si los
+        puntos tienen valores diferentes, calcula primero los puntos obtenidos
+        frente a los puntos posibles.
+      </p>
+    </div>
+  </div>
+</section>{/* ── GAP 2: CRÉDITO PARCIAL Y PREGUNTAS CON DIFERENTE VALOR ─────────── */}
+<section className="mb-12" aria-labelledby="puntos-heading">
+  <h2
+    id="puntos-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Cuando las preguntas tienen diferentes valores
+  </h2>
+
+  <div className="space-y-5 text-gray-700 leading-8">
+    <p>
+      No todos los exámenes pueden calificarse contando únicamente respuestas
+      correctas. En una evaluación con problemas de desarrollo, ejercicios
+      matemáticos o preguntas con crédito parcial, cada actividad puede aportar
+      una cantidad diferente de puntos.
+    </p>
+
+    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+      <h3 className="font-semibold text-gray-800 mb-3">
+        Ejemplo con 10 puntos posibles
+      </h3>
+
+      <div className="space-y-2 text-[14px] font-mono text-gray-700">
+        <p>Pregunta 1: 2 puntos → obtiene 2</p>
+        <p>Pregunta 2: 3 puntos → obtiene 2</p>
+        <p>Pregunta 3: 5 puntos → obtiene 4</p>
+        <p>Total obtenido = <strong>8 puntos</strong></p>
+        <p>Total posible = <strong>10 puntos</strong></p>
+      </div>
+    </div>
+
+    <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px]">
+      Porcentaje = (8 ÷ 10) × 100 = <strong>80 %</strong>
+    </div>
+
+    <p>
+      En este caso, decir simplemente que el estudiante obtuvo 2 de 3
+      preguntas correctas no representaría correctamente su rendimiento,
+      porque cada pregunta tiene un peso diferente. Para evaluaciones de este
+      tipo, utiliza el sistema de puntos definido por el profesor o la
+      institución.
+    </p>
+  </div>
+</section>{/* ── GAP 3: EJEMPLO DE PENALIZACIÓN POR RESPUESTAS INCORRECTAS ───────── */}
+<section className="mb-12" aria-labelledby="penalizacion-heading">
+  <h2
+    id="penalizacion-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Ejemplo de un examen con penalización por errores
+  </h2>
+
+  <div className="space-y-5 text-gray-700 leading-8">
+    <p>
+      Algunos exámenes tipo test restan puntos por cada respuesta incorrecta.
+      En ese caso, la fórmula básica de correctas sobre preguntas totales no
+      representa el resultado real porque los errores tienen un efecto
+      adicional sobre la puntuación.
+    </p>
+
+    <div className="rounded-2xl border border-gray-200 bg-white p-6">
+      <h3 className="font-semibold text-gray-800 mb-3">
+        Ejemplo
+      </h3>
+
+      <div className="space-y-2 text-[14px] font-mono text-gray-700">
+        <p>Total: 20 preguntas</p>
+        <p>Correctas: 15</p>
+        <p>Incorrectas: 5</p>
+        <p>Penalización: −0,25 puntos por cada incorrecta</p>
+        <p>Puntos por correctas: 15</p>
+        <p>Puntos descontados: 5 × 0,25 = 1,25</p>
+        <p>
+          Puntuación final = 15 − 1,25 = <strong>13,75 puntos</strong>
+        </p>
+      </div>
+    </div>
+
+    <p>
+      El porcentaje final dependerá de cómo el examen defina sus puntos
+      máximos. Por eso, cuando existe penalización, debes seguir primero la
+      fórmula oficial de esa evaluación y después convertir el resultado a la
+      escala de notas correspondiente.
+    </p>
+
+    <div className="rounded-2xl border border-amber-100 bg-amber-50 p-5">
+      <p className="text-gray-700 text-[14px] leading-7">
+        <strong>Importante:</strong> la tabla estándar de este calificador
+        supone que una respuesta incorrecta simplemente no suma puntos. No
+        debe utilizarse como sustituto de una fórmula específica de penalización.
+      </p>
+    </div>
+  </div>
+</section>{/* ── GAP 4: VERIFICACIÓN MANUAL DEL RESULTADO ───────────────────────── */}
+<section className="mb-12" aria-labelledby="verificar-heading">
+  <h2
+    id="verificar-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Cómo comprobar que una calificación es correcta
+  </h2>
+
+  <div className="space-y-5 text-gray-700 leading-8">
+    <p>
+      Aunque la tabla ahorra tiempo, un profesor puede verificar cualquier
+      resultado con una operación sencilla. Esto es especialmente útil cuando
+      se están registrando muchas notas o cuando una calificación parece
+      diferente de lo esperado.
+    </p>
+
+    <div className="grid gap-4 md:grid-cols-3">
+      {[
+        {
+          titulo: "1. Cuenta las correctas",
+          texto: "Comprueba cuántas respuestas obtuvo correctamente el estudiante.",
+        },
+        {
+          titulo: "2. Divide entre el total",
+          texto: "Divide las respuestas correctas entre el número total de preguntas.",
+        },
+        {
+          titulo: "3. Multiplica por 100",
+          texto: "El resultado de la división se multiplica por 100 para obtener el porcentaje.",
+        },
+      ].map((item) => (
+        <div
+          key={item.titulo}
+          className="rounded-2xl border border-gray-200 p-5 bg-white"
+        >
+          <h3 className="font-semibold text-gray-800 mb-2">
+            {item.titulo}
+          </h3>
+          <p className="text-gray-600 text-[14px] leading-6">
+            {item.texto}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px]">
+      18 correctas ÷ 25 preguntas × 100 = <strong>72 %</strong>
+    </div>
+
+    <p>
+      Si el resultado manual coincide con la fila correspondiente de la tabla,
+      el porcentaje está correctamente calculado. Después solo necesitas
+      aplicar la escala de notas utilizada por tu centro educativo.
+    </p>
+  </div>
+</section>{/* ── GAP 5: FLUJO REAL DE CALIFICACIÓN EN CLASE ─────────────────────── */}
+<section className="mb-12" aria-labelledby="flujo-heading">
+  <h2
+    id="flujo-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Flujo rápido para corregir una pila de exámenes
+  </h2>
+
+  <div className="space-y-5">
+    <p className="text-gray-700 leading-8">
+      Cuando todos los estudiantes realizan el mismo examen, el profesor puede
+      utilizar una única tabla como referencia para toda la clase. El proceso
+      consiste en contar los fallos, localizar la fila correspondiente y
+      registrar el resultado.
+    </p>
+
+    <div className="grid gap-4 md:grid-cols-4">
+      {[
+        ["1", "Cuenta", "Cuenta las respuestas incorrectas del examen."],
+        ["2", "Busca", "Localiza ese número de fallos en la tabla."],
+        ["3", "Comprueba", "Revisa correctas, porcentaje y nota."],
+        ["4", "Registra", "Anota la calificación siguiendo la misma escala."],
+      ].map(([num, titulo, texto]) => (
+        <div
+          key={num}
+          className="rounded-2xl border border-gray-200 p-5 bg-white"
+        >
+          <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm mb-3">
+            {num}
+          </div>
+
+          <h3 className="font-semibold text-gray-800 mb-2">
+            {titulo}
+          </h3>
+
+          <p className="text-gray-600 text-[13px] leading-6">
+            {texto}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+      <p className="text-gray-700 text-[14px] leading-7">
+        <strong>Consejo:</strong> utiliza la misma tabla y la misma política
+        de redondeo para todos los estudiantes del mismo examen. Esto reduce
+        errores y mantiene la calificación consistente.
+      </p>
+    </div>
+  </div>
+</section>
               {/* ── GPA SEMESTRAL VS ACUMULADO ────────────────────────────── */}
               <section className="mb-12" aria-labelledby="sem-vs-cum-heading">
                 <h2 id="sem-vs-cum-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">

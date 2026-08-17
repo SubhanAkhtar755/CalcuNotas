@@ -406,6 +406,23 @@ const FAQS = [
     q: "¿Cómo afectan los errores en un examen tipo test con penalización?",
     a: "La fórmula es: Nota = (Aciertos − Errores × Factor) ÷ Total × 10. El factor más habitual en España es 0,25 por error (exámenes con 4 opciones). Nuestra calculadora incluye este campo.",
   },
+  // ── GAP 6: FAQS ADICIONALES ─────────────────────────────────────────────
+  {
+    q: "¿Cómo se calcula la nota si las preguntas tienen diferente puntuación?",
+    a: "Cuando las preguntas tienen distinto valor, no debes contar únicamente los aciertos. Suma los puntos obtenidos, divide esa cantidad entre la puntuación máxima posible y multiplica por 100 para obtener el porcentaje. Después puedes convertir el resultado a la escala de tu examen.",
+  },
+  {
+    q: "¿Qué pasa si mi nota está justo cerca del aprobado?",
+    a: "El resultado puede depender de las reglas de redondeo aplicadas por tu centro o convocatoria. Por ejemplo, una nota calculada de 4,96 podría mostrarse como 5,0 si se redondea a una cifra decimal, pero no todos los sistemas utilizan la misma regla. Si estás cerca del límite, consulta los criterios oficiales.",
+  },
+  {
+    q: "¿Cómo puedo saber cuántos aciertos necesito para sacar un 7?",
+    a: "Sin penalización, multiplica el número total de preguntas por 0,70. Por ejemplo, en un examen de 50 preguntas necesitas 35 aciertos para alcanzar el 70%. Si existe penalización por errores, necesitas tener en cuenta también los puntos descontados.",
+  },
+  {
+    q: "¿Puedo calcular un examen con preguntas de distinto valor?",
+    a: "Si las preguntas tienen diferente puntuación, debes trabajar con los puntos obtenidos y los puntos máximos del examen en lugar de contar únicamente preguntas correctas. La fórmula general es: porcentaje = (puntos obtenidos ÷ puntos máximos) × 100.",
+  },
   {
     q: "¿Qué nota es un 75 % en escala española?",
     a: "Un 75 % equivale a un 7,5 sobre 10, que en España se llama Notable. En el sistema de letras anglosajón correspondería a una C+.",
@@ -1039,7 +1056,300 @@ export default function Home() {
                   exacto.
                 </p>
               </section>
+              {/* ── GAP 1: EXÁMENES CON PREGUNTAS DE DISTINTO VALOR ───────────────────── */}
+              <section className="mb-12" aria-labelledby="puntuacion-diferente-heading">
+                <h2
+                  id="puntuacion-diferente-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  ¿Cómo calcular la nota si cada pregunta vale puntos diferentes?
+                </h2>
 
+                <p className="text-gray-700 leading-8 mb-5">
+                  No todos los exámenes asignan el mismo valor a cada pregunta. En algunos,
+                  una respuesta puede valer 1 punto, mientras que un ejercicio de desarrollo
+                  puede valer 2, 3 o incluso más puntos. En estos casos no conviene contar
+                  simplemente los aciertos: primero hay que sumar los <strong>puntos obtenidos</strong>
+                  y compararlos con la puntuación máxima posible.
+                </p>
+
+                <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[14px] mb-5">
+                  Nota (%) = (Puntos obtenidos ÷ Puntos máximos) × 100
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 mb-5">
+                  <h3 className="font-semibold text-gray-800 mb-3">
+                    Ejemplo práctico
+                  </h3>
+
+                  <p className="text-gray-600 text-[14px] leading-6 mb-3">
+                    Un examen tiene 10 puntos en total. Un estudiante obtiene 7 puntos en
+                    preguntas tipo test y 1,5 puntos en ejercicios de desarrollo.
+                  </p>
+
+                  <div className="font-mono text-[13px] text-gray-700 space-y-1">
+                    <p>Puntos obtenidos = 7 + 1,5 = <strong>8,5 puntos</strong></p>
+                    <p>Porcentaje = (8,5 ÷ 10) × 100 = <strong>85 %</strong></p>
+                    <p className="text-blue-700 font-bold">
+                      Nota /10 = (8,5 ÷ 10) × 10 = <strong>8,5</strong>
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-gray-600 text-[14px] leading-7">
+                  Si tu examen utiliza preguntas con diferente puntuación, utiliza los
+                  puntos reales obtenidos y la puntuación máxima indicada en las instrucciones
+                  del examen. No asumas que todas las preguntas tienen el mismo peso.
+                </p>
+              </section>{/* ── GAP 2: CÁLCULO INVERSO — CUÁNTOS ACIERTOS NECESITO ─────────────── */}
+              <section className="mb-12" aria-labelledby="aciertos-necesarios-heading">
+                <h2
+                  id="aciertos-necesarios-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  ¿Cuántos aciertos necesito para conseguir una nota determinada?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-5">
+                  También puedes hacer el cálculo al revés: en lugar de saber qué nota
+                  obtienes con tus aciertos, puedes calcular cuántos <strong>aciertos netos</strong>
+                  necesitas para alcanzar un 5, 6, 7 u otra nota objetivo.
+                </p>
+
+                <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-mono text-center text-[14px] mb-5">
+                  Aciertos netos necesarios = Total × (Nota objetivo ÷ 10)
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3 mb-5">
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">Aprobar con 5/10</h3>
+                    <p className="text-gray-600 text-[14px] leading-6 mb-2">
+                      En un examen de 40 preguntas sin penalización:
+                    </p>
+                    <p className="font-mono text-[13px] text-gray-700">
+                      40 × 0,50 = <strong className="text-green-700">20 aciertos</strong>
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">Llegar a 6/10</h3>
+                    <p className="text-gray-600 text-[14px] leading-6 mb-2">
+                      En el mismo examen:
+                    </p>
+                    <p className="font-mono text-[13px] text-gray-700">
+                      40 × 0,60 = <strong className="text-blue-700">24 aciertos</strong>
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">Llegar a 7/10</h3>
+                    <p className="text-gray-600 text-[14px] leading-6 mb-2">
+                      Para conseguir un notable:
+                    </p>
+                    <p className="font-mono text-[13px] text-gray-700">
+                      40 × 0,70 = <strong className="text-purple-700">28 aciertos</strong>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
+                  <h3 className="font-semibold text-purple-800 mb-2">
+                    ¿Y si existe penalización?
+                  </h3>
+                  <p className="text-gray-700 text-[14px] leading-7">
+                    En ese caso no basta con alcanzar el número bruto de aciertos. Hay que
+                    conseguir suficientes puntos después de restar los errores. Por ejemplo,
+                    con un factor de 0,25, cuatro errores equivalen a perder un acierto neto.
+                    Por eso el número de aciertos brutos necesario puede ser superior al
+                    indicado en una tabla sin penalización.
+                  </p>
+                </div>
+              </section>{/* ── GAP 3: ESTRATEGIA CON PENALIZACIÓN ───────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="estrategia-penalizacion-heading">
+                <h2
+                  id="estrategia-penalizacion-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  ¿Conviene responder si el examen penaliza los errores?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-5">
+                  Cuando una respuesta incorrecta resta puntos, la decisión de responder al
+                  azar depende del factor de penalización y de cuánta información tengas.
+                  No existe una regla universal para todos los exámenes: debes comprobar
+                  siempre las instrucciones oficiales de tu prueba.
+                </p>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <div className="text-[24px] mb-2" aria-hidden="true">✅</div>
+                    <h3 className="font-semibold text-gray-800 mb-2">
+                      Si estás seguro
+                    </h3>
+                    <p className="text-gray-600 text-[14px] leading-6">
+                      Responder tiene sentido cuando conoces la respuesta o puedes descartar
+                      claramente las alternativas incorrectas.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <div className="text-[24px] mb-2" aria-hidden="true">🤔</div>
+                    <h3 className="font-semibold text-gray-800 mb-2">
+                      Si dudas entre opciones
+                    </h3>
+                    <p className="text-gray-600 text-[14px] leading-6">
+                      El riesgo cambia cuando puedes eliminar una o más alternativas. Antes
+                      de responder, comprueba cuánto resta exactamente cada error.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <div className="text-[24px] mb-2" aria-hidden="true">⚠️</div>
+                    <h3 className="font-semibold text-gray-800 mb-2">
+                      Si no tienes ninguna pista
+                    </h3>
+                    <p className="text-gray-600 text-[14px] leading-6">
+                      Si las respuestas en blanco no restan y la penalización es importante,
+                      responder completamente al azar puede reducir tu puntuación neta.
+                      Revisa primero las reglas de la convocatoria.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5 mt-5">
+                  <h3 className="font-semibold text-blue-800 mb-2">
+                    Consejo práctico
+                  </h3>
+                  <p className="text-gray-700 text-[14px] leading-7">
+                    Haz un simulacro con el mismo factor de penalización que tendrá tu examen.
+                    Después compara tu número de aciertos, errores y blancos. La nota neta
+                    suele ser mucho más útil para evaluar tu preparación que mirar solamente
+                    los aciertos brutos.
+                  </p>
+                </div>
+              </section>{/* ── GAP 4: REDONDEO Y NOTAS CERCA DEL APROBADO ───────────────────────── */}
+              <section className="mb-12" aria-labelledby="redondeo-heading">
+                <h2
+                  id="redondeo-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  ¿Cómo afecta el redondeo a la nota final?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-5">
+                  Una nota calculada puede tener muchos decimales, aunque el resultado que
+                  aparece en el boletín o acta se muestre con uno o dos. Por ejemplo, un
+                  resultado matemático de 4,96 puede mostrarse como 5,0 si las reglas del
+                  centro aplican redondeo a una cifra decimal.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-5">
+                  <table className="w-full min-w-[520px] border-collapse text-[14px]">
+                    <caption className="sr-only">
+                      Ejemplos de redondeo de notas calculadas
+                    </caption>
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th scope="col" className="px-4 py-3 text-left">Resultado calculado</th>
+                        <th scope="col" className="px-4 py-3 text-center">A 1 decimal</th>
+                        <th scope="col" className="px-4 py-3 text-left">Importancia</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t border-gray-100">
+                        <td className="px-4 py-3 font-semibold">4,94</td>
+                        <td className="px-4 py-3 text-center font-bold text-orange-700">4,9</td>
+                        <td className="px-4 py-3 text-gray-600">Puede seguir siendo suspenso.</td>
+                      </tr>
+                      <tr className="border-t border-gray-100">
+                        <td className="px-4 py-3 font-semibold">4,96</td>
+                        <td className="px-4 py-3 text-center font-bold text-blue-700">5,0</td>
+                        <td className="px-4 py-3 text-gray-600">Depende de las reglas de redondeo.</td>
+                      </tr>
+                      <tr className="border-t border-gray-100">
+                        <td className="px-4 py-3 font-semibold">6,95</td>
+                        <td className="px-4 py-3 text-center font-bold text-blue-700">7,0</td>
+                        <td className="px-4 py-3 text-gray-600">Puede cruzar un límite de calificación.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-2xl border border-amber-100 bg-amber-50 p-5">
+                  <h3 className="font-semibold text-amber-900 mb-2">
+                    Importante: el redondeo no es universal
+                  </h3>
+                  <p className="text-gray-700 text-[14px] leading-7">
+                    La calculadora puede mostrar el resultado matemático, pero la calificación
+                    oficial puede aplicar reglas específicas de truncamiento, redondeo o
+                    límites mínimos. Si estás cerca del aprobado, consulta siempre los
+                    criterios publicados por tu centro, universidad, convocatoria o profesor.
+                  </p>
+                </div>
+              </section>{/* ── GAP 5: CASO PRÁCTICO AVANZADO ────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="caso-avanzado-heading">
+                <h2
+                  id="caso-avanzado-heading"
+                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+                >
+                  Caso práctico: aciertos, errores y preguntas en blanco
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-5">
+                  Para entender mejor la diferencia entre nota bruta y nota neta, imagina
+                  un examen de <strong>100 preguntas</strong> con una penalización de
+                  <strong> 0,25 puntos por cada error</strong>.
+                </p>
+
+                <div className="grid gap-4 md:grid-cols-3 mb-5">
+                  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">Aciertos</h3>
+                    <p className="text-[28px] font-bold text-green-700">62</p>
+                    <p className="text-gray-500 text-[13px]">
+                      Respuestas correctas
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">Errores</h3>
+                    <p className="text-[28px] font-bold text-red-700">20</p>
+                    <p className="text-gray-500 text-[13px]">
+                      Respuestas incorrectas
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                    <h3 className="font-semibold text-gray-800 mb-2">En blanco</h3>
+                    <p className="text-[28px] font-bold text-gray-700">18</p>
+                    <p className="text-gray-500 text-[13px]">
+                      No respondidas
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
+                  <h3 className="font-semibold text-purple-800 mb-3">
+                    Cálculo paso a paso
+                  </h3>
+
+                  <div className="font-mono text-[13px] text-gray-700 space-y-2">
+                    <p>Nota bruta = 62 aciertos</p>
+                    <p>Penalización = 20 × 0,25 = 5 puntos</p>
+                    <p>Nota neta = 62 − 5 = <strong>57 puntos</strong></p>
+                    <p>Porcentaje neto = (57 ÷ 100) × 100 = <strong>57 %</strong></p>
+                    <p className="text-purple-700 font-bold">
+                      Nota /10 = 57 ÷ 10 = <strong>5,7 sobre 10</strong>
+                    </p>
+                  </div>
+
+                  <p className="text-gray-600 text-[14px] leading-7 mt-4">
+                    Este ejemplo muestra por qué dos estudiantes con el mismo número de
+                    aciertos pueden terminar con notas diferentes si uno acumula más errores.
+                    Las preguntas en blanco no modifican la nota cuando la convocatoria
+                    establece que no tienen penalización.
+                  </p>
+                </div>
+              </section>
               {/* ── CÓMO USAR ─────────────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="como-usar-heading">
                 <h2 id="como-usar-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">

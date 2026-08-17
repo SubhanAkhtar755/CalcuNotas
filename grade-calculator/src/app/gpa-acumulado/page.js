@@ -69,6 +69,39 @@ const FAQS_DATA = [
     q: "¿Necesito mi GPA anterior para usar esta calculadora?",
     a: "Sí. Para calcular el GPA acumulado necesitas tu GPA del historial anterior y el total de créditos ya completados. Los encuentras en tu boleta oficial o sistema académico.",
   },
+  // ── GAP 9: FAQS LONG-TAIL ADICIONALES ─────────────────────────────────
+{
+  q: "¿Cómo calcular el GPA que necesito para llegar a 3.5?",
+  a: "Multiplica tu GPA objetivo por el total de créditos que tendrás al finalizar, resta los puntos de calidad que ya tienes y divide el resultado entre los créditos que todavía te faltan. El resultado es el GPA promedio que necesitarías obtener en los créditos restantes.",
+},
+{
+  q: "¿Cuál es el GPA máximo que todavía puedo alcanzar?",
+  a: "Para calcularlo, supone que obtendrás un 4.0 en todos los créditos restantes. Después combina esos puntos de calidad con los que ya tienes y divide entre el total de créditos. Si el resultado máximo está por debajo de tu objetivo, esa meta no puede alcanzarse únicamente con los créditos restantes.",
+},
+{
+  q: "¿Cuánto puede subir mi GPA con 15 créditos de 4.0?",
+  a: "Depende de tu GPA actual y de cuántos créditos hayas completado. Con pocos créditos previos, 15 créditos de 4.0 pueden producir un cambio considerable; con muchos créditos acumulados, el mismo semestre tendrá un impacto menor.",
+},
+{
+  q: "¿Las materias repetidas cambian mi GPA acumulado?",
+  a: "Depende de la política de tu universidad. Algunas instituciones reemplazan la calificación anterior, mientras que otras contabilizan ambos intentos o aplican reglas especiales. Consulta siempre el reglamento académico antes de estimar el efecto de repetir una materia.",
+},
+{
+  q: "¿Los créditos transferidos cuentan para mi GPA?",
+  a: "No existe una regla universal. Una universidad puede aceptar los créditos transferidos para cumplir requisitos de graduación sin incorporar las calificaciones transferidas al GPA institucional. Revisa cómo aparecen en tu expediente y la política de transferencia de tu institución.",
+},
+{
+  q: "¿Por qué mi GPA calculado no coincide exactamente con el de mi universidad?",
+  a: "Puede haber diferencias por la escala utilizada, reglas de redondeo, materias repetidas, cursos transferidos, asignaturas Pass/Fail u otras políticas institucionales. Para solicitudes oficiales, utiliza el GPA que figure en tu expediente académico.",
+},
+{
+  q: "¿Es lo mismo el GPA acumulado y el GPA de un semestre?",
+  a: "No. El GPA semestral solo incluye las materias de un período concreto, mientras que el GPA acumulado combina los créditos y puntos de calidad de todos los períodos que cuentan para el promedio.",
+},
+{
+  q: "¿Qué materias no suelen afectar el GPA acumulado?",
+  a: "Dependiendo de la universidad, cursos Pass/Fail, retiros oficiales, incompletos, auditorías o determinadas materias transferidas pueden quedar fuera del cálculo. Las reglas exactas dependen de cada institución.",
+},
   {
     q: "¿Cuál GPA piden las becas, el semestral o el acumulado?",
     a: "La mayoría de becas y programas de admisión solicitan el GPA acumulado, ya que refleja el rendimiento académico total y no solo de un período.",
@@ -611,7 +644,409 @@ export default function GPAAcumuladoPage() {
                   </p>
                 </div>
               </section>
+{/* ── GAP 1: CÓMO CALCULAR EL GPA NECESARIO PARA ALCANZAR UNA META ───── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Qué GPA Necesitas en los Próximos Semestres para Alcanzar tu Meta?
+  </h2>
 
+  <p className="text-gray-700 leading-8 mb-5">
+    Si ya tienes un GPA acumulado y quieres llegar a una meta concreta,
+    puedes calcular qué promedio necesitas obtener en los créditos que
+    todavía te faltan. Este cálculo es especialmente útil para planificar
+    una beca, un programa de honor, una admisión de posgrado o una meta
+    personal antes de graduarte.
+  </p>
+
+  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mb-6 text-center text-[15px]">
+    GPA Necesario = (GPA Objetivo × Créditos Totales − GPA Actual × Créditos Completados) ÷ Créditos Restantes
+  </div>
+
+  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-6">
+    <h3 className="text-xl font-bold mb-3">
+      Ejemplo: subir de 2.80 a 3.20
+    </h3>
+
+    <p className="text-gray-700 leading-8 mb-4">
+      Supongamos que tienes un GPA acumulado de <strong>2.80</strong>,
+      has completado <strong>60 créditos</strong> y todavía te faltan
+      <strong> 60 créditos</strong> para terminar.
+    </p>
+
+    <div className="space-y-2 text-gray-700 leading-7 text-[15px]">
+      <p>
+        Puntos actuales = 2.80 × 60 = <strong>168</strong>
+      </p>
+      <p>
+        Puntos necesarios para terminar con 3.20 = 3.20 × 120 ={" "}
+        <strong>384</strong>
+      </p>
+      <p>
+        Puntos que faltan = 384 − 168 = <strong>216</strong>
+      </p>
+      <p>
+        GPA necesario en los 60 créditos restantes = 216 ÷ 60 ={" "}
+        <strong>3.60</strong>
+      </p>
+    </div>
+
+    <p className="text-gray-700 leading-8 mt-4">
+      En este escenario necesitarías mantener aproximadamente un{" "}
+      <strong>3.60 GPA</strong> en los créditos restantes para terminar
+      con un GPA acumulado de 3.20.
+    </p>
+  </div>
+
+  <p className="text-[13px] text-gray-500 mt-4 leading-6">
+    Este cálculo supone que todos los créditos y puntos se contabilizan de
+    acuerdo con la política de tu institución. Las reglas de repetición,
+    transferencia y reemplazo de calificaciones pueden cambiar el resultado.
+  </p>
+</section>{/* ── GAP 2: MÁXIMO GPA POSIBLE ──────────────────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Todavía Puedes Alcanzar un GPA de 3.5 o Más?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Antes de fijar una meta académica, conviene comprobar si todavía es
+    matemáticamente posible. La forma más sencilla es calcular tu GPA máximo
+    suponiendo que obtendrás un <strong>4.0 en todos los créditos restantes</strong>.
+  </p>
+
+  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mb-6 text-center text-[15px]">
+    GPA Máximo Posible = (GPA Actual × Créditos Completados + 4.0 × Créditos Restantes) ÷ Créditos Totales
+  </div>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-5">
+    <table className="w-full min-w-[680px] border-collapse">
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th className="px-5 py-4 text-left font-bold">
+            GPA Actual
+          </th>
+          <th className="px-5 py-4 text-left font-bold">
+            Créditos Completados
+          </th>
+          <th className="px-5 py-4 text-left font-bold">
+            Créditos Restantes
+          </th>
+          <th className="px-5 py-4 text-left font-bold">
+            Máximo Aproximado
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr className="border-b border-gray-200">
+          <td className="px-5 py-4 text-gray-700">2.50</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 font-bold text-blue-700">3.25</td>
+        </tr>
+
+        <tr className="border-b border-gray-200">
+          <td className="px-5 py-4 text-gray-700">2.80</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 font-bold text-blue-700">3.40</td>
+        </tr>
+
+        <tr>
+          <td className="px-5 py-4 text-gray-700">3.00</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 text-gray-700">60</td>
+          <td className="px-5 py-4 font-bold text-blue-700">3.50</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p className="text-gray-700 leading-8">
+    Esta comprobación es útil porque evita perseguir una meta que ya no es
+    alcanzable con los créditos restantes. Si tu objetivo es superior al GPA
+    máximo posible, necesitarías revisar si tu institución permite repetir
+    materias, reemplazar calificaciones u otras opciones académicas.
+  </p>
+</section>{/* ── GAP 3: PROYECCIÓN DE VARIOS SEMESTRES ──────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    Proyección del GPA Durante Varios Semestres
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Un solo semestre no siempre muestra el efecto real de una estrategia para
+    mejorar el GPA. Si todavía te quedan varios períodos académicos, puedes
+    proyectar cómo evolucionaría tu promedio suponiendo un rendimiento
+    determinado en cada semestre.
+  </p>
+
+  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-6 mb-5">
+    <h3 className="text-xl font-bold mb-3">
+      Ejemplo de planificación
+    </h3>
+
+    <p className="text-gray-700 leading-8 mb-4">
+      Un estudiante tiene un GPA de <strong>2.80</strong> después de
+      <strong> 60 créditos</strong> y todavía necesita completar
+      <strong> 60 créditos</strong>. Si obtiene aproximadamente un
+      <strong> 3.50</strong> en esos créditos restantes, su GPA final se
+      acercaría a:
+    </p>
+
+    <div className="bg-white rounded-xl border border-blue-100 p-4 text-center font-bold text-gray-800">
+      (2.80 × 60 + 3.50 × 60) ÷ 120 = <strong>3.15</strong>
+    </div>
+  </div>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Primer Semestre
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Concéntrate en conseguir un GPA alto sin asumir que un único semestre
+        cambiará por completo el promedio acumulado.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Semestres Intermedios
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Revisa tu GPA después de cada período y vuelve a calcular cuánto
+        necesitas en los créditos restantes.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Últimos Créditos
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Cuando quedan pocos créditos, cada semestre tiene menos capacidad para
+        modificar un historial académico que ya contiene muchos créditos.
+      </p>
+    </div>
+  </div>
+</section>{/* ── GAP 4: IMPACTO DE LAS HORAS CRÉDITO ────────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Por Qué las Materias con Más Créditos Tienen Mayor Impacto?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    En un GPA ponderado por créditos, una materia no tiene el mismo peso que
+    otra si sus horas crédito son diferentes. Una calificación de 4.0 en una
+    materia de cuatro créditos aporta más puntos de calidad que un 4.0 en una
+    materia de un solo crédito.
+  </p>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-5">
+    <table className="w-full min-w-[620px] border-collapse">
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th className="px-5 py-4 text-left font-bold">Materia</th>
+          <th className="px-5 py-4 text-left font-bold">GPA</th>
+          <th className="px-5 py-4 text-left font-bold">Créditos</th>
+          <th className="px-5 py-4 text-left font-bold">Puntos de Calidad</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr className="border-b border-gray-200">
+          <td className="px-5 py-4 text-gray-700">Materia A</td>
+          <td className="px-5 py-4 text-gray-700">4.0</td>
+          <td className="px-5 py-4 text-gray-700">4</td>
+          <td className="px-5 py-4 font-bold text-blue-700">16.0</td>
+        </tr>
+
+        <tr>
+          <td className="px-5 py-4 text-gray-700">Materia B</td>
+          <td className="px-5 py-4 text-gray-700">4.0</td>
+          <td className="px-5 py-4 text-gray-700">1</td>
+          <td className="px-5 py-4 font-bold text-blue-700">4.0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p className="text-gray-700 leading-8">
+    Ambas materias tienen la misma calificación, pero la primera aporta
+    <strong> 16 puntos de calidad</strong> frente a solo <strong>4</strong>.
+    Por eso, cuando planifiques tu carga académica, el número de créditos es
+    tan importante como la calificación obtenida.
+  </p>
+</section>{/* ── GAP 5: REPETICIÓN DE MATERIAS Y GPA ────────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Cómo Afecta Repetir una Materia al GPA Acumulado?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Repetir una materia puede cambiar el GPA acumulado de formas muy
+    diferentes según las reglas de la universidad. No debes asumir que la
+    nueva calificación reemplazará automáticamente a la anterior.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Reemplazo de Calificación
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Algunas instituciones permiten que la nueva calificación sustituya a
+        la anterior para el cálculo del GPA. Si obtienes una nota mucho mejor,
+        el impacto puede ser significativo.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Ambas Calificaciones Cuentan
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Otras instituciones mantienen ambos intentos dentro del historial y
+        ambos pueden contribuir al cálculo del promedio.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Regla Especial
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Algunas universidades aplican límites de repetición, reglas por
+        asignatura o políticas específicas para cursos reprobados.
+      </p>
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-blue-100 bg-blue-50 p-5 mt-5">
+    <p className="text-gray-700 leading-7 text-[15px]">
+      <strong>Consejo:</strong> antes de modificar tu GPA usando una materia
+      repetida, comprueba en tu reglamento académico si se reemplaza la nota,
+      se promedian ambos intentos o se mantienen los dos resultados.
+    </p>
+  </div>
+</section>{/* ── GAP 6: CRÉDITOS TRANSFERIDOS ──────────────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Los Créditos Transferidos Cuentan para el GPA Acumulado?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Los créditos transferidos pueden contar para tu progreso hacia el título
+    sin necesariamente utilizarse de la misma forma para calcular tu GPA
+    institucional. La respuesta depende de cómo tu universidad evalúe las
+    materias transferidas.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Créditos que se Aceptan
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Una universidad puede aceptar una materia transferida para cumplir
+        requisitos del programa y sumar esos créditos hacia la graduación.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-3">
+        Créditos que no Cambian el GPA
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        En algunas instituciones, las materias transferidas aparecen en el
+        expediente pero sus calificaciones no se incorporan al GPA institucional.
+      </p>
+    </div>
+  </div>
+
+  <p className="text-[13px] text-gray-500 mt-4 leading-6">
+    Si tienes créditos de otra universidad, utiliza los datos de tu expediente
+    actual y sigue la política oficial de transferencia de tu institución antes
+    de introducirlos en una estimación.
+  </p>
+</section>{/* ── GAP 7: REDONDEO DEL GPA ────────────────────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿Cómo se Redondea el GPA Acumulado?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    El resultado matemático puede contener más decimales de los que aparecen
+    normalmente en un expediente académico. Por ejemplo, un cálculo puede
+    producir <strong>3.276</strong>, mientras que tu universidad podría mostrar
+    <strong> 3.28</strong> o utilizar otra regla de presentación.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-2">
+        Cálculo Interno
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Mantén todos los decimales posibles durante las operaciones para evitar
+        acumular errores de redondeo.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-2">
+        Resultado Mostrado
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Una calculadora puede mostrar el resultado con dos decimales para que
+        sea fácil de interpretar.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+      <h3 className="text-xl font-bold mb-2">
+        Expediente Oficial
+      </h3>
+      <p className="text-gray-700 leading-7 text-[15px]">
+        Para becas, graduación o admisiones, utiliza siempre el GPA que figure
+        en tu expediente y las reglas oficiales de tu institución.
+      </p>
+    </div>
+  </div>
+</section>{/* ── GAP 8: LIMITACIONES DE LA ESCALA 4.0 ───────────────────────────── */}
+<section className="mb-12">
+  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+    ¿La Escala GPA 4.0 es Igual en Todas las Universidades?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    No necesariamente. La escala 4.0 es una referencia ampliamente utilizada,
+    pero las universidades pueden asignar valores diferentes a calificaciones
+    como A-, B+ o B. Algunas instituciones también utilizan escalas ponderadas,
+    sistemas propios o reglas especiales para determinados cursos.
+  </p>
+
+  <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
+    <h3 className="text-xl font-bold mb-3">
+      Antes de calcular tu GPA
+    </h3>
+
+    <ul className="space-y-2 text-gray-700 leading-7 text-[15px]">
+      <li>• Comprueba qué valor GPA asigna tu universidad a cada letra.</li>
+      <li>• Verifica si las materias repetidas reemplazan la calificación anterior.</li>
+      <li>• Comprueba cómo se tratan los cursos transferidos.</li>
+      <li>• Revisa si las materias Pass/Fail afectan el promedio.</li>
+      <li>• Utiliza el expediente oficial cuando el cálculo sea para una solicitud académica.</li>
+    </ul>
+  </div>
+
+  <p className="text-gray-700 leading-8 mt-5">
+    Por eso, esta herramienta debe utilizarse como una estimación basada en la
+    escala indicada. Si tu institución utiliza reglas diferentes, adapta los
+    valores a su reglamento académico antes de tomar una decisión.
+  </p>
+</section>
               {/* SEMESTER VS CUMULATIVE */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">

@@ -868,6 +868,283 @@ export default function CalculadoraDeNotas() {
                     </p>
                   </div>
                 </div>
+              </section>{/* ── GAP 1: NOTA MÁXIMA ALCANZABLE ──────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="maxima-nota-heading">
+                <h2
+                  id="maxima-nota-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  ¿Cuál es la nota máxima que todavía puedo obtener?
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Antes de fijar una meta para el examen final, también puedes calcular
+                    cuál es la <strong>nota máxima posible</strong> con las evaluaciones que
+                    todavía quedan. Esto evita establecer un objetivo que matemáticamente
+                    ya no sea alcanzable.
+                  </p>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Ejemplo
+                    </h3>
+
+                    <ul className="space-y-2 text-gray-700">
+                      <li>
+                        <strong>Nota actual:</strong> 76%
+                      </li>
+                      <li>
+                        <strong>Evaluaciones completadas:</strong> 70% del curso
+                      </li>
+                      <li>
+                        <strong>Examen final pendiente:</strong> 30%
+                      </li>
+                      <li>
+                        <strong>Mejor resultado posible en el final:</strong> 100%
+                      </li>
+                    </ul>
+
+                    <p className="mt-4 font-bold text-blue-700">
+                      (76 × 0.70) + (100 × 0.30) = 83.2%
+                    </p>
+                  </div>
+
+                  <p>
+                    En este escenario, incluso obteniendo un 100% en el examen final, la
+                    nota máxima del curso sería <strong>83.2%</strong>. Si tu objetivo es
+                    90%, necesitarías cambiar la meta o comprobar si existen otras
+                    evaluaciones pendientes que puedan modificar el resultado.
+                  </p>
+
+                  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                    <p>
+                      <strong>Consejo:</strong> calcular primero tu límite máximo es una forma
+                      rápida de distinguir entre una meta difícil y una meta que ya no es
+                      matemáticamente posible.
+                    </p>
+                  </div>
+                </div>
+              </section>{/* ── GAP 2: COMPARACIÓN DE ESCENARIOS PARA EL EXAMEN FINAL ───────────── */}
+              <section className="mb-12" aria-labelledby="escenarios-heading">
+                <h2
+                  id="escenarios-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Compara diferentes resultados del examen final
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Una forma práctica de planificar tus estudios es comprobar cómo cambiaría
+                  tu nota final si obtienes diferentes resultados en el examen. Esto permite
+                  establecer una meta realista en lugar de estudiar sin conocer el impacto
+                  que tendrá cada punto.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table
+                    className="w-full min-w-[600px] border-collapse"
+                    aria-label="Escenarios de nota final"
+                  >
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-4 text-left font-bold" scope="col">
+                          Nota Actual
+                        </th>
+                        <th className="px-5 py-4 text-left font-bold" scope="col">
+                          Peso del Final
+                        </th>
+                        <th className="px-5 py-4 text-left font-bold" scope="col">
+                          Nota en el Final
+                        </th>
+                        <th className="px-5 py-4 text-left font-bold" scope="col">
+                          Nota Final
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {[
+                        ["80%", "30%", "70%", "77.0%"],
+                        ["80%", "30%", "80%", "80.0%"],
+                        ["80%", "30%", "90%", "83.0%"],
+                        ["80%", "30%", "100%", "86.0%"],
+                      ].map((row, i) => (
+                        <tr
+                          key={i}
+                          className={`border-b border-gray-200 ${i % 2 === 0 ? "bg-gray-50" : "bg-white"
+                            }`}
+                        >
+                          {row.map((cell, j) => (
+                            <td key={j} className="px-5 py-4 text-gray-700">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5 mt-6">
+                  <p className="text-gray-700 leading-8">
+                    <strong>Interpretación:</strong> con una nota actual de 80% y un examen
+                    final que representa el 30% del curso, obtener 90% en el final elevaría
+                    la nota global a 83%. Este tipo de comparación te ayuda a decidir qué
+                    resultado necesitas realmente antes de dedicar tiempo adicional al
+                    estudio.
+                  </p>
+                </div>
+              </section>{/* ── GAP 3: EXTRA CREDIT Y PUNTOS DE BONIFICACIÓN ───────────────────── */}
+              <section className="mb-12" aria-labelledby="extra-credit-heading">
+                <h2
+                  id="extra-credit-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  ¿Cómo funcionan los puntos extra o extra credit?
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Algunos profesores permiten obtener <strong>puntos extra</strong> mediante
+                    actividades adicionales, tareas opcionales o preguntas de bonificación.
+                    La forma de aplicarlos depende del sistema de evaluación del curso.
+                  </p>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                      <h3 className="font-bold text-gray-900 mb-2">
+                        Se suman a los puntos obtenidos
+                      </h3>
+                      <p className="text-gray-700 leading-7 text-[15px]">
+                        Por ejemplo, si tienes 90 puntos obtenidos de 100 posibles y recibes
+                        5 puntos extra, tu puntuación podría convertirse en 95/100, siempre
+                        que las reglas del curso permitan aplicar el bonus de esa manera.
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                      <h3 className="font-bold text-gray-900 mb-2">
+                        Se aplican como porcentaje adicional
+                      </h3>
+                      <p className="text-gray-700 leading-7 text-[15px]">
+                        Algunos cursos agregan el bonus después de calcular la nota base.
+                        En ese caso, la bonificación debe aplicarse según la fórmula indicada
+                        por el profesor y no como una evaluación normal.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl bg-amber-50 border border-amber-100 p-5">
+                    <p className="text-gray-700 leading-7">
+                      <strong>Importante:</strong> no todos los sistemas permiten superar el
+                      100%. Antes de introducir puntos extra en una calculadora ponderada,
+                      revisa si el programa del curso establece un límite máximo o una regla
+                      específica para el bonus.
+                    </p>
+                  </div>
+                </div>
+              </section>{/* ── GAP 4: DROP LOWEST GRADE ───────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="drop-grade-heading">
+                <h2
+                  id="drop-grade-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  ¿Qué pasa si el curso elimina la nota más baja?
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    Algunos cursos permiten eliminar la calificación más baja de una serie
+                    de quizzes, tareas o exámenes. En ese caso, no debes incluir esa nota en
+                    el promedio ponderado final, salvo que las instrucciones del curso
+                    indiquen otra cosa.
+                  </p>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Ejemplo con cuatro quizzes
+                    </h3>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {["60%", "80%", "90%", "95%"].map((grade) => (
+                        <div
+                          key={grade}
+                          className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center"
+                        >
+                          <p className="font-bold text-gray-800">{grade}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="mt-5 text-gray-700">
+                      Si el curso elimina la nota más baja, el <strong>60%</strong> se
+                      excluye y el cálculo continúa utilizando las otras tres evaluaciones,
+                      de acuerdo con los pesos establecidos.
+                    </p>
+                  </div>
+
+                  <p>
+                    La regla de “drop lowest” puede cambiar de forma importante tu promedio,
+                    especialmente si la evaluación eliminada tenía un peso alto. Por eso,
+                    comprueba siempre qué actividades pueden eliminarse y si el peso de la
+                    evaluación cambia después de eliminarla.
+                  </p>
+
+                  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                    <p>
+                      <strong>Consejo:</strong> no borres automáticamente una nota baja de
+                      la calculadora. Primero confirma que el programa del curso permite
+                      descartarla.
+                    </p>
+                  </div>
+                </div>
+              </section>{/* ── GAP 5: CRÉDITO PARCIAL ─────────────────────────────────────────── */}
+              <section className="mb-12" aria-labelledby="credito-parcial-heading">
+                <h2
+                  id="credito-parcial-heading"
+                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
+                >
+                  Cómo calcular una nota con crédito parcial
+                </h2>
+
+                <div className="space-y-5 text-gray-700 leading-8">
+                  <p>
+                    En preguntas abiertas, problemas matemáticos o proyectos, una respuesta
+                    puede recibir solo una parte de los puntos disponibles. En estos casos,
+                    contar únicamente cuántas preguntas fueron “correctas” puede dar una
+                    imagen equivocada del rendimiento.
+                  </p>
+
+                  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
+                    <h3 className="text-xl font-bold mb-3">
+                      Ejemplo
+                    </h3>
+
+                    <p className="mb-4">
+                      Un examen tiene <strong>50 puntos posibles</strong>. El estudiante
+                      recibe:
+                    </p>
+
+                    <ul className="space-y-2 text-gray-700">
+                      <li>Pregunta 1: 10/10 puntos</li>
+                      <li>Pregunta 2: 6/10 puntos</li>
+                      <li>Pregunta 3: 15/15 puntos</li>
+                      <li>Pregunta 4: 9/15 puntos</li>
+                    </ul>
+
+                    <p className="mt-5 font-bold text-blue-700">
+                      Puntos obtenidos: 40 de 50 = 80%
+                    </p>
+                  </div>
+
+                  <p>
+                    Aunque algunas respuestas no sean completamente correctas, los puntos
+                    parciales permiten reflejar el trabajo realizado. Para este tipo de
+                    evaluación, utiliza el total de puntos obtenidos y el total de puntos
+                    posibles en lugar de contar solamente respuestas correctas.
+                  </p>
+                </div>
               </section>
 
               {/* ── SECTION 2 ── */}
@@ -1238,6 +1515,19 @@ export default function CalculadoraDeNotas() {
                       {
                         q: "¿Cómo afecta el peso del examen final a mi nota?",
                         a: "Un examen final con peso del 30–40% puede cambiar tu nota entre 5 y 15 puntos porcentuales. Cuanto mayor sea el peso del final, más determinante será para tu calificación. Por eso es clave calcularlo con anticipación.",
+                      },
+                      // ── GAP 6: ADVANCED GRADING FAQS ────────────────────────────────────────
+                      {
+                        q: "¿Qué pasa si mi curso elimina la nota más baja?",
+                        a: "Si el programa del curso permite eliminar la calificación más baja, esa evaluación normalmente no debe incluirse en el cálculo después de aplicar la regla. Comprueba siempre qué evaluaciones pueden descartarse y cómo se redistribuyen sus pesos.",
+                      },
+                      {
+                        q: "¿Cómo funcionan los puntos extra en una calificación?",
+                        a: "Depende del sistema del curso. Los puntos extra pueden sumarse a los puntos obtenidos o aplicarse como una bonificación después de calcular la nota base. Revisa las instrucciones del profesor para saber si existe un límite del 100%.",
+                      },
+                      {
+                        q: "¿Cómo calculo mi nota si recibo crédito parcial en una pregunta?",
+                        a: "Utiliza los puntos obtenidos y los puntos posibles. Por ejemplo, si consigues 40 de 50 puntos, tu porcentaje es (40 ÷ 50) × 100 = 80%, aunque algunas preguntas solo hayan recibido crédito parcial.",
                       },
                       {
                         q: "¿Puedo usar esta calculadora para el promedio del semestre?",

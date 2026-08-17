@@ -23,7 +23,7 @@ export const metadata = {
   ],
 
   // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
-  
+
   openGraph: {
     title: "Contacto | CalcuNotas",
     description:
@@ -44,6 +44,34 @@ const contactFaqs = [
     question: "¿Cuánto tiempo tardan en responder?",
     answer:
       "Generalmente respondemos dentro de 1 a 3 días hábiles. En períodos de mayor actividad puede tomar un poco más, pero intentamos contestar todos los mensajes.",
+  },
+  // GAP 7 — TRUST FAQ EXPANSION
+  // Añadir estos elementos dentro del array "contactFaqs", después de las preguntas existentes.
+
+  {
+    question: "¿Qué hago si el resultado de una calculadora parece incorrecto?",
+    answer:
+      "Primero revisa los valores introducidos, los pesos, créditos y la escala de calificación de tu curso. Si el resultado sigue pareciendo incorrecto, envíanos la URL de la calculadora, los valores utilizados, el resultado obtenido y el resultado esperado para que podamos revisar el caso.",
+  },
+  {
+    question: "¿CalcuNotas puede confirmar mi nota oficial?",
+    answer:
+      "No. CalcuNotas puede realizar estimaciones y cálculos a partir de los datos que introduces, pero solamente tu profesor o institución educativa puede confirmar una nota oficial, un GPA registrado o una decisión académica.",
+  },
+  {
+    question: "¿Necesito enviar mis datos personales para reportar un problema?",
+    answer:
+      "No. Para investigar un problema normalmente basta con proporcionar los datos necesarios para reproducir el cálculo, como la calculadora utilizada, los valores introducidos y el resultado observado. No envíes contraseñas, números de identificación, documentos académicos completos ni otra información privada que no sea necesaria.",
+  },
+  {
+    question: "¿Por qué mi institución puede mostrar una nota diferente a la calculadora?",
+    answer:
+      "Una institución puede aplicar reglas específicas de redondeo, crédito extra, curvas, categorías ponderadas, sustitución de notas u otras políticas. Una calculadora general puede producir una estimación diferente cuando no conoce esas reglas institucionales.",
+  },
+  {
+    question: "¿Puedo sugerir una nueva calculadora para CalcuNotas?",
+    answer:
+      "Sí. Puedes enviarnos una sugerencia explicando qué cálculo necesitas, quién podría beneficiarse de la herramienta y qué reglas o fórmula debería tener en cuenta. Las sugerencias pueden ayudarnos a identificar nuevas herramientas educativas útiles.",
   },
   {
     question: "¿Pueden calcular mis notas por mí?",
@@ -160,7 +188,44 @@ export default function ContactPage() {
                 </p>
               </div>
             </section>
+            {/* GAP 1 — E-E-A-T: TRANSPARENCIA SOBRE CALCUNOTAS
+    Pegar después de "INTRO BOX" y antes de "CONTACT INFO".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Sobre CalcuNotas
+              </h2>
 
+              <p className="text-gray-700 leading-8 mb-4">
+                CalcuNotas es un recurso educativo creado para facilitar cálculos académicos
+                que normalmente requieren fórmulas, conversiones o varias operaciones
+                manuales. El sitio reúne herramientas para calcular notas, porcentajes,
+                GPA, notas finales y otros resultados relacionados con la evaluación
+                académica.
+              </p>
+
+              <p className="text-gray-700 leading-8 mb-4">
+                Nuestro objetivo es presentar estos cálculos de una forma clara,
+                comprensible y práctica, para que estudiantes, profesores y otras personas
+                puedan comprobar rápidamente sus propios resultados y entender cómo se
+                obtiene una determinada puntuación.
+              </p>
+
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Una herramienta de apoyo, no una autoridad académica
+                </h3>
+
+                <p className="text-gray-700 leading-7">
+                  CalcuNotas no sustituye a un profesor, asesor académico, institución
+                  educativa ni sistema oficial de calificaciones. Las herramientas están
+                  diseñadas para cálculo, comprobación y planificación. Cuando una
+                  institución utiliza reglas específicas de redondeo, ponderación, crédito
+                  extra o conversión de GPA, esas reglas deben tener prioridad sobre una
+                  estimación general realizada por una calculadora.
+                </p>
+              </div>
+            </section>
             {/* CONTACT INFO */}
             <section className="mb-10">
               <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
@@ -260,7 +325,336 @@ export default function ContactPage() {
                 </div>
               </div>
             </section>
+            {/* GAP 2 — E-E-A-T: PROCESO DE REVISIÓN Y CORRECCIÓN
+    Pegar después de "REASONS TO CONTACT" y antes de "WHAT TO INCLUDE".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Cómo Revisamos los Errores Reportados
+              </h2>
 
+              <p className="text-gray-700 leading-8 mb-6">
+                Los reportes de errores nos ayudan a detectar problemas de cálculo,
+                presentación o funcionamiento que pueden no aparecer durante una revisión
+                normal. Cuando recibimos un reporte relacionado con una calculadora,
+                necesitamos suficiente información para reproducir el problema y
+                comprobarlo de forma independiente.
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <div className="text-sm font-bold text-blue-600 mb-2">01</div>
+                  <h3 className="text-xl font-bold mb-3">
+                    Revisamos los datos
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Comprobamos la calculadora, los valores introducidos, los pesos,
+                    porcentajes o créditos utilizados y el resultado que muestra la
+                    herramienta.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <div className="text-sm font-bold text-blue-600 mb-2">02</div>
+                  <h3 className="text-xl font-bold mb-3">
+                    Comprobamos el cálculo
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Contrastamos el resultado con la fórmula o método de cálculo que
+                    corresponde al tipo de herramienta. También verificamos si el problema
+                    depende de una regla específica introducida por el usuario.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <div className="text-sm font-bold text-blue-600 mb-2">03</div>
+                  <h3 className="text-xl font-bold mb-3">
+                    Corregimos cuando corresponde
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Si identificamos un problema real en la herramienta o en su
+                    funcionamiento, podemos actualizar la calculadora o el contenido
+                    relacionado para mejorar la precisión y claridad del sitio.
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mt-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Importante sobre las diferencias de resultados
+                </h3>
+
+                <p className="text-gray-700 leading-7">
+                  No toda diferencia significa que exista un error. Dos calculadoras pueden
+                  producir resultados distintos si utilizan diferentes escalas, reglas de
+                  redondeo, pesos, créditos o políticas académicas. Por eso, cuando
+                  reportes un problema, es especialmente útil indicar qué resultado
+                  esperabas y qué fórmula o regla utiliza tu curso.
+                </p>
+              </div>
+            </section>{/* GAP 3 — E-E-A-T: METODOLOGÍA DE LAS CALCULADORAS
+    Pegar después de "DISCLAIMER" y antes de "FAQ".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Cómo Funcionan Nuestras Calculadoras
+              </h2>
+
+              <p className="text-gray-700 leading-8 mb-4">
+                Las calculadoras de CalcuNotas utilizan los datos que introduces para
+                realizar operaciones matemáticas relacionadas con notas, porcentajes,
+                pesos, créditos y objetivos académicos. El resultado depende directamente
+                de que los valores introducidos y las reglas seleccionadas sean correctos.
+              </p>
+
+              <p className="text-gray-700 leading-8 mb-6">
+                Por ejemplo, una calculadora de nota ponderada puede combinar diferentes
+                categorías según su porcentaje, mientras que una calculadora GPA puede
+                utilizar créditos y puntos de calificación para obtener un promedio
+                ponderado. Una calculadora de examen final, por otro lado, puede estimar
+                qué puntuación necesitas para alcanzar una nota objetivo.
+              </p>
+
+              <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Tres aspectos que debes comprobar antes de usar un resultado
+                </h3>
+
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">
+                      1. La escala de calificación
+                    </h4>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Comprueba si tu institución utiliza porcentajes, letras, puntos,
+                      GPA de 4.0 u otra escala.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">
+                      2. Los pesos y créditos
+                    </h4>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Asegúrate de introducir correctamente el peso de cada categoría o
+                      los créditos de cada asignatura. Un valor incorrecto puede cambiar
+                      significativamente el resultado.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">
+                      3. Las reglas de tu institución
+                    </h4>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Algunas instituciones aplican redondeos, curvas, crédito extra,
+                      escalas de GPA especiales o políticas propias. Cuando exista una
+                      regla institucional, esa regla debe utilizarse para interpretar el
+                      resultado final.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>{/* GAP 4 — TRUST + PRIVACY: QUÉ INFORMACIÓN NO NECESITAMOS
+    Pegar después de "WHAT TO INCLUDE" y antes de "DISCLAIMER".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Protege Tu Información Personal
+              </h2>
+
+              <p className="text-gray-700 leading-8 mb-5">
+                Para ayudarnos a investigar una calculadora o responder una pregunta, no
+                necesitas enviarnos información académica privada. Comparte únicamente los
+                datos necesarios para explicar el problema.
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-green-100 bg-green-50 p-5">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Información que puede ser útil
+                  </h3>
+
+                  <ul className="space-y-2 text-gray-700 leading-7 text-[15px]">
+                    <li>• URL o nombre de la calculadora.</li>
+                    <li>• Valores de ejemplo necesarios para reproducir el cálculo.</li>
+                    <li>• Resultado mostrado por la herramienta.</li>
+                    <li>• Resultado que esperabas obtener.</li>
+                    <li>• Navegador o dispositivo cuando exista un problema técnico.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-red-100 bg-red-50 p-5">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Información que no debes enviar
+                  </h3>
+
+                  <ul className="space-y-2 text-gray-700 leading-7 text-[15px]">
+                    <li>• Contraseñas o códigos de acceso.</li>
+                    <li>• Números de identificación estudiantil.</li>
+                    <li>• Datos bancarios o información financiera.</li>
+                    <li>• Documentos académicos completos si no son necesarios.</li>
+                    <li>• Cualquier información personal que no sea relevante para tu consulta.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-gray-700 leading-8 mt-5">
+                Si necesitas reportar un problema, puedes utilizar datos de ejemplo
+                siempre que permitan reproducir el mismo comportamiento de la calculadora.
+                Para preguntas sobre registros académicos oficiales, debes contactar
+                directamente con tu institución educativa.
+              </p>
+            </section>{/* GAP 5 — TRUST: ALCANCE DE LA AYUDA
+    Pegar después de "CONTACT INFO" y antes de "REASONS TO CONTACT".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                En Qué Podemos Ayudarte
+              </h2>
+
+              <p className="text-gray-700 leading-8 mb-6">
+                El equipo detrás de CalcuNotas puede recibir comentarios relacionados con
+                el funcionamiento, contenido y utilidad de las herramientas del sitio.
+                Para que tengas expectativas claras, estas son algunas de las consultas
+                que encajan mejor con nuestro servicio de contacto.
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Sí podemos ayudarte con
+                  </h3>
+
+                  <ul className="space-y-2 text-gray-700 leading-7 text-[15px]">
+                    <li>• Problemas técnicos de una calculadora.</li>
+                    <li>• Resultados que parecen incorrectos.</li>
+                    <li>• Dudas sobre el funcionamiento de una herramienta.</li>
+                    <li>• Sugerencias para nuevas calculadoras.</li>
+                    <li>• Errores de contenido, texto o funcionamiento.</li>
+                    <li>• Comentarios sobre la experiencia de uso.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    No podemos sustituir a tu institución
+                  </h3>
+
+                  <ul className="space-y-2 text-gray-700 leading-7 text-[15px]">
+                    <li>• No podemos modificar tus notas oficiales.</li>
+                    <li>• No podemos acceder a tu expediente académico.</li>
+                    <li>• No podemos confirmar requisitos de graduación.</li>
+                    <li>• No podemos decidir qué escala utiliza tu institución.</li>
+                    <li>• No podemos emitir documentos académicos oficiales.</li>
+                    <li>• No podemos garantizar una calificación determinada en un curso.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>{/* GAP 6 — ORIGINAL PRACTICAL EXAMPLE: CÓMO REPORTAR UN ERROR
+    Pegar dentro de "WHAT TO INCLUDE", justo después de la lista.
+*/}
+            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mt-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Ejemplo de un Buen Reporte
+              </h3>
+
+              <p className="text-gray-700 leading-7 mb-4">
+                Un reporte específico nos permite entender el problema mucho más rápido.
+                Por ejemplo, en lugar de escribir únicamente “la calculadora da mal el
+                resultado”, puedes explicar qué introdujiste y qué resultado esperabas.
+              </p>
+
+              <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <p className="text-gray-700 leading-7 text-[15px]">
+                  <strong>Calculadora:</strong> Calculadora de Nota Final
+                  <br />
+                  <strong>Nota actual:</strong> 82%
+                  <br />
+                  <strong>Peso del examen final:</strong> 30%
+                  <br />
+                  <strong>Objetivo:</strong> 85%
+                  <br />
+                  <strong>Resultado mostrado:</strong> 92%
+                  <br />
+                  <strong>Problema:</strong> El resultado parece diferente al cálculo que
+                  obtengo manualmente.
+                </p>
+              </div>
+
+              <p className="text-gray-700 leading-7 mt-4">
+                Con esta información es posible comprobar los valores, revisar la fórmula
+                utilizada y determinar si existe un error real o si la diferencia se debe
+                a una regla de redondeo, ponderación o configuración diferente.
+              </p>
+            </div>{/* GAP 8 — INTERNAL NAVIGATION + TOPICAL AUTHORITY
+    Pegar después de "FAQ" y antes de "DIRECT CONTACT".
+*/}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Recursos Útiles de CalcuNotas
+              </h2>
+
+              <p className="text-gray-700 leading-8 mb-5">
+                Si tu pregunta está relacionada con un cálculo específico, es posible que
+                encuentres una respuesta más detallada directamente en una de nuestras
+                herramientas o guías educativas.
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <a
+                  href="/calculadora-de-notas/"
+                  className="rounded-2xl border border-gray-200 p-5 bg-white hover:border-blue-300 hover:shadow-sm transition group"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                    Calculadora de Notas
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Calcula porcentajes y resultados de notas utilizando los valores y
+                    pesos correspondientes a tus evaluaciones.
+                  </p>
+                </a>
+
+                <a
+                  href="/calculadora-gpa/"
+                  className="rounded-2xl border border-gray-200 p-5 bg-white hover:border-blue-300 hover:shadow-sm transition group"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                    Calculadora GPA
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Calcula un GPA estimado utilizando puntos de calificación y créditos
+                    según la escala correspondiente.
+                  </p>
+                </a>
+
+                <a
+                  href="/faq/"
+                  className="rounded-2xl border border-gray-200 p-5 bg-white hover:border-blue-300 hover:shadow-sm transition group"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                    Preguntas Frecuentes
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Consulta respuestas sobre GPA, notas ponderadas, exámenes finales,
+                    calificación por puntos y otras herramientas académicas.
+                  </p>
+                </a>
+
+                <a
+                  href="/blog/"
+                  className="rounded-2xl border border-gray-200 p-5 bg-white hover:border-blue-300 hover:shadow-sm transition group"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                    Guías y Recursos Académicos
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Aprende cómo funcionan diferentes cálculos académicos mediante guías
+                    explicativas y ejemplos prácticos.
+                  </p>
+                </a>
+              </div>
+            </section>
             {/* WHAT TO INCLUDE */}
             <section className="mb-10">
               <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">

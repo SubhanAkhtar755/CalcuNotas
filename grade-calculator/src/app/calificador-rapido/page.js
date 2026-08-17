@@ -472,6 +472,27 @@ const FAQS = [
     q: "¿El calificador rápido funciona para exámenes de 30 preguntas?",
     a: "Sí. Ingresa 30 en el campo de total de preguntas y la herramienta genera la tabla completa para todos los puntajes del 0 al 30, con porcentaje y nota con letra para cada uno.",
   },
+  // ── GAP 8: FAQS ADICIONALES ─────────────────────────────────────────────
+{
+  q: "¿Puedo usar puntos en lugar de preguntas?",
+  a: "Sí, si cada punto tiene el mismo valor. Si las preguntas tienen diferentes valores, es mejor calcular primero los puntos obtenidos y dividirlos entre los puntos máximos antes de convertir el resultado a porcentaje.",
+},
+{
+  q: "¿Qué pasa si las preguntas del examen tienen diferente valor?",
+  a: "Una tabla basada únicamente en preguntas correctas puede no representar correctamente la nota. Cuando cada pregunta tiene un valor diferente, debes utilizar los puntos obtenidos y los puntos totales del examen.",
+},
+{
+  q: "¿Cómo convierto un porcentaje a una nota sobre 10?",
+  a: "En una conversión directa, divide el porcentaje entre 10. Por ejemplo, 85 % equivale a 8,5 sobre 10. Sin embargo, la escala oficial de una institución puede utilizar reglas de redondeo o equivalencias diferentes.",
+},
+{
+  q: "¿Debo redondear el porcentaje antes de calcular la nota?",
+  a: "Depende de las reglas de tu institución. Para mantener la mayor precisión posible, puedes conservar el porcentaje con decimales durante el cálculo y aplicar el redondeo únicamente al mostrar o registrar la nota final.",
+},
+{
+  q: "¿El calificador rápido funciona si el examen tiene penalización por errores?",
+  a: "La tabla normal funciona para exámenes en los que una respuesta incorrecta simplemente no suma puntos. Si existe una penalización específica por error, debes aplicar primero la fórmula de puntuación negativa indicada por el examen antes de convertir el resultado a porcentaje.",
+},
   {
     q: "¿Cuál es la fórmula para calcular el porcentaje de un examen?",
     a: "Porcentaje = (Respuestas correctas ÷ Total de preguntas) × 100. Ejemplo: 17 correctas de 20 preguntas = (17 ÷ 20) × 100 = 85%.",
@@ -733,7 +754,451 @@ export default function CalificadorRapidoPage() {
                     </div>
                   ))}
                 </div>
-              </section>
+              </section>{/* ── GAP 1: EJEMPLOS PRÁCTICOS POR TAMAÑO DE EXAMEN ─────────────────── */}
+<section className="mb-12" aria-labelledby="ejemplos-heading">
+  <h2 id="ejemplos-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    Ejemplos de Calificación: 20, 30, 40, 50 y 100 Preguntas
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    El cálculo funciona exactamente igual sin importar el tamaño del examen.
+    Lo que cambia es el porcentaje que representa cada respuesta correcta o
+    incorrecta. Estos ejemplos muestran cómo convertir un número de aciertos
+    en porcentaje y nota.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {[
+      {
+        examen: "20 preguntas",
+        resultado: "17 correctas, 3 incorrectas",
+        calculo: "(17 ÷ 20) × 100 = 85 %",
+        nota: "8,5 / 10 en España",
+      },
+      {
+        examen: "30 preguntas",
+        resultado: "24 correctas, 6 incorrectas",
+        calculo: "(24 ÷ 30) × 100 = 80 %",
+        nota: "8,0 / 10 en España",
+      },
+      {
+        examen: "40 preguntas",
+        resultado: "32 correctas, 8 incorrectas",
+        calculo: "(32 ÷ 40) × 100 = 80 %",
+        nota: "8,0 / 10 en España",
+      },
+      {
+        examen: "50 preguntas",
+        resultado: "42 correctas, 8 incorrectas",
+        calculo: "(42 ÷ 50) × 100 = 84 %",
+        nota: "8,4 / 10 en España",
+      },
+      {
+        examen: "100 preguntas",
+        resultado: "73 correctas, 27 incorrectas",
+        calculo: "(73 ÷ 100) × 100 = 73 %",
+        nota: "7,3 / 10 en España",
+      },
+    ].map((ejemplo) => (
+      <div
+        key={ejemplo.examen}
+        className="rounded-2xl border border-gray-200 p-5 bg-white"
+      >
+        <h3 className="font-semibold text-gray-800 mb-3">
+          Examen de {ejemplo.examen}
+        </h3>
+
+        <div className="space-y-2 text-[14px] text-gray-600 leading-6">
+          <p>
+            <span className="font-semibold text-gray-800">Resultado:</span>{" "}
+            {ejemplo.resultado}
+          </p>
+          <p>
+            <span className="font-semibold text-gray-800">Cálculo:</span>{" "}
+            {ejemplo.calculo}
+          </p>
+          <p>
+            <span className="font-semibold text-gray-800">Equivalencia:</span>{" "}
+            {ejemplo.nota}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5 mt-5">
+    <h3 className="font-semibold text-gray-800 mb-2">
+      Regla rápida
+    </h3>
+    <p className="text-gray-700 text-[14px] leading-7">
+      Si todas las preguntas tienen el mismo valor, puedes obtener el
+      porcentaje dividiendo las respuestas correctas entre el total de
+      preguntas y multiplicando por 100. Después puedes convertir ese
+      porcentaje a la escala de notas que utilice tu centro educativo.
+    </p>
+  </div>
+</section>{/* ── GAP 2: IMPACTO DE CADA PREGUNTA EN EL PORCENTAJE ───────────────── */}
+<section className="mb-12" aria-labelledby="impacto-heading">
+  <h2 id="impacto-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    ¿Cuánto vale cada pregunta en un examen?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Cuando todas las preguntas tienen el mismo valor, cada respuesta representa
+    una parte fija del porcentaje total. Cuantas menos preguntas tenga el
+    examen, mayor será el impacto de una sola respuesta correcta o incorrecta.
+  </p>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200">
+    <table className="w-full min-w-[500px] border-collapse text-[14px]">
+      <caption className="sr-only">
+        Porcentaje que representa cada pregunta según el tamaño del examen
+      </caption>
+
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th scope="col" className="px-4 py-3 text-left font-semibold">
+            Total de preguntas
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Valor de 1 pregunta
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            1 fallo equivale a
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {[
+          { total: "10", valor: "10 %", impacto: "10 puntos porcentuales" },
+          { total: "20", valor: "5 %", impacto: "5 puntos porcentuales" },
+          { total: "25", valor: "4 %", impacto: "4 puntos porcentuales" },
+          { total: "30", valor: "3,33 %", impacto: "3,33 puntos porcentuales" },
+          { total: "40", valor: "2,5 %", impacto: "2,5 puntos porcentuales" },
+          { total: "50", valor: "2 %", impacto: "2 puntos porcentuales" },
+          { total: "100", valor: "1 %", impacto: "1 punto porcentual" },
+        ].map((row) => (
+          <tr key={row.total} className="border-t border-gray-100">
+            <td className="px-4 py-3 font-medium text-gray-800">
+              {row.total} preguntas
+            </td>
+            <td className="px-4 py-3 text-center font-semibold text-blue-700">
+              {row.valor}
+            </td>
+            <td className="px-4 py-3 text-center text-gray-700">
+              {row.impacto}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 mt-5">
+    <h3 className="font-semibold text-gray-800 mb-2">
+      Ejemplo: examen de 20 preguntas
+    </h3>
+    <p className="text-gray-700 text-[14px] leading-7">
+      En un examen de 20 preguntas, cada respuesta vale{" "}
+      <strong>5 %</strong>. Por eso pasar de 18 a 17 respuestas correctas
+      reduce el resultado de 90 % a 85 %. En un examen de 100 preguntas, la
+      misma pérdida de una respuesta solo cambia el resultado en 1 punto
+      porcentual.
+    </p>
+  </div>
+</section>{/* ── GAP 3: REDONDEO Y DECIMALES ─────────────────────────────────────── */}
+<section className="mb-12" aria-labelledby="redondeo-heading">
+  <h2 id="redondeo-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    Cómo redondear porcentajes y notas correctamente
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    No todos los resultados producen un porcentaje entero. Por ejemplo,
+    17 respuestas correctas de 30 preguntas producen 56,666... %. Para evitar
+    diferencias entre estudiantes, es importante establecer una regla de
+    redondeo y utilizarla de forma consistente.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-3">
+    {[
+      {
+        titulo: "Sin redondear",
+        texto: "17 ÷ 30 × 100 = 56,666... %. Mantiene el resultado matemático completo.",
+      },
+      {
+        titulo: "A 2 decimales",
+        texto: "56,666... % se muestra como 56,67 %. Es útil cuando se necesitan resultados precisos.",
+      },
+      {
+        titulo: "Al número entero",
+        texto: "56,666... % se muestra como 57 %. Es más sencillo, pero reduce el nivel de detalle.",
+      },
+    ].map((item) => (
+      <div
+        key={item.titulo}
+        className="rounded-2xl border border-gray-200 p-5 bg-white"
+      >
+        <h3 className="font-semibold text-gray-800 mb-2">
+          {item.titulo}
+        </h3>
+        <p className="text-gray-600 text-[14px] leading-6">
+          {item.texto}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <div className="rounded-2xl border border-amber-100 bg-amber-50 p-5 mt-5">
+    <h3 className="font-semibold text-amber-900 mb-2">
+      Consejo para profesores
+    </h3>
+    <p className="text-gray-700 text-[14px] leading-7">
+      Define antes de corregir si las notas se registrarán con decimales,
+      porcentajes enteros o una cantidad específica de posiciones decimales.
+      Aplicar la misma regla a toda la clase evita diferencias de criterio
+      entre estudiantes.
+    </p>
+  </div>
+</section>{/* ── GAP 4: CUÁNDO USAR Y CUÁNDO NO USAR EL CALIFICADOR ─────────────── */}
+<section className="mb-12" aria-labelledby="limites-heading">
+  <h2 id="limites-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    ¿Cuándo funciona mejor un Calificador Rápido?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    El calificador rápido es especialmente preciso cuando cada pregunta tiene
+    el mismo valor. Si todas las respuestas correctas aportan la misma cantidad
+    de puntos, el número de aciertos puede convertirse directamente en un
+    porcentaje.
+  </p>
+
+  <div className="grid gap-5 md:grid-cols-2">
+    <div className="rounded-2xl border border-green-200 bg-green-50 p-6">
+      <h3 className="text-[18px] font-semibold text-green-900 mb-3">
+        ✓ Ideal para este calificador
+      </h3>
+
+      <ul className="space-y-2 text-gray-700 text-[14px] leading-7">
+        <li>• Exámenes de opción múltiple con preguntas de igual valor.</li>
+        <li>• Quizzes donde cada pregunta vale 1 punto.</li>
+        <li>• Pruebas de ortografía con el mismo valor por palabra.</li>
+        <li>• Hojas de ejercicios con puntos iguales.</li>
+        <li>• Exámenes donde el porcentaje depende directamente de los aciertos.</li>
+      </ul>
+    </div>
+
+    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+      <h3 className="text-[18px] font-semibold text-amber-900 mb-3">
+        ⚠ Revisa el sistema antes de usarlo
+      </h3>
+
+      <ul className="space-y-2 text-gray-700 text-[14px] leading-7">
+        <li>• Preguntas con diferentes valores en puntos.</li>
+        <li>• Exámenes con penalización por respuestas incorrectas.</li>
+        <li>• Evaluaciones con preguntas de bonificación especiales.</li>
+        <li>• Tareas donde cada actividad tiene un peso diferente.</li>
+        <li>• Promedios finales calculados con porcentajes ponderados.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 mt-5">
+    <h3 className="font-semibold text-gray-800 mb-2">
+      Ejemplo de por qué importa
+    </h3>
+    <p className="text-gray-700 text-[14px] leading-7">
+      Si un examen tiene 10 preguntas de 1 punto cada una, 8 respuestas
+      correctas representan 80 %. Pero si dos preguntas valen 5 puntos y las
+      otras ocho valen 1 punto, contar únicamente las respuestas correctas puede
+      producir un resultado incorrecto. En ese caso debe utilizarse el total de
+      puntos obtenidos y el total de puntos posibles.
+    </p>
+  </div>
+</section>{/* ── GAP 5: FÓRMULA DE PENALIZACIÓN POR ERROR ───────────────────────── */}
+<section className="mb-12" aria-labelledby="penalizacion-formula-heading">
+  <h2
+    id="penalizacion-formula-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Cómo calcular una nota con penalización por errores
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-4">
+    Algunos exámenes tipo test descuentan puntos por cada respuesta incorrecta.
+    En estos casos, no basta con restar los errores del total de preguntas.
+    Primero debes conocer cuánto vale cada respuesta incorrecta según las
+    reglas del examen.
+  </p>
+
+  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-5">
+    Puntuación = Correctas − (Incorrectas × Penalización)
+  </div>
+
+  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+    <h3 className="font-semibold text-gray-800 mb-3">
+      Ejemplo sencillo
+    </h3>
+
+    <p className="text-gray-700 text-[15px] leading-7 mb-3">
+      Supongamos un examen con 20 preguntas, 15 respuestas correctas,
+      5 incorrectas y una penalización de 0,25 puntos por cada error.
+    </p>
+
+    <div className="space-y-1 text-[14px] font-mono text-gray-700">
+      <p>Correctas = <strong>15</strong></p>
+      <p>Penalización = 5 × 0,25 = <strong>1,25</strong></p>
+      <p>Puntuación neta = 15 − 1,25 = <strong>13,75 puntos</strong></p>
+    </div>
+
+    <p className="text-gray-600 text-[13px] leading-6 mt-4">
+      La conversión final de esa puntuación a porcentaje o nota depende de las
+      reglas específicas del examen. Si tu prueba no aplica penalización,
+      utiliza el cálculo normal de respuestas correctas sobre el total.
+    </p>
+  </div>
+</section>{/* ── GAP 6: CALCULAR MÁXIMO DE FALLOS SEGÚN NOTA OBJETIVO ───────────── */}
+<section className="mb-12" aria-labelledby="objetivo-heading">
+  <h2 id="objetivo-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
+    ¿Cuántas puedo fallar para conseguir una nota determinada?
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    También puedes hacer el cálculo al revés: en lugar de empezar por el número
+    de errores, empieza por la nota o porcentaje que quieres conseguir. Si las
+    preguntas tienen el mismo valor, primero determina cuántas respuestas
+    correctas necesitas y después resta ese número del total.
+  </p>
+
+  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-5">
+    <h3 className="font-semibold text-gray-800 mb-3">
+      Fórmula para encontrar el máximo de errores
+    </h3>
+
+    <div className="bg-white border border-blue-100 rounded-xl px-5 py-4 font-mono text-center text-[14px] text-gray-800">
+      Máximo de errores = Total de preguntas − Correctas necesarias
+    </div>
+
+    <p className="text-gray-700 text-[14px] leading-7 mt-4">
+      Por ejemplo, para conseguir al menos 80 % en un examen de 50 preguntas,
+      necesitas 40 respuestas correctas. Por lo tanto, puedes tener hasta
+      <strong> 10 respuestas incorrectas</strong>.
+    </p>
+  </div>
+
+  <div className="overflow-x-auto rounded-2xl border border-gray-200">
+    <table className="w-full min-w-[520px] border-collapse text-[14px]">
+      <caption className="sr-only">
+        Máximo de preguntas incorrectas para obtener al menos 80 por ciento
+      </caption>
+
+      <thead>
+        <tr className="bg-blue-600 text-white">
+          <th scope="col" className="px-4 py-3 text-left font-semibold">
+            Total
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Correctas para 80 %
+          </th>
+          <th scope="col" className="px-4 py-3 text-center font-semibold">
+            Máximo de fallos
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {[
+          { total: "20", correctas: "16", fallos: "4" },
+          { total: "30", correctas: "24", fallos: "6" },
+          { total: "40", correctas: "32", fallos: "8" },
+          { total: "50", correctas: "40", fallos: "10" },
+          { total: "100", correctas: "80", fallos: "20" },
+        ].map((row) => (
+          <tr key={row.total} className="border-t border-gray-100">
+            <td className="px-4 py-3 font-medium text-gray-800">
+              {row.total} preguntas
+            </td>
+            <td className="px-4 py-3 text-center font-semibold text-blue-700">
+              {row.correctas}
+            </td>
+            <td className="px-4 py-3 text-center font-bold text-green-700">
+              ≤ {row.fallos}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>{/* ── GAP 7: FLUJO REAL DE TRABAJO PARA PROFESORES ───────────────────── */}
+<section className="mb-12" aria-labelledby="flujo-profesor-heading">
+  <h2
+    id="flujo-profesor-heading"
+    className="text-[28px] font-bold tracking-[-0.02em] mb-5"
+  >
+    Ejemplo real: cómo un profesor puede corregir un examen de 30 preguntas
+  </h2>
+
+  <p className="text-gray-700 leading-8 mb-5">
+    Imagina una clase en la que todos los estudiantes realizan el mismo examen
+    de 30 preguntas y cada pregunta vale lo mismo. En lugar de calcular el
+    porcentaje de cada examen manualmente, el profesor puede utilizar una única
+    tabla como referencia.
+  </p>
+
+  <div className="grid gap-4 md:grid-cols-4">
+    {[
+      {
+        n: "1",
+        titulo: "Genera la tabla",
+        texto: "Introduce 30 como total de preguntas y obtén todos los resultados posibles.",
+      },
+      {
+        n: "2",
+        titulo: "Cuenta los fallos",
+        texto: "Durante la corrección, cuenta cuántas respuestas incorrectas tiene cada examen.",
+      },
+      {
+        n: "3",
+        titulo: "Busca la fila",
+        texto: "Localiza ese número de errores en la tabla para conocer el porcentaje correspondiente.",
+      },
+      {
+        n: "4",
+        titulo: "Registra la nota",
+        texto: "Aplica la escala de calificación establecida por el centro o profesor.",
+      },
+    ].map((paso) => (
+      <div
+        key={paso.n}
+        className="rounded-2xl border border-gray-200 p-5 bg-white"
+      >
+        <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm mb-3">
+          {paso.n}
+        </div>
+
+        <h3 className="font-semibold text-gray-800 mb-2">
+          {paso.titulo}
+        </h3>
+
+        <p className="text-gray-600 text-[13px] leading-6">
+          {paso.texto}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <div className="rounded-2xl border border-green-100 bg-green-50 p-5 mt-5">
+    <h3 className="font-semibold text-green-900 mb-2">
+      Ventaja práctica
+    </h3>
+    <p className="text-gray-700 text-[14px] leading-7">
+      Una vez creada la tabla para el examen, el profesor no necesita repetir
+      la división para cada estudiante. Esto resulta especialmente útil cuando
+      todos los exámenes tienen exactamente el mismo número de preguntas y
+      utilizan la misma regla de calificación.
+    </p>
+  </div>
+</section>
 
               {/* ── FÓRMULA (Featured Snippet target) ────────────────────── */}
               <section className="mb-12" aria-labelledby="formula-heading">

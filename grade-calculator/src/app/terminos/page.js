@@ -7,9 +7,13 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export const metadata = {
+  metadataBase: new URL("https://calcunotas.com"),
+
   title: "Términos de Servicio | CalcuNotas",
+
   description:
     "Lee los Términos de Servicio para usar CalcuNotas, incluyendo calculadora de notas, calculadora GPA, calculadora de nota final, calculadora de nota semestral, calculadora de examen y herramientas de calificación rápida.",
+
   keywords: [
     "términos de servicio",
     "términos calculadora de notas",
@@ -22,21 +26,41 @@ export const metadata = {
     "términos sitio web calculadora",
   ],
 
-  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
-  
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   openGraph: {
     title: "Términos de Servicio | CalcuNotas",
     description:
       "Reglas y condiciones para usar las calculadoras de notas, GPA, nota final y calificación rápida de CalcuNotas.",
     url: "https://calcunotas.com/terminos/",
+    siteName: "CalcuNotas",
     type: "website",
+    locale: "es_ES",
+    images: [
+      {
+        url: "https://calcunotas.com/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "CalcuNotas",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Términos de Servicio | CalcuNotas",
+    description:
+      "Reglas y condiciones para usar las calculadoras educativas de CalcuNotas.",
+    images: ["https://calcunotas.com/logo.png"],
   },
 
   alternates: {
     canonical: "https://calcunotas.com/terminos/",
   },
 };
-
 // ────────────────────────────────────────────────────────────
 // GAP FIX: Terms page par pehle koi JSON-LD nahi tha.
 // WebPage (with machine-readable dateModified) + BreadcrumbList add kiya,
@@ -46,27 +70,66 @@ const pageSchema = [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
+    "@id": "https://calcunotas.com/terminos/#webpage",
     name: "Términos de Servicio | CalcuNotas",
     url: "https://calcunotas.com/terminos/",
     description:
       "Términos de Servicio de CalcuNotas: reglas y condiciones para usar nuestras calculadoras de notas, GPA, nota final y calificación rápida.",
+    inLanguage: "es",
+    datePublished: "2026-01-01",
     dateModified: "2026-01-01",
+
     isPartOf: {
       "@type": "WebSite",
+      "@id": "https://calcunotas.com/#website",
       name: "CalcuNotas",
       url: "https://calcunotas.com",
     },
+
+    mainEntity: {
+      "@id": "https://calcunotas.com/#organization",
+    },
+
     publisher: {
-      "@type": "Organization",
-      name: "CalcuNotas",
-      url: "https://calcunotas.com",
+      "@id": "https://calcunotas.com/#organization",
     },
   },
+
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://calcunotas.com/#organization",
+    name: "CalcuNotas",
+    url: "https://calcunotas.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://calcunotas.com/logo.png",
+      width: 512,
+      height: 512,
+    },
+    email: "info@calcunotas.com",
+    description:
+      "CalcuNotas es un sitio web gratuito de calculadoras educativas para notas, GPA, exámenes, promedios ponderados y otras necesidades académicas.",
+
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: "info@calcunotas.com",
+      availableLanguage: ["Spanish", "English"],
+    },
+  },
+
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": "https://calcunotas.com/terminos/#breadcrumb",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://calcunotas.com/" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://calcunotas.com/",
+      },
       {
         "@type": "ListItem",
         position: 2,
