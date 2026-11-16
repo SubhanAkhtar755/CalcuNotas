@@ -25,7 +25,6 @@ const schemaMarkup = [
       "Compatible con escalas 0-10, 0-5, 1-7, 0-20 y porcentaje",
       "Tabla multi-meta: ve qué necesitas para 5, 6, 7, 8 y 9 de golpe",
       "Detección automática de metas imposibles (>máximo)",
-      "Nota mínima por componente configurable",
       "Sin registro, 100 % gratuita",
     ],
   },
@@ -51,30 +50,6 @@ const schemaMarkup = [
       },
       {
         "@type": "Question",
-        name: "¿Cuánto necesito en el examen final para aprobar con un 5 en España?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Depende de tu nota actual y el peso del examen. Si tienes un 4,5 y el examen vale el 40 %, necesitas: (5 − 4,5 × 0,6) ÷ 0,4 = (5 − 2,7) ÷ 0,4 = 5,75. Necesitas un 5,75 en el examen final para alcanzar el aprobado.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Cuánto vale el examen final normalmente en España?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "En España el examen final suele representar entre el 40 % y el 60 % de la calificación total de la asignatura, aunque varía según la guía docente de cada universidad o centro educativo. En secundaria puede ser el 30 %.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Puedo usar esta calculadora con la escala colombiana (0-5)?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sí. La fórmula es universal: solo tienes que introducir tus valores en la misma escala. Si tu nota actual es 3,8, tu meta es 4,0 y el final vale el 35 %, el resultado será en la misma escala 0-5.",
-        },
-      },
-      {
-        "@type": "Question",
         name: "¿Ya saqué el examen final. Cómo calculo mi nota definitiva del curso?",
         acceptedAnswer: {
           "@type": "Answer",
@@ -91,42 +66,10 @@ const schemaMarkup = [
       },
       {
         "@type": "Question",
-        name: "¿Qué es la nota de presentación al examen final?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "La nota de presentación es la calificación acumulada que llevas antes del examen final, incluyendo parciales, prácticas, trabajos y cualquier otra evaluación continua. Es exactamente lo que debes introducir como 'nota actual' en la calculadora.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Qué nota mínima necesito en el examen final en Chile (escala 1-7)?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "En Chile la nota mínima de aprobación es 4,0 en escala 1-7. Si tu nota de presentación es 3,5, tu meta es 4,0 y el examen vale el 60 %, necesitas: (4,0 − 3,5 × 0,4) ÷ 0,6 = (4,0 − 1,4) ÷ 0,6 = 4,33. Necesitas un 4,33 sobre 7 en el examen final.",
-        },
-      },
-      {
-        "@type": "Question",
         name: "¿Existe un examen de recuperación si no apruebo el final?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Depende del país e institución. En España existe la segunda convocatoria ordinaria y extraordinaria. En México el examen extraordinario. En Perú el examen sustitutorio. En Colombia la habilitación. Consulta el reglamento académico de tu centro.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Los docentes redondean la nota final?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Depende de la institución. La mayoría aplica redondeo estándar (0,5 o más sube al entero siguiente). Algunos docentes redondean a favor del estudiante en casos límite. Sin embargo, no confíes en el redondeo como estrategia: apunta siempre a superar el mínimo con margen.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Cuál es la nota mínima para aprobar en México?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "En México la calificación mínima aprobatoria en la mayoría de universidades e institutos es 6,0 sobre 10 (equivalente al 60 %). En educación básica y media superior puede variar entre 5,0 y 6,0 según la institución.",
         },
       },
       {
@@ -139,18 +82,10 @@ const schemaMarkup = [
       },
       {
         "@type": "Question",
-        name: "¿Cómo se calcula la nota final con varios parciales de diferentes porcentajes?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Primero calcula el promedio ponderado acumulado: multiplica cada nota parcial por su porcentaje (en decimal) y suma los resultados. Por ejemplo: Parcial 1 (6,0 × 0,20) + Parcial 2 (7,0 × 0,30) + Trabajos (5,5 × 0,10) = 1,2 + 2,1 + 0,55 = 3,85. Ese 3,85 es tu nota acumulada sobre el 60 % restante antes del final. Ajusta al porcentaje total acumulado antes de introducirlo en la calculadora.",
-        },
-      },
-      {
-        "@type": "Question",
         name: "¿Qué diferencia hay entre nota mínima y nota de corte?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "La nota mínima es el umbral para aprobar una asignatura (p. ej. 5/10 en España). La nota de corte es la calificación mínima para acceder a un programa universitario o plaza concreta, generalmente en el proceso de admisión. Son conceptos distintos: la nota mínima la fija el docente; la nota de corte la fija la institución o el sistema de acceso.",
+          text: "La nota mínima es el umbral para aprobar una asignatura (p. ej. 5/10 en España). La nota de corte es la calificación mínima para acceder a un programa universitario o plaza concreta, generalmente en el proceso de admisión. Son conceptos distintos.",
         },
       },
     ],
@@ -208,33 +143,14 @@ export const metadata = {
   description:
     "¿Cuánto necesitas en el examen final para aprobar? Fórmula exacta, tabla multi-objetivo y escalas de España, México, Colombia, Chile, Perú y más. Gratis, sin registro.",
   keywords: [
-    // PRIMARY
     "calculadora de nota final",
     "qué nota necesito en el examen final",
     "cuánto necesito en el examen final para aprobar",
     "calcular nota necesaria examen final",
-    // SECONDARY
-    "calcular nota que me falta para aprobar",
-    "cuánto necesito en el final para pasar la materia",
-    "calculadora nota mínima para aprobar examen final",
-    "qué nota necesito sacar en el final",
-    "nota necesaria examen final España",
-    "cuánto necesito en el examen final colombia",
-    "calcular nota final del curso después del examen",
-    "nota de presentación al examen cuánto necesito",
-    // LATAM SPECIFICS
     "calculadora nota final chile escala 1-7",
     "calculadora nota final colombia escala 0-5",
     "calculadora nota final mexico",
-    "examen sustitutorio nota necesaria",
-    "habilitación nota necesaria colombia",
-    // TERTIARY / PAA
     "formula nota necesaria examen final",
-    "calculadora nota acumulada y examen final",
-    "nota mínima componente examen final",
-    "si saco un 10 en el final qué nota queda",
-    "metas imposibles examen final superan el máximo",
-    "diferencia nota mínima nota de corte",
     "nota de presentación examen final",
   ],
   alternates: {
@@ -248,18 +164,6 @@ export const metadata = {
       "es-CL": "https://calcunotas.com/nota-final/",
       "es-PE": "https://calcunotas.com/nota-final/",
       "es-VE": "https://calcunotas.com/nota-final/",
-      "es-EC": "https://calcunotas.com/nota-final/",
-      "es-BO": "https://calcunotas.com/nota-final/",
-      "es-PY": "https://calcunotas.com/nota-final/",
-      "es-UY": "https://calcunotas.com/nota-final/",
-      "es-GT": "https://calcunotas.com/nota-final/",
-      "es-CU": "https://calcunotas.com/nota-final/",
-      "es-DO": "https://calcunotas.com/nota-final/",
-      "es-HN": "https://calcunotas.com/nota-final/",
-      "es-SV": "https://calcunotas.com/nota-final/",
-      "es-NI": "https://calcunotas.com/nota-final/",
-      "es-PA": "https://calcunotas.com/nota-final/",
-      "es-CR": "https://calcunotas.com/nota-final/",
     },
   },
   openGraph: {
@@ -437,36 +341,11 @@ const ESCENARIOS = [
 
 // Multi-goal table: nota actual = 4,5 sobre 10
 const MULTI_META_EJEMPLO = [
-  {
-    meta: "5 (Aprobado)",
-    peso40: "5,75",
-    peso50: "5,50",
-    peso60: "5,33",
-  },
-  {
-    meta: "6 (Bien)",
-    peso40: "8,25",
-    peso50: "7,50",
-    peso60: "7,00",
-  },
-  {
-    meta: "7 (Notable)",
-    peso40: "10,75",
-    peso50: "9,50",
-    peso60: "8,67",
-  },
-  {
-    meta: "8 (Notable alto)",
-    peso40: "13,25",
-    peso50: "11,50",
-    peso60: "10,33",
-  },
-  {
-    meta: "9 (Sobresaliente)",
-    peso40: "15,75",
-    peso50: "13,50",
-    peso60: "12,00",
-  },
+  { meta: "5 (Aprobado)", peso40: "5,75", peso50: "5,50", peso60: "5,33" },
+  { meta: "6 (Bien)", peso40: "8,25", peso50: "7,50", peso60: "7,00" },
+  { meta: "7 (Notable)", peso40: "10,75", peso50: "9,50", peso60: "8,67" },
+  { meta: "8 (Notable alto)", peso40: "13,25", peso50: "11,50", peso60: "10,33" },
+  { meta: "9 (Sobresaliente)", peso40: "15,75", peso50: "13,50", peso60: "12,00" },
 ];
 
 const PASOS = [
@@ -475,28 +354,24 @@ const PASOS = [
     titulo: "Introduce tu nota de presentación",
     texto:
       "Es la calificación acumulada antes del examen final: parciales, prácticas, tareas y cualquier otra evaluación ya entregada. Usa la misma escala que el resto (0-10, 0-5, etc.).",
-    icon: "📋",
   },
   {
     n: "2",
     titulo: "Indica el peso del examen final",
     texto:
       "El porcentaje que representa el examen final en la nota total de la asignatura. Lo encontrarás en la guía docente o programa del curso. Suele ser entre el 30 % y el 60 %.",
-    icon: "⚖️",
   },
   {
     n: "3",
     titulo: "Fija tu nota objetivo",
     texto:
       "La calificación final del curso que quieres alcanzar: el mínimo para aprobar, un notable (7) o cualquier meta personalizada. Usa la misma escala que los demás campos.",
-    icon: "🎯",
   },
   {
     n: "4",
     titulo: "Lee el resultado y actúa",
     texto:
       "Verás la nota exacta que necesitas en el examen. Si supera el máximo de tu escala, recibirás una alerta con opciones concretas: ajustar la meta, buscar recuperación o consultar puntos extra.",
-    icon: "✅",
   },
 ];
 
@@ -504,17 +379,12 @@ const GLOSARIO = [
   {
     termino: "Nota de presentación",
     definicion:
-      "La calificación acumulada que llevas antes del examen final, incluyendo todos los parciales, prácticas y trabajos entregados. Sinónimo de nota actual en esta calculadora.",
+      "La calificación acumulada que llevas antes del examen final, incluyendo todos los parciales, prácticas y trabajos entregados. Es el dato que debes usar como 'nota actual' en la calculadora.",
   },
   {
     termino: "Peso del examen final",
     definicion:
       "El porcentaje que representa el examen final en la calificación total de la asignatura. Si el final vale el 40 %, su peso es 0,40 en la fórmula.",
-  },
-  {
-    termino: "Promedio ponderado",
-    definicion:
-      "Media en la que cada nota tiene un peso diferente según su importancia en la evaluación. Es la base del cálculo de la nota final del curso.",
   },
   {
     termino: "Meta imposible",
@@ -529,12 +399,7 @@ const GLOSARIO = [
   {
     termino: "Examen de recuperación",
     definicion:
-      "Segunda oportunidad para superar una asignatura tras suspender. Se denomina segunda convocatoria (España), examen extraordinario (México), examen sustitutorio (Perú) o habilitación (Colombia).",
-  },
-  {
-    termino: "Evaluación continua",
-    definicion:
-      "Sistema de calificación basado en múltiples actividades a lo largo del curso: parciales, trabajos, prácticas, participación. Su suma forma la nota de presentación al examen final.",
+      "Segunda oportunidad para superar una asignatura tras suspender: segunda convocatoria (España), examen extraordinario (México), examen sustitutorio (Perú) o habilitación (Colombia).",
   },
   {
     termino: "Nota de corte",
@@ -553,14 +418,6 @@ const FAQS = [
     a: "Tu objetivo es matemáticamente inalcanzable solo con el examen final. Opciones: bajar tu meta, preguntar si hay trabajos de recuperación, o consultar si el docente aplica redondeo o puntos extra.",
   },
   {
-    q: "¿Cuánto necesito en el final para aprobar con un 5 en España si llevo un 4,5 y el examen vale el 40 %?",
-    a: "(5 − 4,5 × 0,6) ÷ 0,4 = (5 − 2,7) ÷ 0,4 = 5,75. Necesitas un 5,75 sobre 10 en el examen final.",
-  },
-  {
-    q: "¿Cuánto suele valer el examen final en España?",
-    a: "En universidades españolas el examen final representa habitualmente entre el 40 % y el 60 % de la nota total según la guía docente. En educación secundaria puede oscilar entre el 30 % y el 40 %.",
-  },
-  {
     q: "¿Sirve esta calculadora para la escala colombiana (0-5)?",
     a: "Sí, la fórmula es universal. Introduce tus valores en la escala 0-5 y el resultado saldrá en esa misma escala. Con nota actual 3,5, meta 4,0 y peso 35 %, necesitas: (4,0 − 3,5 × 0,65) ÷ 0,35 = 4,93.",
   },
@@ -577,10 +434,6 @@ const FAQS = [
     a: "Muchas asignaturas exigen una nota mínima en el examen final para que cuente el promedio (p. ej. necesitas al menos un 4/10 en el examen aunque el promedio ponderado dé 5). Consulta la guía docente de tu asignatura.",
   },
   {
-    q: "¿Qué es la nota de presentación al examen final?",
-    a: "Es tu calificación acumulada antes del examen final: parciales, prácticas, trabajos y cualquier evaluación continua ya entregada. Es exactamente lo que introduces como 'nota actual' en esta calculadora.",
-  },
-  {
     q: "¿Qué nota necesito en el examen final en Chile (escala 1-7)?",
     a: "Usa la misma fórmula con tu escala. Ejemplo: nota de presentación 3,5, meta 4,0, peso 60 % → (4,0 − 3,5 × 0,4) ÷ 0,6 = 4,33. Necesitas un 4,33 sobre 7 en el examen final.",
   },
@@ -589,45 +442,16 @@ const FAQS = [
     a: "Depende del país e institución. España: segunda convocatoria. México: examen extraordinario. Perú: examen sustitutorio. Colombia: habilitación. Consulta el reglamento académico de tu centro.",
   },
   {
-    q: "¿Los docentes redondean la nota final?",
-    a: "Depende de la institución. La mayoría aplica redondeo estándar (0,5 sube al entero siguiente). No confíes en el redondeo como estrategia: apunta siempre a superar el mínimo con margen.",
-  },
-  {
     q: "¿Cuál es la nota mínima para aprobar en México?",
     a: "En la mayoría de universidades e institutos de México la calificación mínima aprobatoria es 6,0 sobre 10. En educación básica y media superior puede variar entre 5,0 y 6,0 según la institución.",
   },
   {
-    q: "¿Cómo calculo la nota final con varios parciales de distintos porcentajes?",
-    a: "Multiplica cada nota parcial por su porcentaje (en decimal) y suma los resultados. Eso es tu nota acumulada. Ejemplo: Parcial 1 (6,0 × 0,20) + Parcial 2 (7,0 × 0,30) + Trabajos (5,5 × 0,10) = 1,2 + 2,1 + 0,55 = 3,85 sobre el 60 % acumulado.",
-  },
-  // ── GAP 7: NUEVAS FAQS LONG-TAIL ───────────────────────────────────────
-{
-  q: "¿Cuál es la nota máxima que puedo obtener si saco la puntuación máxima en el examen?",
-  a: "Puedes calcularla suponiendo que obtienes la nota máxima de tu escala en el examen. Usa: Nota máxima = Nota actual × (1 − Peso) + Nota máxima del examen × Peso. Esto permite comprobar si una meta alta todavía es matemáticamente alcanzable.",
-},
-{
-  q: "¿Qué pasa si necesito exactamente un 10 en el examen final?",
-  a: "Si la calculadora indica exactamente 10, significa que necesitas obtener la puntuación máxima de la escala para alcanzar tu meta. Matemáticamente es posible si 10 es el máximo, pero no existe margen para perder puntos en el examen. Si el resultado supera 10, la meta ya no puede alcanzarse únicamente con el examen final.",
-},
-{
-  q: "¿Cómo sé si ya tengo aprobado antes de hacer el examen final?",
-  a: "Calcula tu nota final suponiendo diferentes resultados en el examen, incluido el mínimo permitido por tu asignatura. Si incluso con una nota baja mantienes la calificación aprobatoria, tienes margen. Sin embargo, algunas asignaturas exigen una nota mínima específica en el examen final aunque el promedio ponderado sea suficiente.",
-},
-{
-  q: "¿Cuánto cambia mi nota final por cada punto que saco en el examen?",
-  a: "El cambio depende del peso del examen. Si el final vale el 40 %, cada punto adicional en el examen aporta 0,40 puntos a la nota final. Si vale el 60 %, cada punto adicional aporta 0,60 puntos.",
-},
-{
-  q: "¿Cómo calculo qué nota necesito si el examen final vale solo el 20 %?",
-  a: "Utiliza la misma fórmula: Nota necesaria = (Meta − Nota actual × (1 − 0,20)) ÷ 0,20. Como el examen pesa poco, la nota actual tiene mucho más impacto y puede resultar imposible alcanzar metas muy superiores al promedio acumulado.",
-},
-{
-  q: "¿Es mejor calcular la nota mínima o una nota objetivo con margen?",
-  a: "La nota mínima representa el resultado matemático necesario para alcanzar la meta. Para estudiar, puede ser más prudente utilizar un objetivo algo superior, porque un examen real puede contener preguntas más difíciles de lo esperado y no siempre conviene depender de una puntuación exacta.",
-},
-  {
     q: "¿Cuál es la diferencia entre nota mínima y nota de corte?",
-    a: "La nota mínima es el umbral para aprobar una asignatura (p. ej. 5/10 en España). La nota de corte es la calificación mínima para acceder a un programa universitario en el proceso de admisión. Son conceptos distintos: la nota mínima la fija el docente; la nota de corte la fija la institución o el sistema de acceso.",
+    a: "La nota mínima es el umbral para aprobar una asignatura (p. ej. 5/10 en España). La nota de corte es la calificación mínima para acceder a un programa universitario en el proceso de admisión: la fija el docente frente a la institución o el sistema de acceso.",
+  },
+  {
+    q: "¿Es mejor apuntar exactamente a la nota mínima requerida?",
+    a: "La calculadora muestra el mínimo matemático exacto, pero apuntar justo a esa cifra deja poco margen ante errores o diferencias de corrección. Es recomendable estudiar para una puntuación algo superior al resultado exacto.",
   },
 ];
 
@@ -646,8 +470,6 @@ export default function NotaFinalPage() {
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
         <div className=" mx-auto">
-
-          {/* Breadcrumb */}
           <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
             <ol className="flex flex-wrap gap-1 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
               <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
@@ -668,11 +490,7 @@ export default function NotaFinalPage() {
             Calculadora de Nota Final
           </h1>
 
-          {/* AI Overview / GEO Snippet target */}
-          <div
-            data-ai-answer="true"
-            className="max-w-[820px] text-[17px] leading-8 text-[#667085] mb-2"
-          >
+          <div data-ai-answer="true" className="max-w-[820px] text-[17px] leading-8 text-[#667085] mb-2">
             <p>
               ¿Cuánto necesitas en el examen final para aprobar? Introduce tu{" "}
               <strong>nota de presentación</strong> (la calificación acumulada),
@@ -684,8 +502,7 @@ export default function NotaFinalPage() {
           </div>
 
           <p className="max-w-[820px] text-[15px] leading-7 text-[#8a94a6] mb-5">
-            Compatible con todas las escalas:{" "}
-            <strong>0-10</strong> (España, México, Argentina),{" "}
+            Compatible con todas las escalas: <strong>0-10</strong> (España, México, Argentina),{" "}
             <strong>0-5</strong> (Colombia), <strong>1-7</strong> (Chile),{" "}
             <strong>0-20</strong> (Perú, Venezuela, Francia) y{" "}
             <strong>porcentaje</strong> (USA y LATAM). Gratuita y sin registro.
@@ -734,10 +551,7 @@ export default function NotaFinalPage() {
             <div className="p-6 md:p-8">
 
               {/* ── AI OVERVIEW SNIPPET ───────────────────────────────────── */}
-              <div
-                className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mb-10"
-                data-ai-snippet="true"
-              >
+              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 mb-10" data-ai-snippet="true">
                 <h2 className="text-[26px] font-bold tracking-[-0.02em] mb-4">
                   Respuesta directa: ¿qué nota necesito en el examen final?
                 </h2>
@@ -757,71 +571,9 @@ export default function NotaFinalPage() {
                 </p>
               </div>
 
-              {/* ── VENTAJA DIFERENCIAL ───────────────────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold tracking-[-0.02em] mb-5">
-                  ¿Qué hace diferente a esta calculadora?
-                </h2>
-                <p className="text-gray-700 leading-8 mb-6">
-                  La mayoría de calculadoras de nota final solo trabajan con
-                  porcentaje (escala USA) o con la escala española 0-10. Esta
-                  cubre las seis escalas más usadas en el mundo
-                  hispanohablante, incluye una{" "}
-                  <strong>tabla multi-objetivo</strong> que muestra de una sola
-                  vez qué necesitas para cada calificación, y detecta
-                  automáticamente cuándo una meta es imposible con opciones
-                  concretas de actuación.
-                </p>
-                <div className="grid gap-4 md:grid-cols-3">
-                  {[
-                    {
-                      badge: "Exclusivo",
-                      badgeColor: "bg-purple-100 text-purple-700",
-                      titulo: "Tabla multi-objetivo",
-                      texto:
-                        "Ve de un vistazo qué nota necesitas para un 5, un 6, un 7, un 8 y un 9 sin tener que recalcular cada vez.",
-                    },
-                    {
-                      badge: "6 escalas",
-                      badgeColor: "bg-blue-100 text-blue-700",
-                      titulo: "Compatible con todos los países",
-                      texto:
-                        "España, México, Colombia, Chile, Perú, Venezuela, Argentina y el sistema anglosajón. Introduce tus valores en la escala que uses.",
-                    },
-                    {
-                      badge: "Alerta inteligente",
-                      badgeColor: "bg-red-100 text-red-700",
-                      titulo: "Detección de metas imposibles",
-                      texto:
-                        "Si el resultado supera el máximo de tu escala, la calculadora te avisa y te sugiere qué hacer: bajar el objetivo, buscar recuperación o consultar puntos extra.",
-                    },
-                  ].map((c) => (
-                    <div
-                      key={c.titulo}
-                      className="rounded-2xl border border-gray-200 p-5 bg-white"
-                    >
-                      <span
-                        className={`text-[11px] font-bold px-2 py-1 rounded-full mb-3 inline-block ${c.badgeColor}`}
-                      >
-                        {c.badge}
-                      </span>
-                      <h3 className="text-[16px] font-semibold text-gray-800 mb-2">
-                        {c.titulo}
-                      </h3>
-                      <p className="text-gray-600 text-[14px] leading-6">
-                        {c.texto}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
               {/* ── FÓRMULA (Featured Snippet target) ────────────────────── */}
               <section className="mb-12" aria-labelledby="formula-heading">
-                <h2
-                  id="formula-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-                >
+                <h2 id="formula-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-4">
                   Fórmula para calcular la nota que necesitas en el examen final
                 </h2>
                 <p className="text-gray-700 leading-8 mb-4">
@@ -829,7 +581,6 @@ export default function NotaFinalPage() {
                   nota necesaria en el examen final es:
                 </p>
 
-                {/* Formula block — Featured Snippet target */}
                 <div
                   className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-6"
                   role="math"
@@ -838,7 +589,6 @@ export default function NotaFinalPage() {
                   Nota necesaria = (Meta − Nota actual × (1 − Peso)) ÷ Peso
                 </div>
 
-                {/* Variable definitions */}
                 <div className="grid gap-3 md:grid-cols-3 mb-6">
                   {[
                     {
@@ -854,25 +604,15 @@ export default function NotaFinalPage() {
                       def: "La fracción del examen final (p. ej. 0,40 si vale el 40 %). Si te dan el porcentaje, divídelo entre 100.",
                     },
                   ].map((v) => (
-                    <div
-                      key={v.var}
-                      className="rounded-xl border border-gray-200 p-4"
-                    >
-                      <div className="font-semibold text-blue-600 mb-1">
-                        {v.var}
-                      </div>
-                      <p className="text-gray-600 text-[13px] leading-5">
-                        {v.def}
-                      </p>
+                    <div key={v.var} className="rounded-xl border border-gray-200 p-4">
+                      <div className="font-semibold text-blue-600 mb-1">{v.var}</div>
+                      <p className="text-gray-600 text-[13px] leading-5">{v.def}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* Step-by-step example */}
                 <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 mb-6">
-                  <h3 className="font-semibold text-gray-800 mb-3">
-                    Ejemplo completo paso a paso
-                  </h3>
+                  <h3 className="font-semibold text-gray-800 mb-3">Ejemplo completo paso a paso</h3>
                   <p className="text-gray-700 text-[15px] leading-7 mb-3">
                     Situación: nota actual <strong>6,5 / 10</strong>, meta{" "}
                     <strong>7 / 10</strong> (notable), examen final vale{" "}
@@ -888,12 +628,10 @@ export default function NotaFinalPage() {
                     </p>
                   </div>
                   <p className="text-gray-600 text-[13px] mt-3">
-                    Necesitas un <strong>7,75 sobre 10</strong> en el examen
-                    final para terminar con notable.
+                    Necesitas un <strong>7,75 sobre 10</strong> en el examen final para terminar con notable.
                   </p>
                 </div>
 
-                {/* Inverse formula */}
                 <h3 className="text-[20px] font-semibold text-gray-800 mb-3">
                   Fórmula inversa: ya hice el examen, ¿cuál es mi nota final?
                 </h3>
@@ -907,17 +645,13 @@ export default function NotaFinalPage() {
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-[14px] text-gray-700 leading-6">
                   <strong>Ejemplo:</strong> nota actual 7, examen 8, peso 40 %
                   <br />
-                  → 7 × 0,60 + 8 × 0,40 = 4,20 + 3,20 ={" "}
-                  <strong>7,40 — Notable</strong>
+                  → 7 × 0,60 + 8 × 0,40 = 4,20 + 3,20 = <strong>7,40 — Notable</strong>
                 </div>
               </section>
 
               {/* ── TABLA MULTI-OBJETIVO ──────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="multi-meta-heading">
-                <h2
-                  id="multi-meta-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-2"
-                >
+                <h2 id="multi-meta-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
                   Tabla multi-objetivo: qué necesitas para cada calificación
                 </h2>
                 <p className="text-gray-600 text-[15px] leading-7 mb-5">
@@ -935,48 +669,23 @@ export default function NotaFinalPage() {
                     </caption>
                     <thead>
                       <tr className="bg-blue-600 text-white">
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Meta final
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-center font-semibold">
-                          Peso 40 %
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-center font-semibold">
-                          Peso 50 %
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-center font-semibold">
-                          Peso 60 %
-                        </th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Meta final</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Peso 40 %</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Peso 50 %</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Peso 60 %</th>
                       </tr>
                     </thead>
                     <tbody>
                       {MULTI_META_EJEMPLO.map((row, i) => (
                         <tr key={i} className="border-t border-gray-100">
-                          <td className="px-4 py-3 font-medium text-gray-800">
-                            {row.meta}
-                          </td>
-                          <td
-                            className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso40) > 10
-                                ? "bg-red-50 text-red-600"
-                                : "text-green-700"
-                              }`}
-                          >
+                          <td className="px-4 py-3 font-medium text-gray-800">{row.meta}</td>
+                          <td className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso40) > 10 ? "bg-red-50 text-red-600" : "text-green-700"}`}>
                             {row.peso40}
                           </td>
-                          <td
-                            className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso50) > 10
-                                ? "bg-red-50 text-red-600"
-                                : "text-green-700"
-                              }`}
-                          >
+                          <td className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso50) > 10 ? "bg-red-50 text-red-600" : "text-green-700"}`}>
                             {row.peso50}
                           </td>
-                          <td
-                            className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso60) > 10
-                                ? "bg-red-50 text-red-600"
-                                : "text-green-700"
-                              }`}
-                          >
+                          <td className={`px-4 py-3 text-center font-semibold ${parseFloat(row.peso60) > 10 ? "bg-red-50 text-red-600" : "text-green-700"}`}>
                             {row.peso60}
                           </td>
                         </tr>
@@ -993,31 +702,18 @@ export default function NotaFinalPage() {
 
               {/* ── CÓMO USAR ─────────────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="como-usar-heading">
-                <h2
-                  id="como-usar-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
-                >
+                <h2 id="como-usar-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
                   Cómo usar la calculadora, paso a paso
                 </h2>
                 <div className="grid gap-4 md:grid-cols-2">
                   {PASOS.map((p) => (
-                    <div
-                      key={p.n}
-                      className="rounded-2xl border border-gray-200 p-5 bg-white flex gap-4 items-start"
-                    >
-                      <div
-                        className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm"
-                        aria-hidden="true"
-                      >
+                    <div key={p.n} className="rounded-2xl border border-gray-200 p-5 bg-white flex gap-4 items-start">
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm" aria-hidden="true">
                         {p.n}
                       </div>
                       <div>
-                        <h3 className="text-[16px] font-semibold text-gray-800 mb-1">
-                          {p.titulo}
-                        </h3>
-                        <p className="text-gray-600 text-[14px] leading-6">
-                          {p.texto}
-                        </p>
+                        <h3 className="text-[16px] font-semibold text-gray-800 mb-1">{p.titulo}</h3>
+                        <p className="text-gray-600 text-[14px] leading-6">{p.texto}</p>
                       </div>
                     </div>
                   ))}
@@ -1026,10 +722,7 @@ export default function NotaFinalPage() {
 
               {/* ── ESCALAS POR PAÍS ──────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="escalas-heading">
-                <h2
-                  id="escalas-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-2"
-                >
+                <h2 id="escalas-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
                   Escalas de calificación y nota mínima por país
                 </h2>
                 <p className="text-gray-600 text-[15px] leading-7 mb-5">
@@ -1044,414 +737,85 @@ export default function NotaFinalPage() {
                     </caption>
                     <thead>
                       <tr className="bg-blue-600 text-white">
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          País
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Escala
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Mínimo aprobado
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Máximo
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Peso habitual del final
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Sistema
-                        </th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">País</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Escala</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Mínimo aprobado</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Máximo</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Peso habitual del final</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Sistema</th>
                       </tr>
                     </thead>
                     <tbody>
                       {ESCALAS.map((e, i) => (
                         <tr key={i} className="border-t border-gray-100 bg-white">
-                          <td className="px-4 py-3 font-medium text-gray-800">
-                            {e.pais}
-                          </td>
+                          <td className="px-4 py-3 font-medium text-gray-800">{e.pais}</td>
                           <td className="px-4 py-3 text-gray-700">{e.escala}</td>
-                          <td className="px-4 py-3 font-semibold text-blue-700">
-                            {e.aprobado}
-                          </td>
+                          <td className="px-4 py-3 font-semibold text-blue-700">{e.aprobado}</td>
                           <td className="px-4 py-3 text-gray-700">{e.maximo}</td>
-                          <td className="px-4 py-3 text-gray-700">
-                            {e.pesoHabitual}
-                          </td>
-                          <td className="px-4 py-3 text-gray-500 text-[12px]">
-                            {e.sistema}
-                          </td>
+                          <td className="px-4 py-3 text-gray-700">{e.pesoHabitual}</td>
+                          <td className="px-4 py-3 text-gray-500 text-[12px]">{e.sistema}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               </section>
-{/* ── GAP 1: NOTA MÁXIMA POSIBLE ─────────────────────────────────────── */}
-<section className="mb-12" aria-labelledby="maxima-heading">
-  <h2
-    id="maxima-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    ¿Cuál es la nota máxima que puedes obtener en el curso?
-  </h2>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    Si quieres saber hasta dónde puedes llegar antes de presentar el examen,
-    calcula tu <strong>nota máxima posible</strong> suponiendo que obtienes la
-    puntuación máxima en el final. Esto es especialmente útil cuando tu objetivo
-    es un notable, sobresaliente o una calificación concreta.
-  </p>
+              {/* ── CUÁNTO CAMBIA TU NOTA SEGÚN EL PESO ────────────────────── */}
+              <section className="mb-12" aria-labelledby="comparacion-peso-heading">
+                <h2 id="comparacion-peso-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-4">
+                  ¿Cómo cambia tu nota según el peso del examen final?
+                </h2>
+                <p className="text-gray-700 leading-8 mb-5">
+                  El mismo resultado en un examen puede tener un impacto muy
+                  diferente dependiendo de su porcentaje. Por ejemplo, si
+                  tienes una nota actual de <strong>6,0 sobre 10</strong>,
+                  observa cómo cambia la nota definitiva si obtienes un{" "}
+                  <strong>8,0</strong> en el examen.
+                </p>
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[620px] border-collapse text-[14px]">
+                    <caption className="sr-only">
+                      Impacto del peso del examen final sobre una nota actual de 6 y un examen de 8
+                    </caption>
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Peso del final</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Nota actual</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Nota examen</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Nota definitiva</th>
+                        <th scope="col" className="px-4 py-3 text-center font-semibold">Cambio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["20 %", "6,0", "8,0", "6,40", "+0,40"],
+                        ["30 %", "6,0", "8,0", "6,60", "+0,60"],
+                        ["40 %", "6,0", "8,0", "6,80", "+0,80"],
+                        ["50 %", "6,0", "8,0", "7,00", "+1,00"],
+                        ["60 %", "6,0", "8,0", "7,20", "+1,20"],
+                      ].map((row, i) => (
+                        <tr key={i} className="border-t border-gray-100">
+                          <td className="px-4 py-3 font-medium text-gray-800">{row[0]}</td>
+                          <td className="px-4 py-3 text-center text-gray-700">{row[1]}</td>
+                          <td className="px-4 py-3 text-center text-gray-700">{row[2]}</td>
+                          <td className="px-4 py-3 text-center font-bold text-gray-800">{row[3]}</td>
+                          <td className="px-4 py-3 text-center font-semibold text-green-700">{row[4]}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-[13px] text-gray-500 mt-2">
+                  Cuanto mayor sea el peso del examen, mayor será el efecto de
+                  cada punto que obtengas en esa prueba sobre tu calificación
+                  definitiva.
+                </p>
+              </section>
 
-  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-mono text-center text-[15px] mb-5">
-    Nota máxima = Nota actual × (1 − Peso) + Nota máxima del examen × Peso
-  </div>
-
-  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-    <h3 className="font-semibold text-gray-800 mb-3">
-      Ejemplo: nota actual 6,5 y examen final del 40 %
-    </h3>
-
-    <p className="text-gray-700 text-[15px] leading-7 mb-3">
-      En una escala de 0 a 10, si llevas un <strong>6,5</strong> y el examen
-      representa el <strong>40 %</strong>, incluso sacando un 10 en el final tu
-      nota máxima será:
-    </p>
-
-    <div className="space-y-1 text-[14px] font-mono text-gray-700">
-      <p>6,5 × 0,60 + 10 × 0,40</p>
-      <p>= 3,90 + 4,00</p>
-      <p className="text-blue-700 font-bold">
-        = 7,90 sobre 10
-      </p>
-    </div>
-
-    <p className="text-gray-600 text-[13px] leading-6 mt-3">
-      Por tanto, una meta de 8,0 ya no sería alcanzable únicamente mediante
-      este examen. Esta comprobación permite saber tu techo real antes de
-      invertir tiempo en una meta imposible.
-    </p>
-  </div>
-</section>{/* ── GAP 2: COMPARACIÓN NUMÉRICA DEL PESO ───────────────────────────── */}
-<section className="mb-12" aria-labelledby="comparacion-peso-heading">
-  <h2
-    id="comparacion-peso-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    ¿Cómo cambia tu nota según el peso del examen final?
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    El mismo resultado en un examen puede tener un impacto muy diferente
-    dependiendo de su porcentaje. Por ejemplo, si tienes una nota actual de
-    <strong> 6,0 sobre 10</strong>, observa cómo cambia la nota definitiva si
-    obtienes un <strong>8,0</strong> en el examen.
-  </p>
-
-  <div className="overflow-x-auto rounded-2xl border border-gray-200">
-    <table className="w-full min-w-[620px] border-collapse text-[14px]">
-      <caption className="sr-only">
-        Impacto del peso del examen final sobre una nota actual de 6 y un examen de 8
-      </caption>
-      <thead>
-        <tr className="bg-blue-600 text-white">
-          <th scope="col" className="px-4 py-3 text-left font-semibold">
-            Peso del final
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Nota actual
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Nota examen
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Nota definitiva
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Cambio
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          ["20 %", "6,0", "8,0", "6,40", "+0,40"],
-          ["30 %", "6,0", "8,0", "6,60", "+0,60"],
-          ["40 %", "6,0", "8,0", "6,80", "+0,80"],
-          ["50 %", "6,0", "8,0", "7,00", "+1,00"],
-          ["60 %", "6,0", "8,0", "7,20", "+1,20"],
-        ].map((row, i) => (
-          <tr key={i} className="border-t border-gray-100">
-            <td className="px-4 py-3 font-medium text-gray-800">
-              {row[0]}
-            </td>
-            <td className="px-4 py-3 text-center text-gray-700">
-              {row[1]}
-            </td>
-            <td className="px-4 py-3 text-center text-gray-700">
-              {row[2]}
-            </td>
-            <td className="px-4 py-3 text-center font-bold text-gray-800">
-              {row[3]}
-            </td>
-            <td className="px-4 py-3 text-center font-semibold text-green-700">
-              {row[4]}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  <p className="text-[13px] text-gray-500 mt-2">
-    Cuanto mayor sea el peso del examen, mayor será el efecto de cada punto que
-    obtengas en esa prueba sobre tu calificación definitiva.
-  </p>
-</section>{/* ── GAP 3: EJEMPLO REAL CON VARIOS COMPONENTES ─────────────────────── */}
-<section className="mb-12" aria-labelledby="ejemplo-componentes-heading">
-  <h2
-    id="ejemplo-componentes-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    Ejemplo real: parciales, trabajos y examen final
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    En muchas asignaturas la nota actual no es una única calificación, sino
-    el resultado de varias evaluaciones. Antes de calcular qué necesitas en
-    el examen final, primero debes convertir todas esas actividades en una
-    nota acumulada correctamente ponderada.
-  </p>
-
-  <div className="overflow-x-auto rounded-2xl border border-gray-200 mb-5">
-    <table className="w-full min-w-[620px] border-collapse text-[14px]">
-      <caption className="sr-only">
-        Ejemplo de cálculo de nota acumulada antes del examen final
-      </caption>
-      <thead>
-        <tr className="bg-blue-600 text-white">
-          <th scope="col" className="px-4 py-3 text-left font-semibold">
-            Evaluación
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Nota
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Peso
-          </th>
-          <th scope="col" className="px-4 py-3 text-center font-semibold">
-            Aporte
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {[
-          ["Parcial 1", "6,0", "20 %", "1,20"],
-          ["Parcial 2", "7,0", "20 %", "1,40"],
-          ["Trabajos", "8,0", "10 %", "0,80"],
-          ["Prácticas", "7,0", "10 %", "0,70"],
-        ].map((row, i) => (
-          <tr key={i} className="border-t border-gray-100">
-            <td className="px-4 py-3 font-medium text-gray-800">{row[0]}</td>
-            <td className="px-4 py-3 text-center text-gray-700">{row[1]}</td>
-            <td className="px-4 py-3 text-center text-gray-700">{row[2]}</td>
-            <td className="px-4 py-3 text-center font-semibold text-blue-700">
-              {row[3]}
-            </td>
-          </tr>
-        ))}
-        <tr className="border-t border-gray-200 bg-gray-50">
-          <td className="px-4 py-3 font-bold text-gray-800" colSpan={3}>
-            Total acumulado antes del final
-          </td>
-          <td className="px-4 py-3 text-center font-bold text-gray-800">
-            4,10 / 10
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-    <h3 className="font-semibold text-gray-800 mb-2">
-      Ahora calcula el examen final
-    </h3>
-    <p className="text-gray-700 text-[15px] leading-7">
-      Las evaluaciones anteriores representan el <strong>60 %</strong> del
-      curso y el examen final el <strong>40 %</strong>. Si tu objetivo es
-      terminar con un <strong>5,0</strong>, no debes introducir 4,10 como si
-      fuera un promedio independiente del 60 %. Debes comprobar que el formato
-      de la calculadora corresponde a una nota acumulada sobre la escala final
-      utilizada por tu asignatura.
-    </p>
-  </div>
-</section>{/* ── GAP 4: NOTA ACTUAL VS PUNTOS ACUMULADOS ────────────────────────── */}
-<section className="mb-12" aria-labelledby="nota-actual-heading">
-  <h2
-    id="nota-actual-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    Nota actual y puntos acumulados: ¿son lo mismo?
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    No siempre. Una de las confusiones más comunes es introducir en la
-    calculadora los <strong>puntos que ya has acumulado</strong> en lugar de
-    tu <strong>nota de presentación expresada en la misma escala</strong> que
-    utiliza el resultado final.
-  </p>
-
-  <div className="grid gap-4 md:grid-cols-2">
-    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-      <h3 className="font-semibold text-blue-900 mb-2">
-        Nota de presentación
-      </h3>
-      <p className="text-gray-700 text-[14px] leading-6">
-        Es la calificación que llevas hasta ese momento según las reglas de
-        tu asignatura. Es el dato que debes utilizar cuando la calculadora
-        solicita tu nota actual.
-      </p>
-    </div>
-
-    <div className="rounded-2xl border border-gray-200 bg-white p-5">
-      <h3 className="font-semibold text-gray-800 mb-2">
-        Puntos acumulados
-      </h3>
-      <p className="text-gray-600 text-[14px] leading-6">
-        Son los puntos que has obtenido dentro del porcentaje ya evaluado.
-        No deben confundirse automáticamente con una nota final sobre 10, 7,
-        5 o 20.
-      </p>
-    </div>
-  </div>
-
-  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 mt-4 text-[14px] text-gray-700 leading-6">
-    <strong>Regla práctica:</strong> antes de introducir tu dato, comprueba si
-    tu profesor o plataforma muestra una nota de presentación ya normalizada.
-    Si solo muestra puntos acumulados, convierte primero esos puntos según el
-    sistema de evaluación de la asignatura.
-  </div>
-</section>{/* ── GAP 5: MARGEN DE SEGURIDAD ─────────────────────────────────────── */}
-<section className="mb-12" aria-labelledby="margen-heading">
-  <h2
-    id="margen-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    ¿Debes apuntar exactamente a la nota mínima?
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    La calculadora te muestra la puntuación matemática mínima para alcanzar
-    tu objetivo, pero esa cifra no siempre debería ser tu objetivo de estudio.
-    Si necesitas exactamente un <strong>5,0</strong>, intentar sacar justo un
-    5,0 deja poco margen ante errores, preguntas difíciles o diferencias de
-    redondeo.
-  </p>
-
-  <div className="grid gap-4 md:grid-cols-3">
-    {[
-      {
-        titulo: "Mínimo matemático",
-        texto:
-          "Es la nota exacta que necesitas según la fórmula para alcanzar tu meta.",
-      },
-      {
-        titulo: "Objetivo recomendado",
-        texto:
-          "Una puntuación algo superior al mínimo ofrece un margen adicional ante pequeños errores o variaciones de corrección.",
-      },
-      {
-        titulo: "Meta ambiciosa",
-        texto:
-          "Si necesitas mejorar mucho tu promedio, utiliza una meta superior para comprobar qué rendimiento exigiría realmente el examen.",
-      },
-    ].map((c) => (
-      <div
-        key={c.titulo}
-        className="rounded-2xl border border-gray-200 bg-white p-5"
-      >
-        <h3 className="font-semibold text-gray-800 mb-2">
-          {c.titulo}
-        </h3>
-        <p className="text-gray-600 text-[14px] leading-6">
-          {c.texto}
-        </p>
-      </div>
-    ))}
-  </div>
-
-  <p className="text-gray-500 text-[13px] leading-6 mt-4">
-    Importante: el margen recomendado depende de las reglas de tu institución.
-    La calculadora proporciona el resultado matemático; la decisión de qué
-    objetivo estudiar debe considerar también tu situación académica.
-  </p>
-</section>{/* ── GAP 6: VALOR DE CADA PUNTO DEL EXAMEN ──────────────────────────── */}
-<section className="mb-12" aria-labelledby="valor-punto-heading">
-  <h2
-    id="valor-punto-heading"
-    className="text-[28px] font-bold tracking-[-0.02em] mb-4"
-  >
-    ¿Cuánto cambia tu nota final por cada punto del examen?
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    Una forma rápida de entender el peso del examen es calcular cuánto aporta
-    <strong> un punto adicional</strong> obtenido en el final. Si el examen
-    vale el 40 %, cada punto que subas en ese examen aporta 0,40 puntos a la
-    calificación final, siempre que el sistema utilice una ponderación lineal.
-  </p>
-
-  <div className="grid gap-4 md:grid-cols-2">
-    {[
-      {
-        peso: "20 %",
-        aporte: "0,20 puntos",
-        texto:
-          "Subir de 7 a 8 en el examen aumenta la nota final en 0,20 puntos.",
-      },
-      {
-        peso: "30 %",
-        aporte: "0,30 puntos",
-        texto:
-          "Un punto adicional en el examen aporta 0,30 puntos a la nota final.",
-      },
-      {
-        peso: "40 %",
-        aporte: "0,40 puntos",
-        texto:
-          "Un punto adicional en el examen aporta 0,40 puntos a la nota final.",
-      },
-      {
-        peso: "60 %",
-        aporte: "0,60 puntos",
-        texto:
-          "Un punto adicional en el examen tiene un efecto considerable sobre la nota definitiva.",
-      },
-    ].map((c) => (
-      <div
-        key={c.peso}
-        className="rounded-2xl border border-gray-200 p-5 bg-white"
-      >
-        <div className="flex items-center justify-between gap-3 mb-2">
-          <h3 className="font-semibold text-gray-800">
-            Examen: {c.peso}
-          </h3>
-          <span className="text-[12px] font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-700">
-            {c.aporte}
-          </span>
-        </div>
-        <p className="text-gray-600 text-[14px] leading-6">
-          {c.texto}
-        </p>
-      </div>
-    ))}
-  </div>
-</section>
               {/* ── ESCENARIOS REALES ─────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="escenarios-heading">
-                <h2
-                  id="escenarios-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-2"
-                >
+                <h2 id="escenarios-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-2">
                   Escenarios reales por país: ejemplos calculados
                 </h2>
                 <p className="text-gray-600 text-[15px] leading-7 mb-5">
@@ -1466,42 +830,24 @@ export default function NotaFinalPage() {
                     </caption>
                     <thead>
                       <tr className="bg-gray-100 text-gray-700">
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          País
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Nota actual
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Meta
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Peso final
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Necesitas
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left font-semibold">
-                          Estado
-                        </th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">País</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Nota actual</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Meta</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Peso final</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Necesitas</th>
+                        <th scope="col" className="px-4 py-3 text-left font-semibold">Estado</th>
                       </tr>
                     </thead>
                     <tbody>
                       {ESCENARIOS.map((s, i) => (
                         <tr key={i} className="border-t border-gray-100">
                           <td className="px-4 py-3 text-gray-700">{s.pais}</td>
-                          <td className="px-4 py-3 text-gray-700">
-                            {s.nota_actual}
-                          </td>
+                          <td className="px-4 py-3 text-gray-700">{s.nota_actual}</td>
                           <td className="px-4 py-3 text-gray-700">{s.meta}</td>
                           <td className="px-4 py-3 text-gray-700">{s.peso}</td>
-                          <td className="px-4 py-3 font-bold text-gray-800">
-                            {s.resultado}
-                          </td>
+                          <td className="px-4 py-3 font-bold text-gray-800">{s.resultado}</td>
                           <td className="px-4 py-3">
-                            <span
-                              className={`text-[12px] font-semibold px-2 py-1 rounded-full ${s.color}`}
-                            >
+                            <span className={`text-[12px] font-semibold px-2 py-1 rounded-full ${s.color}`}>
                               {s.estado}
                             </span>
                           </td>
@@ -1512,120 +858,9 @@ export default function NotaFinalPage() {
                 </div>
               </section>
 
-              {/* ── ¿QUÉ NOTA NECESITO PARA APROBAR? ───────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold mb-4">
-                  ¿Qué nota necesito para aprobar el examen final?
-                </h2>
-
-                <p className="text-gray-700 leading-8 mb-4">
-                  La mayoría de estudiantes no buscan una nota específica como 7 u 8,
-                  sino simplemente aprobar la asignatura. Para calcular la nota mínima
-                  necesaria debes conocer tres datos: tu nota actual, el peso del examen
-                  final y la nota mínima aprobatoria de tu institución.
-                </p>
-
-                <p className="text-gray-700 leading-8">
-                  Si tu objetivo es únicamente aprobar, introduce como meta la nota mínima
-                  oficial de tu escala (5 en España, 6 en México, 3 en Colombia, 4 en
-                  Chile, etc.) y la calculadora mostrará automáticamente la puntuación
-                  exacta que necesitas obtener.
-                </p>
-              </section>{/* ── ¿Y SI YA APROBÉ ANTES DEL FINAL? ───────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold mb-4">
-                  ¿Qué ocurre si ya tienes suficiente nota antes del examen final?
-                </h2>
-
-                <p className="text-gray-700 leading-8 mb-4">
-                  En algunas asignaturas es posible llegar al examen final con una nota
-                  acumulada tan alta que ya tengas asegurado el aprobado matemáticamente.
-                </p>
-
-                <p className="text-gray-700 leading-8">
-                  En estos casos el examen sigue afectando la nota final, pero incluso una
-                  calificación baja puede ser suficiente para mantener el aprobado. La
-                  calculadora permite comprobar exactamente cuánto margen tienes antes de
-                  presentarte al examen.
-                </p>
-              </section>{/* ── CÓMO CALCULAR LA NOTA ACTUAL ───────────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold mb-4">
-                  Cómo calcular tu nota actual antes del examen final
-                </h2>
-
-                <p className="text-gray-700 leading-8 mb-4">
-                  Si todavía no conoces tu nota de presentación, primero debes calcular
-                  el promedio ponderado de todas las actividades realizadas durante el curso.
-                </p>
-
-                <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                  <li>Multiplica cada nota por su porcentaje.</li>
-                  <li>Suma todos los resultados.</li>
-                  <li>Obtén tu promedio acumulado.</li>
-                  <li>Usa ese valor como nota actual en la calculadora.</li>
-                </ul>
-              </section>{/* ── CONSEJOS PARA SUBIR LA NOTA FINAL ─────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold mb-4">
-                  Cómo aumentar tus posibilidades de alcanzar la nota objetivo
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="border rounded-xl p-5">
-                    <h3 className="font-semibold mb-2">
-                      Prioriza los temas con más peso
-                    </h3>
-                    <p className="text-gray-600">
-                      Dedica más tiempo a los contenidos que históricamente aparecen con
-                      mayor frecuencia en el examen.
-                    </p>
-                  </div>
-
-                  <div className="border rounded-xl p-5">
-                    <h3 className="font-semibold mb-2">
-                      Simula exámenes reales
-                    </h3>
-                    <p className="text-gray-600">
-                      Resolver exámenes anteriores ayuda a estimar tu rendimiento real
-                      antes de la prueba oficial.
-                    </p>
-                  </div>
-                </div>
-              </section>{/* ── NOTAS MÍNIMAS MÁS COMUNES ─────────────────────────────── */}
-              <section className="mb-12">
-                <h2 className="text-[28px] font-bold mb-4">
-                  Notas mínimas para aprobar en los sistemas más comunes
-                </h2>
-
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr className="bg-blue-600 text-white">
-                        <th className="px-4 py-3 text-left">País</th>
-                        <th className="px-4 py-3 text-left">Nota mínima</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td className="px-4 py-3">España</td><td className="px-4 py-3">5 / 10</td></tr>
-                      <tr><td className="px-4 py-3">México</td><td className="px-4 py-3">6 / 10</td></tr>
-                      <tr><td className="px-4 py-3">Colombia</td><td className="px-4 py-3">3 / 5</td></tr>
-                      <tr><td className="px-4 py-3">Chile</td><td className="px-4 py-3">4 / 7</td></tr>
-                      <tr><td className="px-4 py-3">Perú</td><td className="px-4 py-3">10.5 / 20</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-
-
-
               {/* ── IMPACTO DEL PESO ──────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="peso-heading">
-                <h2
-                  id="peso-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
-                >
+                <h2 id="peso-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
                   ¿Cuánto importa el peso del examen final en tu nota?
                 </h2>
                 <p className="text-gray-700 leading-8 mb-6">
@@ -1637,15 +872,10 @@ export default function NotaFinalPage() {
                 </p>
                 <div className="grid gap-4 md:grid-cols-2">
                   {IMPACTO_PESO.map((ip) => (
-                    <div
-                      key={ip.peso}
-                      className={`rounded-2xl border p-5 ${ip.color}`}
-                    >
+                    <div key={ip.peso} className={`rounded-2xl border p-5 ${ip.color}`}>
                       <div className="flex items-center gap-3 mb-2">
                         <span className="font-bold text-[16px]">{ip.peso}</span>
-                        <span
-                          className={`text-[12px] font-semibold px-2 py-0.5 rounded-full ${ip.badge}`}
-                        >
+                        <span className={`text-[12px] font-semibold px-2 py-0.5 rounded-full ${ip.badge}`}>
                           {ip.impacto}
                         </span>
                       </div>
@@ -1658,10 +888,7 @@ export default function NotaFinalPage() {
               {/* ── CUÁNDO ES IMPOSIBLE ───────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="imposible-heading">
                 <div className="rounded-2xl border border-red-100 bg-red-50 p-6">
-                  <h2
-                    id="imposible-heading"
-                    className="text-[26px] font-bold tracking-[-0.02em] mb-4 text-red-900"
-                  >
+                  <h2 id="imposible-heading" className="text-[26px] font-bold tracking-[-0.02em] mb-4 text-red-900">
                     ¿Cuándo es imposible alcanzar tu meta en el examen final?
                   </h2>
                   <p className="text-gray-700 leading-8 mb-4">
@@ -1676,9 +903,7 @@ export default function NotaFinalPage() {
                       "Ya rendiste el examen y obtuviste una nota insuficiente para llegar al nivel deseado.",
                     ].map((item, i) => (
                       <li key={i} className="flex gap-2">
-                        <span className="text-red-500 font-bold flex-shrink-0">
-                          ✗
-                        </span>
+                        <span className="text-red-500 font-bold flex-shrink-0">✗</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -1689,20 +914,14 @@ export default function NotaFinalPage() {
                     </h3>
                     <ul className="space-y-1 text-[14px] text-gray-700">
                       <li>→ Ajusta tu meta a una calificación alcanzable.</li>
-                      <li>
-                        → Pregunta al docente si hay trabajos de recuperación o
-                        puntos extra disponibles.
-                      </li>
+                      <li>→ Pregunta al docente si hay trabajos de recuperación o puntos extra disponibles.</li>
                       <li>
                         → Comprueba si tu institución tiene examen de
                         recuperación (segunda convocatoria en España, examen
                         extraordinario en México, sustitutorio en Perú,
                         habilitación en Colombia).
                       </li>
-                      <li>
-                        → Verifica si hay nota mínima por componente que puedas
-                        consultar antes de que cierre el acta.
-                      </li>
+                      <li>→ Verifica si hay nota mínima por componente que puedas consultar antes de que cierre el acta.</li>
                     </ul>
                   </div>
                 </div>
@@ -1711,25 +930,20 @@ export default function NotaFinalPage() {
               {/* ── ERRORES COMUNES ───────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="errores-heading">
                 <div className="rounded-2xl border border-amber-100 bg-amber-50 p-6">
-                  <h2
-                    id="errores-heading"
-                    className="text-[26px] font-bold tracking-[-0.02em] mb-5 text-amber-900"
-                  >
+                  <h2 id="errores-heading" className="text-[26px] font-bold tracking-[-0.02em] mb-5 text-amber-900">
                     Errores frecuentes al calcular la nota del examen final
                   </h2>
                   <ul className="space-y-3 text-gray-700 leading-8">
                     {[
                       "Introducir el peso como decimal (0,40) en vez de porcentaje (40): el resultado sale multiplicado por 100 y parece imposible.",
                       "Usar la nota de un solo parcial como 'nota actual' en vez del promedio ponderado acumulado de todas las evaluaciones.",
+                      "Confundir puntos acumulados dentro del porcentaje ya evaluado con la nota de presentación normalizada sobre la escala completa (10, 7, 5 o 20).",
                       "Olvidar que algunas asignaturas exigen nota mínima en el examen (p. ej. ≥ 4/10 en España o ≥ 3/5 en Colombia) aunque el promedio ponderado dé aprobado.",
                       "Asumir que todas las escalas tienen el aprobado en el 50 %: en España es el 5/10 (50 %), en México el 6/10 (60 %), en Argentina el 4/10 (40 %).",
-                      "Calcular con la nota del sistema cuando el docente aún no ha cerrado alguna entrega pendiente que podría mejorar tu nota acumulada.",
                       "Esperar al último momento para hacer el cálculo, cuando ya no hay tiempo suficiente para ajustar el plan de estudio.",
                     ].map((e, i) => (
                       <li key={i} className="flex gap-2">
-                        <span className="text-amber-600 font-bold flex-shrink-0">
-                          ⚠
-                        </span>
+                        <span className="text-amber-600 font-bold flex-shrink-0">⚠</span>
                         <span>{e}</span>
                       </li>
                     ))}
@@ -1739,10 +953,7 @@ export default function NotaFinalPage() {
 
               {/* ── CONSEJOS DE ESTUDIO ───────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="consejos-heading">
-                <h2
-                  id="consejos-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
-                >
+                <h2 id="consejos-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
                   Cómo planificar el estudio según tu resultado
                 </h2>
                 <div className="grid gap-4 md:grid-cols-2">
@@ -1755,12 +966,12 @@ export default function NotaFinalPage() {
                     {
                       titulo: "Si necesitas entre el 50 % y el 70 %",
                       texto:
-                        "Es perfectamente alcanzable con una semana de preparación seria. Prioriza los temas con más peso en el examen y práctica con ejercicios de años anteriores.",
+                        "Es perfectamente alcanzable con una semana de preparación seria. Prioriza los temas con más peso en el examen y practica con ejercicios de años anteriores.",
                     },
                     {
                       titulo: "Si necesitas entre el 70 % y el 90 %",
                       texto:
-                        "Requiere esfuerzo intensivo. Práctica con exámenes anteriores, céntrate en los errores más frecuentes, y organiza bien el tiempo disponible.",
+                        "Requiere esfuerzo intensivo. Practica con exámenes anteriores, céntrate en los errores más frecuentes y organiza bien el tiempo disponible.",
                     },
                     {
                       titulo: "Si necesitas más del 90 %",
@@ -1768,16 +979,9 @@ export default function NotaFinalPage() {
                         "Es difícil pero no imposible. Habla con el docente sobre opciones adicionales, busca si hay trabajos extra y dedica al máximo las horas que quedan.",
                     },
                   ].map((c) => (
-                    <div
-                      key={c.titulo}
-                      className="rounded-2xl border border-gray-200 bg-white p-5"
-                    >
-                      <h3 className="font-semibold text-gray-800 mb-2">
-                        {c.titulo}
-                      </h3>
-                      <p className="text-gray-600 text-[14px] leading-6">
-                        {c.texto}
-                      </p>
+                    <div key={c.titulo} className="rounded-2xl border border-gray-200 bg-white p-5">
+                      <h3 className="font-semibold text-gray-800 mb-2">{c.titulo}</h3>
+                      <p className="text-gray-600 text-[14px] leading-6">{c.texto}</p>
                     </div>
                   ))}
                 </div>
@@ -1785,47 +989,30 @@ export default function NotaFinalPage() {
 
               {/* ── GLOSARIO (entity-rich, AI Overview target) ───────────── */}
               <section className="mb-12" aria-labelledby="glosario-heading">
-                <h2
-                  id="glosario-heading"
-                  className="text-[28px] font-bold tracking-[-0.02em] mb-5"
-                >
+                <h2 id="glosario-heading" className="text-[28px] font-bold tracking-[-0.02em] mb-5">
                   Glosario: términos clave del examen final y la evaluación
                 </h2>
                 <p className="text-gray-600 text-[15px] leading-7 mb-5">
                   Definiciones precisas de los conceptos más importantes para
-                  calcular tu nota. Especialmente útil si hay confusión entre
-                  términos como nota de presentación, nota mínima o nota de
-                  corte.
+                  calcular tu nota.
                 </p>
                 <dl className="grid gap-4 md:grid-cols-2">
                   {GLOSARIO.map((g) => (
-                    <div
-                      key={g.termino}
-                      className="rounded-xl border border-gray-200 bg-white p-5"
-                    >
-                      <dt className="font-semibold text-blue-700 text-[15px] mb-1">
-                        {g.termino}
-                      </dt>
-                      <dd className="text-gray-600 text-[14px] leading-6">
-                        {g.definicion}
-                      </dd>
+                    <div key={g.termino} className="rounded-xl border border-gray-200 bg-white p-5">
+                      <dt className="font-semibold text-blue-700 text-[15px] mb-1">{g.termino}</dt>
+                      <dd className="text-gray-600 text-[14px] leading-6">{g.definicion}</dd>
                     </div>
                   ))}
                 </dl>
               </section>
 
-
-
-              {/* ── FAQ — 15 preguntas (AEO / PAA / AI Overview) ─────────── */}
+              {/* ── FAQ — 11 preguntas (AEO / PAA / AI Overview) ─────────── */}
               <section aria-labelledby="faq-heading">
                 <div className="bg-gray-50 py-12 px-6 rounded-2xl border border-gray-200">
                   <div className="max-w-5xl mx-auto grid md:grid-cols-[1fr_1.6fr] gap-12 items-start">
 
                     <div>
-                      <h2
-                        id="faq-heading"
-                        className="text-[28px] font-bold text-gray-900 mb-4"
-                      >
+                      <h2 id="faq-heading" className="text-[28px] font-bold text-gray-900 mb-4">
                         Preguntas frecuentes sobre el examen final
                       </h2>
                       <p className="text-gray-600 text-[15px] leading-7">
@@ -1836,21 +1023,14 @@ export default function NotaFinalPage() {
                       </p>
                       <p className="text-gray-500 text-[13px] mt-4">
                         ¿Tienes otra pregunta?{" "}
-                        <a
-                          href="/contacto/"
-                          className="text-blue-600 underline underline-offset-2"
-                        >
+                        <a href="/contacto/" className="text-blue-600 underline underline-offset-2">
                           Escríbenos
                         </a>
                         .
                       </p>
                     </div>
 
-                    <div
-                      className="space-y-3"
-                      itemScope
-                      itemType="https://schema.org/FAQPage"
-                    >
+                    <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
                       {FAQS.map((faq, idx) => (
                         <details
                           key={idx}
@@ -1860,9 +1040,7 @@ export default function NotaFinalPage() {
                           itemType="https://schema.org/Question"
                         >
                           <summary className="cursor-pointer flex justify-between items-center px-5 py-4 text-gray-900 font-medium text-[15px] select-none list-none">
-                            <h3 className="flex-1 pr-4" itemProp="name">
-                              {faq.q}
-                            </h3>
+                            <h3 className="flex-1 pr-4" itemProp="name">{faq.q}</h3>
                             <span
                               className="text-gray-400 transition-transform duration-200 group-open:rotate-180 flex-shrink-0"
                               aria-hidden="true"

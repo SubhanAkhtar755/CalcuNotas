@@ -1,5 +1,6 @@
 // app/components/CommonGradeScale.jsx
 
+
 export default function CommonGradeScale() {
   return (
     <div className="mt-4 p-[14px] bg-white border border-gray-200 rounded-[14px] shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
@@ -25,6 +26,8 @@ export default function CommonGradeScale() {
           </strong>
         </div>
       ))}
+
+     
     </div>
   );
 }

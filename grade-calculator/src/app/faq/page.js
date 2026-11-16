@@ -23,7 +23,6 @@ export const metadata = {
     "ayuda calculadora academica",
   ],
 
-  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
   robots: {
     index: true,
     follow: true,
@@ -64,10 +63,8 @@ export const metadata = {
 };
 
 // ────────────────────────────────────────────────────────────
-// GAP FIX (biggest one on this page): 24 FAQs 6 sections me the,
-// koi bhi FAQPage schema me nahi tha. Data ko arrays me nikala
-// taake JSX render aur schema dono isi se banein — koi duplication nahi,
-// aur agar kal koi FAQ edit ho to sirf ek jagah change karni hogi.
+// FAQ data arrays — power both the JSX render and the FAQPage schema
+// (single source of truth, no duplication)
 // ────────────────────────────────────────────────────────────
 const generalFaqs = [
   {
@@ -207,7 +204,6 @@ const accuracyFaqs = [
   },
 ];
 
-// Sab FAQs ek jagah combine kiye taake ek hi FAQPage schema me sab 24 questions jayein
 const allFaqs = [
   ...generalFaqs,
   ...gradeCalculatorFaqs,
@@ -243,7 +239,6 @@ const pageSchema = [
 export default function FAQsPage() {
   return (
     <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
-      {/* GAP FIX: schema script tag page me pehli baar add hua — 24 FAQs ab schema me hain */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
@@ -325,385 +320,332 @@ export default function FAQsPage() {
                   ))}
                 </div>
               </section>
-{/* GAP #1: Step-by-step guide on how to use the academic calculators.
-    PASTE: Después de la sección INTRO y antes de "Preguntas Generales". */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    Cómo Usar una Calculadora de Notas
-  </h2>
 
-  <div className="grid md:grid-cols-2 gap-5">
-    {[
-      {
-        number: "1",
-        title: "Reúne tus datos",
-        text:
-          "Ten a mano tus calificaciones, puntos obtenidos, puntos posibles, créditos u otros datos que aparezcan en el sistema de evaluación de tu curso.",
-      },
-      {
-        number: "2",
-        title: "Elige la calculadora correcta",
-        text:
-          "Selecciona una herramienta según lo que quieras averiguar: nota actual, GPA, nota final necesaria, porcentaje de examen o tabla de calificaciones.",
-      },
-      {
-        number: "3",
-        title: "Introduce los valores",
-        text:
-          "Escribe los datos exactamente como aparecen en tu curso. Comprueba especialmente los pesos, créditos y puntos máximos antes de calcular.",
-      },
-      {
-        number: "4",
-        title: "Comprueba el resultado",
-        text:
-          "Utiliza el resultado como una estimación o comprobación. Si el resultado es inesperado, revisa primero los datos introducidos y después las reglas de calificación de tu curso.",
-      },
-    ].map((step) => (
-      <div
-        key={step.number}
-        className="bg-white border border-gray-200 rounded-2xl p-6"
-      >
-        <div className="flex items-start gap-4">
-          <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black">
-            {step.number}
-          </span>
+              {/* Cómo usar una calculadora de notas — step-by-step */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Cómo Usar una Calculadora de Notas
+                </h2>
 
-          <div>
-            <h3 className="text-xl font-black text-gray-900 mb-2">
-              {step.title}
-            </h3>
+                <div className="grid md:grid-cols-2 gap-5">
+                  {[
+                    {
+                      number: "1",
+                      title: "Reúne tus datos",
+                      text:
+                        "Ten a mano tus calificaciones, puntos obtenidos, puntos posibles, créditos u otros datos que aparezcan en el sistema de evaluación de tu curso.",
+                    },
+                    {
+                      number: "2",
+                      title: "Elige la calculadora correcta",
+                      text:
+                        "Selecciona una herramienta según lo que quieras averiguar: nota actual, GPA, nota final necesaria, porcentaje de examen o tabla de calificaciones.",
+                    },
+                    {
+                      number: "3",
+                      title: "Introduce los valores",
+                      text:
+                        "Escribe los datos exactamente como aparecen en tu curso. Comprueba especialmente los pesos, créditos y puntos máximos antes de calcular.",
+                    },
+                    {
+                      number: "4",
+                      title: "Comprueba el resultado",
+                      text:
+                        "Utiliza el resultado como una estimación o comprobación. Si el resultado es inesperado, revisa primero los datos introducidos y después las reglas de calificación de tu curso.",
+                    },
+                  ].map((step) => (
+                    <div
+                      key={step.number}
+                      className="bg-white border border-gray-200 rounded-2xl p-6"
+                    >
+                      <div className="flex items-start gap-4">
+                        <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black">
+                          {step.number}
+                        </span>
 
-            <p className="text-gray-700 leading-7">
-              {step.text}
-            </p>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>{/* GAP #2: Worked examples for weighted grades, points, and GPA.
-    PASTE: Después de "Cómo Usar una Calculadora de Notas" y antes de FAQ generales. */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    Ejemplos de Cálculo de Notas y GPA
-  </h2>
+                        <div>
+                          <h3 className="text-xl font-black text-gray-900 mb-2">
+                            {step.title}
+                          </h3>
 
-  <div className="space-y-5">
-    <div className="bg-slate-800 rounded-2xl p-6 shadow-xl">
-      <h3 className="text-xl font-black text-white mb-3">
-        Ejemplo 1: Nota por puntos
-      </h3>
+                          <p className="text-gray-700 leading-7">
+                            {step.text}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-      <p className="text-slate-300 leading-7 mb-4">
-        Si obtienes 180 puntos de un total de 200, el porcentaje se calcula
-        dividiendo los puntos obtenidos entre los puntos posibles y
-        multiplicando el resultado por 100.
-      </p>
+              {/* Ejemplos de cálculo */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Ejemplos de Cálculo de Notas y GPA
+                </h2>
 
-      <div className="bg-slate-900 rounded-xl p-4 text-white font-mono text-sm">
-        180 ÷ 200 × 100 = 90%
-      </div>
+                <div className="space-y-5">
+                  <div className="bg-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h3 className="text-xl font-black text-white mb-3">
+                      Ejemplo 1: Nota por puntos
+                    </h3>
 
-      <p className="text-slate-400 leading-7 mt-4">
-        El resultado es un 90%. La letra correspondiente dependerá de la escala
-        de calificación utilizada por tu curso o institución.
-      </p>
-    </div>
+                    <p className="text-slate-300 leading-7 mb-4">
+                      Si obtienes 180 puntos de un total de 200, el porcentaje se calcula
+                      dividiendo los puntos obtenidos entre los puntos posibles y
+                      multiplicando el resultado por 100.
+                    </p>
 
-    <div className="bg-white border border-gray-200 rounded-2xl p-6">
-      <h3 className="text-xl font-black text-gray-900 mb-3">
-        Ejemplo 2: Nota ponderada
-      </h3>
+                    <div className="bg-slate-900 rounded-xl p-4 text-white font-mono text-sm">
+                      180 ÷ 200 × 100 = 90%
+                    </div>
 
-      <p className="text-gray-700 leading-7 mb-4">
-        Supongamos que una tarea vale 20% y obtienes 80%, mientras que un examen
-        vale 30% y obtienes 90%. La contribución de cada categoría se obtiene
-        multiplicando la nota por su peso.
-      </p>
+                    <p className="text-slate-400 leading-7 mt-4">
+                      El resultado es un 90%. La letra correspondiente dependerá de la escala
+                      de calificación utilizada por tu curso o institución.
+                    </p>
+                  </div>
 
-      <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 text-gray-800 font-mono text-sm leading-7">
-        (80 × 0.20) + (90 × 0.30) = 40.00 puntos
-      </div>
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                    <h3 className="text-xl font-black text-gray-900 mb-3">
+                      Ejemplo 2: Nota ponderada
+                    </h3>
 
-      <p className="text-gray-600 leading-7 mt-4">
-        Estos 40 puntos representan la contribución de esas dos categorías a
-        la nota total del curso. Las categorías restantes deben incluirse para
-        obtener la nota completa.
-      </p>
-    </div>
+                    <p className="text-gray-700 leading-7 mb-4">
+                      Supongamos que una tarea vale 20% y obtienes 80%, mientras que un examen
+                      vale 30% y obtienes 90%. La contribución de cada categoría se obtiene
+                      multiplicando la nota por su peso.
+                    </p>
 
-    <div className="bg-white border border-gray-200 rounded-2xl p-6">
-      <h3 className="text-xl font-black text-gray-900 mb-3">
-        Ejemplo 3: GPA con créditos
-      </h3>
+                    <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 text-gray-800 font-mono text-sm leading-7">
+                      (80 × 0.20) + (90 × 0.30) = 40.00 puntos
+                    </div>
 
-      <p className="text-gray-700 leading-7 mb-4">
-        Si una materia aporta 4 puntos de calificación por cada uno de sus
-        3 créditos, genera 12 puntos de calidad. Una segunda materia con
-        3 puntos por 2 créditos genera 6 puntos de calidad.
-      </p>
+                    <p className="text-gray-600 leading-7 mt-4">
+                      Estos 40 puntos representan la contribución de esas dos categorías a
+                      la nota total del curso. Las categorías restantes deben incluirse para
+                      obtener la nota completa.
+                    </p>
+                  </div>
 
-      <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 text-gray-800 font-mono text-sm leading-7">
-        (4 × 3) + (3 × 2) = 18 puntos de calidad
-        <br />
-        18 ÷ 5 créditos = 3.60 GPA
-      </div>
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                    <h3 className="text-xl font-black text-gray-900 mb-3">
+                      Ejemplo 3: GPA con créditos
+                    </h3>
 
-      <p className="text-gray-600 leading-7 mt-4">
-        Este ejemplo utiliza una escala hipotética de puntos. Tu institución
-        puede utilizar valores y reglas diferentes.
-      </p>
-    </div>
-  </div>
-</section>{/* GAP #3: Clarifies three commonly confused grading concepts.
-    PASTE: Después de los ejemplos de cálculo y antes de FAQ generales. */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    Puntos, Porcentajes y Pesos: ¿Cuál es la Diferencia?
-  </h2>
+                    <p className="text-gray-700 leading-7 mb-4">
+                      Si una materia aporta 4 puntos de calificación por cada uno de sus
+                      3 créditos, genera 12 puntos de calidad. Una segunda materia con
+                      3 puntos por 2 créditos genera 6 puntos de calidad.
+                    </p>
 
-  <div className="overflow-x-auto rounded-2xl border border-gray-200">
-    <table className="w-full min-w-[650px] bg-white text-left">
-      <thead className="bg-slate-800 text-white">
-        <tr>
-          <th className="px-5 py-4 font-black">Concepto</th>
-          <th className="px-5 py-4 font-black">Qué significa</th>
-          <th className="px-5 py-4 font-black">Ejemplo</th>
-        </tr>
-      </thead>
+                    <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 text-gray-800 font-mono text-sm leading-7">
+                      (4 × 3) + (3 × 2) = 18 puntos de calidad
+                      <br />
+                      18 ÷ 5 créditos = 3.60 GPA
+                    </div>
 
-      <tbody className="divide-y divide-gray-200">
-        <tr>
-          <td className="px-5 py-4 font-bold text-gray-900">
-            Puntos
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Cantidad de puntos obtenidos frente a los puntos posibles.
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            45 de 50 puntos
-          </td>
-        </tr>
+                    <p className="text-gray-600 leading-7 mt-4">
+                      Este ejemplo utiliza una escala hipotética de puntos. Tu institución
+                      puede utilizar valores y reglas diferentes.
+                    </p>
+                  </div>
+                </div>
+              </section>
 
-        <tr>
-          <td className="px-5 py-4 font-bold text-gray-900">
-            Porcentaje
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Representa el rendimiento como una proporción de 100.
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            45 de 50 = 90%
-          </td>
-        </tr>
+              {/* Puntos, porcentajes y pesos */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Puntos, Porcentajes y Pesos: ¿Cuál es la Diferencia?
+                </h2>
 
-        <tr>
-          <td className="px-5 py-4 font-bold text-gray-900">
-            Peso
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Indica cuánto contribuye una categoría a la nota total.
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Examen = 30% de la nota
-          </td>
-        </tr>
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[650px] bg-white text-left">
+                    <thead className="bg-slate-800 text-white">
+                      <tr>
+                        <th className="px-5 py-4 font-black">Concepto</th>
+                        <th className="px-5 py-4 font-black">Qué significa</th>
+                        <th className="px-5 py-4 font-black">Ejemplo</th>
+                      </tr>
+                    </thead>
 
-        <tr>
-          <td className="px-5 py-4 font-bold text-gray-900">
-            Créditos
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Determinan el peso de una materia en determinados cálculos de GPA.
-          </td>
-          <td className="px-5 py-4 text-gray-700">
-            Curso de 3 créditos
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr>
+                        <td className="px-5 py-4 font-bold text-gray-900">
+                          Puntos
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Cantidad de puntos obtenidos frente a los puntos posibles.
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          45 de 50 puntos
+                        </td>
+                      </tr>
 
-  <p className="text-gray-600 leading-8 mt-4">
-    Estos conceptos están relacionados, pero no son intercambiables. Una
-    calculadora debe utilizar el tipo de dato que corresponde al sistema de
-    evaluación de tu curso.
-  </p>
-</section>{/* GAP #4: Common input and calculation mistakes.
-    PASTE: Después de la tabla de conceptos y antes de FAQ generales. */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    Errores Comunes al Calcular una Nota
-  </h2>
+                      <tr>
+                        <td className="px-5 py-4 font-bold text-gray-900">
+                          Porcentaje
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Representa el rendimiento como una proporción de 100.
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          45 de 50 = 90%
+                        </td>
+                      </tr>
 
-  <div className="grid md:grid-cols-2 gap-5">
-    {[
-      {
-        title: "Confundir puntos con porcentajes",
-        text:
-          "Introducir 45 como si fuera 45% cuando realmente representa 45 puntos de 50 puede producir un resultado incorrecto.",
-      },
-      {
-        title: "Usar pesos incorrectos",
-        text:
-          "Comprueba si una categoría vale 10%, 20%, 30% u otro porcentaje. Un peso equivocado puede cambiar significativamente la nota calculada.",
-      },
-      {
-        title: "Olvidar una categoría",
-        text:
-          "Si el curso utiliza varias categorías de evaluación, asegúrate de incluir todas las que ya forman parte de tu nota.",
-      },
-      {
-        title: "Usar una escala GPA diferente",
-        text:
-          "No todas las instituciones convierten las letras y los puntos de calificación de la misma manera. Utiliza la escala correspondiente a tu institución.",
-      },
-      {
-        title: "Redondear demasiado pronto",
-        text:
-          "Redondear cada resultado intermedio puede introducir pequeñas diferencias. Cuando sea posible, conserva los decimales hasta el cálculo final.",
-      },
-      {
-        title: "Ignorar reglas especiales del curso",
-        text:
-          "Crédito extra, exámenes reemplazados, tareas eliminadas, curvas o penalizaciones pueden hacer que una fórmula básica no coincida con la nota oficial.",
-      },
-    ].map((item, index) => (
-      <div
-        key={index}
-        className="bg-white border border-gray-200 rounded-2xl p-6"
-      >
-        <h3 className="text-lg font-black text-gray-900 mb-2">
-          {item.title}
-        </h3>
+                      <tr>
+                        <td className="px-5 py-4 font-bold text-gray-900">
+                          Peso
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Indica cuánto contribuye una categoría a la nota total.
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Examen = 30% de la nota
+                        </td>
+                      </tr>
 
-        <p className="text-gray-700 leading-7">
-          {item.text}
-        </p>
-      </div>
-    ))}
-  </div>
-</section>{/* GAP #5 + #6: Calculator selection guide + internal links.
-    PASTE: Después de "Errores Comunes" y antes de FAQ generales. */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    ¿Qué Calculadora Debo Usar?
-  </h2>
+                      <tr>
+                        <td className="px-5 py-4 font-bold text-gray-900">
+                          Créditos
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Determinan el peso de una materia en determinados cálculos de GPA.
+                        </td>
+                        <td className="px-5 py-4 text-gray-700">
+                          Curso de 3 créditos
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-  <div className="space-y-4">
-    <a
-      href="/calculadora-gpa/"
-      className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
-    >
-      <h3 className="text-xl font-black text-gray-900 mb-2">
-        Calculadora GPA
-      </h3>
+                <p className="text-gray-600 leading-8 mt-4">
+                  Estos conceptos están relacionados, pero no son intercambiables. Una
+                  calculadora debe utilizar el tipo de dato que corresponde al sistema de
+                  evaluación de tu curso.
+                </p>
+              </section>
 
-      <p className="text-gray-700 leading-7">
-        Úsala cuando quieras calcular un promedio GPA a partir de tus
-        calificaciones y créditos según la escala correspondiente.
-      </p>
+              {/* Errores comunes */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  Errores Comunes al Calcular una Nota
+                </h2>
 
-      <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
-        Ir a la Calculadora GPA →
-      </span>
-    </a>
+                <div className="grid md:grid-cols-2 gap-5">
+                  {[
+                    {
+                      title: "Confundir puntos con porcentajes",
+                      text:
+                        "Introducir 45 como si fuera 45% cuando realmente representa 45 puntos de 50 puede producir un resultado incorrecto.",
+                    },
+                    {
+                      title: "Usar pesos incorrectos",
+                      text:
+                        "Comprueba si una categoría vale 10%, 20%, 30% u otro porcentaje. Un peso equivocado puede cambiar significativamente la nota calculada.",
+                    },
+                    {
+                      title: "Olvidar una categoría",
+                      text:
+                        "Si el curso utiliza varias categorías de evaluación, asegúrate de incluir todas las que ya forman parte de tu nota.",
+                    },
+                    {
+                      title: "Usar una escala GPA diferente",
+                      text:
+                        "No todas las instituciones convierten las letras y los puntos de calificación de la misma manera. Utiliza la escala correspondiente a tu institución.",
+                    },
+                    {
+                      title: "Redondear demasiado pronto",
+                      text:
+                        "Redondear cada resultado intermedio puede introducir pequeñas diferencias. Cuando sea posible, conserva los decimales hasta el cálculo final.",
+                    },
+                    {
+                      title: "Ignorar reglas especiales del curso",
+                      text:
+                        "Crédito extra, exámenes reemplazados, tareas eliminadas, curvas o penalizaciones pueden hacer que una fórmula básica no coincida con la nota oficial.",
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-white border border-gray-200 rounded-2xl p-6"
+                    >
+                      <h3 className="text-lg font-black text-gray-900 mb-2">
+                        {item.title}
+                      </h3>
 
-    <a
-      href="/calculadora-nota-final/"
-      className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
-    >
-      <h3 className="text-xl font-black text-gray-900 mb-2">
-        Calculadora de Nota Final
-      </h3>
+                      <p className="text-gray-700 leading-7">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-      <p className="text-gray-700 leading-7">
-        Úsala cuando necesites saber qué nota necesitas en un examen final para
-        alcanzar un objetivo determinado en el curso.
-      </p>
+              {/* ¿Qué calculadora debo usar? — single decision guide (merged with the old duplicate "Guía Rápida" table) */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
+                  ¿Qué Calculadora Debo Usar?
+                </h2>
 
-      <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
-        Calcular la Nota Final →
-      </span>
-    </a>
+                <div className="space-y-4">
+                  <a
+                    href="/calculadora-gpa/"
+                    className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <h3 className="text-xl font-black text-gray-900 mb-2">
+                      Calculadora GPA
+                    </h3>
 
-    <a
-      href="/calificador-rapido/"
-      className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
-    >
-      <h3 className="text-xl font-black text-gray-900 mb-2">
-        Calificador Rápido
-      </h3>
+                    <p className="text-gray-700 leading-7">
+                      Úsala cuando conozcas tus calificaciones y créditos y quieras
+                      calcular un promedio GPA según la escala correspondiente.
+                    </p>
 
-      <p className="text-gray-700 leading-7">
-        Úsalo para convertir rápidamente respuestas correctas e incorrectas en
-        porcentajes y calificaciones según la escala que estés utilizando.
-      </p>
+                    <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
+                      Ir a la Calculadora GPA →
+                    </span>
+                  </a>
 
-      <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
-        Abrir Calificador Rápido →
-      </span>
-    </a>
-  </div>
-</section>{/* GAP #7: Quick-reference decision table for users scanning the FAQ page.
-    PASTE: Después de "¿Qué Calculadora Debo Usar?" y antes de FAQ generales. */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">
-    Guía Rápida de Cálculo
-  </h2>
+                  <a
+                    href="/calculadora-nota-final/"
+                    className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <h3 className="text-xl font-black text-gray-900 mb-2">
+                      Calculadora de Nota Final
+                    </h3>
 
-  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
-    <div className="grid sm:grid-cols-2 gap-4">
-      <div className="bg-white rounded-xl p-5">
-        <p className="text-sm text-gray-500 mb-1">
-          Si conoces...
-        </p>
-        <p className="font-black text-gray-900 mb-2">
-          Puntos obtenidos y puntos posibles
-        </p>
-        <p className="text-gray-600 leading-6 text-sm">
-          Puedes calcular un porcentaje de rendimiento.
-        </p>
-      </div>
+                    <p className="text-gray-700 leading-7">
+                      Úsala cuando conozcas tu nota actual, tu objetivo y el peso del
+                      examen final, y necesites saber qué nota te falta sacar.
+                    </p>
 
-      <div className="bg-white rounded-xl p-5">
-        <p className="text-sm text-gray-500 mb-1">
-          Si conoces...
-        </p>
-        <p className="font-black text-gray-900 mb-2">
-          Notas y pesos de categorías
-        </p>
-        <p className="text-gray-600 leading-6 text-sm">
-          Puedes calcular una nota ponderada.
-        </p>
-      </div>
+                    <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
+                      Calcular la Nota Final →
+                    </span>
+                  </a>
 
-      <div className="bg-white rounded-xl p-5">
-        <p className="text-sm text-gray-500 mb-1">
-          Si conoces...
-        </p>
-        <p className="font-black text-gray-900 mb-2">
-          Calificaciones y créditos
-        </p>
-        <p className="text-gray-600 leading-6 text-sm">
-          Puedes calcular un GPA según la escala aplicable.
-        </p>
-      </div>
+                  <a
+                    href="/calificador-rapido/"
+                    className="block bg-white border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <h3 className="text-xl font-black text-gray-900 mb-2">
+                      Calificador Rápido
+                    </h3>
 
-      <div className="bg-white rounded-xl p-5">
-        <p className="text-sm text-gray-500 mb-1">
-          Si conoces...
-        </p>
-        <p className="font-black text-gray-900 mb-2">
-          Nota actual, objetivo y peso final
-        </p>
-        <p className="text-gray-600 leading-6 text-sm">
-          Puedes estimar la nota necesaria en el examen final.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+                    <p className="text-gray-700 leading-7">
+                      Úsalo cuando conozcas los puntos obtenidos y posibles (o respuestas
+                      correctas e incorrectas) y quieras un porcentaje y calificación al instante.
+                    </p>
+
+                    <span className="inline-block mt-4 text-blue-600 font-bold text-sm">
+                      Abrir Calificador Rápido →
+                    </span>
+                  </a>
+                </div>
+              </section>
+
               {/* GRADE CALCULATOR FAQ */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-6">

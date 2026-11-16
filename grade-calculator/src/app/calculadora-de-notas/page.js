@@ -273,6 +273,22 @@ const schemaMarkup = {
             text: "Puedes agregar tantas evaluaciones como necesites: tareas, quizzes, pruebas, exámenes parciales, proyectos, laboratorios, participación y examen final. No hay límite en el número de evaluaciones.",
           },
         },
+        {
+          "@type": "Question",
+          name: "85 de 100, ¿qué nota es?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "85 de 100 equivale a 85%, que corresponde a una nota B en la escala A–F, a un 6.0 aproximado en escala chilena (1.0–7.0) y a 4.25 en escala colombiana (0.0–5.0).",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "¿Cuánto es una C en nota del 1 al 20?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Una C equivale aproximadamente a 70–79% en escala porcentual, lo que en escala del 1 al 20 corresponde a un rango de 14 a 15.8 puntos, dependiendo de la institución.",
+          },
+        },
       ],
     },
   ],
@@ -680,6 +696,57 @@ export default function CalculadoraDeNotas() {
                 </div>
               </section>
 
+              {/* ── QUICK CONVERSIONS — targets high-impression zero-click queries ── */}
+              <section className="mb-12" aria-labelledby="conversion-rapida-heading">
+                <h2 id="conversion-rapida-heading" className="text-[28px] font-black tracking-[-0.04em] mb-5">
+                  Conversión rápida: ¿cuánto es X de 100 en nota?
+                </h2>
+
+                <p className="text-gray-700 leading-8 mb-6">
+                  Consulta directamente cuánto vale tu puntaje en nota de letra, sin necesidad de calcular manualmente.
+                </p>
+
+                <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                  <table className="w-full min-w-[600px] border-collapse" aria-label="Tabla rápida de puntaje a nota">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="px-5 py-3 text-left font-bold" scope="col">Puntaje sobre 100</th>
+                        <th className="px-5 py-3 text-left font-bold" scope="col">Nota en Letra</th>
+                        <th className="px-5 py-3 text-left font-bold" scope="col">Escala 1–20</th>
+                        <th className="px-5 py-3 text-left font-bold" scope="col">Escala 1–10</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ["95 de 100", "A", "19.0", "9.5"],
+                        ["85 de 100", "B", "17.0", "8.5"],
+                        ["84 de 100", "B", "16.8", "8.4"],
+                        ["82 de 100", "B-", "16.4", "8.2"],
+                        ["80 de 100", "B-", "16.0", "8.0"],
+                        ["78 de 100", "C+", "15.6", "7.8"],
+                        ["77 de 100", "C+", "15.4", "7.7"],
+                        ["76 de 100", "C", "15.2", "7.6"],
+                        ["75 de 100", "C", "15.0", "7.5"],
+                        ["71 de 100", "C-", "14.2", "7.1"],
+                        ["63 de 100", "D", "12.6", "6.3"],
+                        ["55 de 100", "F", "11.0", "5.5"],
+                        ["50 de 100", "F", "10.0", "5.0"],
+                        ["45 de 100", "F", "9.0", "4.5"],
+                      ].map((row, i) => (
+                        <tr key={i} className={`border-b border-gray-200 ${i % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
+                          {row.map((cell, j) => (
+                            <td key={j} className="px-5 py-3 text-gray-700">{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-sm text-gray-500 mt-3">
+                  Valores aproximados según la escala estándar A–F. Usa la calculadora arriba para tu escala institucional exacta.
+                </p>
+              </section>
+
               {/* ── LETTER GRADE CONVERSION TABLE ── */}
               <section className="mb-12" aria-labelledby="escala-letras-heading">
                 <h2 id="escala-letras-heading" className="text-[28px] font-black tracking-[-0.04em] mb-5">
@@ -835,40 +902,8 @@ export default function CalculadoraDeNotas() {
                   </ul>
                 </div>
               </section>
-              {/* ── SECTION 1 ── */}
-              <section className="mb-12" aria-labelledby="como-calcular-heading">
-                <h2
-                  id="como-calcular-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Cómo Calcular una Nota
-                </h2>
 
-                <div className="space-y-5 text-gray-700 leading-8">
-                  <p>
-                    Calcular una nota consiste en convertir tus resultados académicos en una
-                    calificación final usando porcentajes, puntos o evaluaciones ponderadas.
-                    La mayoría de escuelas y universidades utilizan sistemas donde cada
-                    evaluación tiene un peso específico dentro de la nota total del curso.
-                  </p>
-
-                  <p>
-                    Para conocer tu rendimiento real, debes multiplicar cada nota por su
-                    porcentaje correspondiente y luego sumar todos los resultados. Este
-                    método permite obtener una visión precisa de tu desempeño académico.
-                  </p>
-
-                  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
-                    <p>
-                      <strong>Ejemplo rápido:</strong> Si obtuviste 90% en una tarea que vale
-                      20% y 80% en un examen que vale 80%, tu nota final será:
-                    </p>
-                    <p className="mt-3 font-bold">
-                      (90 × 0.20) + (80 × 0.80) = 82%
-                    </p>
-                  </div>
-                </div>
-              </section>{/* ── GAP 1: NOTA MÁXIMA ALCANZABLE ──────────────────────────────────── */}
+              {/* ── GAP 1: NOTA MÁXIMA ALCANZABLE ──────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="maxima-nota-heading">
                 <h2
                   id="maxima-nota-heading"
@@ -925,7 +960,9 @@ export default function CalculadoraDeNotas() {
                     </p>
                   </div>
                 </div>
-              </section>{/* ── GAP 2: COMPARACIÓN DE ESCENARIOS PARA EL EXAMEN FINAL ───────────── */}
+              </section>
+
+              {/* ── GAP 2: COMPARACIÓN DE ESCENARIOS PARA EL EXAMEN FINAL ───────────── */}
               <section className="mb-12" aria-labelledby="escenarios-heading">
                 <h2
                   id="escenarios-heading"
@@ -995,7 +1032,9 @@ export default function CalculadoraDeNotas() {
                     estudio.
                   </p>
                 </div>
-              </section>{/* ── GAP 3: EXTRA CREDIT Y PUNTOS DE BONIFICACIÓN ───────────────────── */}
+              </section>
+
+              {/* ── GAP 3: EXTRA CREDIT Y PUNTOS DE BONIFICACIÓN ───────────────────── */}
               <section className="mb-12" aria-labelledby="extra-credit-heading">
                 <h2
                   id="extra-credit-heading"
@@ -1044,7 +1083,9 @@ export default function CalculadoraDeNotas() {
                     </p>
                   </div>
                 </div>
-              </section>{/* ── GAP 4: DROP LOWEST GRADE ───────────────────────────────────────── */}
+              </section>
+
+              {/* ── GAP 4: DROP LOWEST GRADE ───────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="drop-grade-heading">
                 <h2
                   id="drop-grade-heading"
@@ -1099,7 +1140,9 @@ export default function CalculadoraDeNotas() {
                     </p>
                   </div>
                 </div>
-              </section>{/* ── GAP 5: CRÉDITO PARCIAL ─────────────────────────────────────────── */}
+              </section>
+
+              {/* ── GAP 5: CRÉDITO PARCIAL ─────────────────────────────────────────── */}
               <section className="mb-12" aria-labelledby="credito-parcial-heading">
                 <h2
                   id="credito-parcial-heading"
@@ -1147,185 +1190,6 @@ export default function CalculadoraDeNotas() {
                 </div>
               </section>
 
-              {/* ── SECTION 2 ── */}
-              <section className="mb-12" aria-labelledby="promedio-heading">
-                <h2
-                  id="promedio-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Calculadora de Promedio Ponderado
-                </h2>
-
-                <div className="space-y-5 text-gray-700 leading-8">
-                  <p>
-                    Un promedio ponderado asigna diferentes niveles de importancia a cada
-                    evaluación. No todas las tareas o exámenes tienen el mismo impacto en tu
-                    nota final, por lo que es necesario aplicar pesos específicos.
-                  </p>
-
-                  <p>
-                    Este sistema es ampliamente utilizado en universidades, colegios y cursos
-                    técnicos porque refleja de manera más justa el desempeño del estudiante.
-                  </p>
-
-                  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 text-center">
-                    <p className="text-slate-400 mb-2">
-                      Fórmula del Promedio Ponderado
-                    </p>
-                    <p className="font-bold">
-                      Σ (Nota × Peso) ÷ Σ Peso
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* ── SECTION 3 ── */}
-              <section className="mb-12" aria-labelledby="nota-final-heading">
-                <h2
-                  id="nota-final-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Cómo Calcular la Nota Final del Curso
-                </h2>
-
-                <div className="space-y-5 text-gray-700 leading-8">
-                  <p>
-                    La nota final representa el resultado global de todas las evaluaciones
-                    realizadas durante el curso. Para calcularla correctamente es necesario
-                    considerar tareas, exámenes, proyectos y cualquier actividad evaluada.
-                  </p>
-
-                  <p>
-                    Cada elemento debe multiplicarse por su peso correspondiente. Después se
-                    suman todos los resultados para obtener la calificación final.
-                  </p>
-
-                  <div className="rounded-2xl border border-gray-200 p-5">
-                    <h3 className="font-bold mb-3">Ejemplo</h3>
-                    <ul className="space-y-2">
-                      <li>Tareas: 90% (20%)</li>
-                      <li>Pruebas: 85% (30%)</li>
-                      <li>Proyecto: 95% (20%)</li>
-                      <li>Examen Final: 80% (30%)</li>
-                    </ul>
-
-                    <p className="mt-4 font-bold text-blue-700">
-                      Nota Final = 87.5%
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* ── SECTION 4 ── */}
-              <section className="mb-12" aria-labelledby="aprobar-heading">
-                <h2
-                  id="aprobar-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Qué Nota Necesito para Aprobar
-                </h2>
-
-                <div className="space-y-5 text-gray-700 leading-8">
-                  <p>
-                    Muchos estudiantes desean saber exactamente qué nota necesitan en el
-                    examen final para aprobar una materia o alcanzar una meta académica
-                    específica.
-                  </p>
-
-                  <p>
-                    Conociendo tu promedio actual y el peso del examen final, puedes calcular
-                    fácilmente la puntuación requerida.
-                  </p>
-
-                  <div className="rounded-2xl bg-green-50 border border-green-100 p-5">
-                    <p>
-                      <strong>Ejemplo:</strong> Si tienes 78% actualmente y deseas terminar
-                      con 85%, mientras el examen final vale 40%, necesitarás aproximadamente
-                      95.5% en el examen.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* ── SECTION 5 ── */}
-              <section className="mb-12" aria-labelledby="escalas-heading">
-                <h2
-                  id="escalas-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Escalas de Calificación Más Utilizadas
-                </h2>
-
-                <div className="space-y-5 text-gray-700 leading-8">
-                  <p>
-                    Los sistemas educativos utilizan diferentes escalas de calificación según
-                    el país o la institución. Sin embargo, todas pueden convertirse a
-                    porcentajes para facilitar el cálculo.
-                  </p>
-
-                  <div className="overflow-x-auto rounded-2xl border border-gray-200">
-                    <table className="w-full border-collapse">
-                      <thead>
-                        <tr className="bg-blue-600 text-white">
-                          <th className="px-5 py-4 text-left">País</th>
-                          <th className="px-5 py-4 text-left">Escala</th>
-                          <th className="px-5 py-4 text-left">Aprobación</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b">
-                          <td className="px-5 py-4">Chile</td>
-                          <td className="px-5 py-4">1.0 – 7.0</td>
-                          <td className="px-5 py-4">4.0</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="px-5 py-4">Colombia</td>
-                          <td className="px-5 py-4">0.0 – 5.0</td>
-                          <td className="px-5 py-4">3.0</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="px-5 py-4">México</td>
-                          <td className="px-5 py-4">0 – 10</td>
-                          <td className="px-5 py-4">6.0</td>
-                        </tr>
-                        <tr>
-                          <td className="px-5 py-4">España</td>
-                          <td className="px-5 py-4">0 – 10</td>
-                          <td className="px-5 py-4">5.0</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </section>
-
-              {/* ── SECTION 6 ── */}
-              <section className="mb-12" aria-labelledby="ventajas-heading">
-                <h2
-                  id="ventajas-heading"
-                  className="text-[28px] font-black tracking-[-0.04em] mb-5"
-                >
-                  Ventajas de Utilizar una Calculadora de Notas
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  {[
-                    "Resultados instantáneos",
-                    "Cálculos matemáticamente exactos",
-                    "Compatible con cualquier sistema educativo",
-                    "Permite planificar el examen final",
-                    "Evita errores manuales",
-                    "Gratis y accesible desde cualquier dispositivo",
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      className="rounded-2xl border border-gray-200 p-5 bg-white"
-                    >
-                      <p className="font-semibold text-gray-800">{item}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
               {/* ── TIPS ── */}
               <section className="mb-12" aria-labelledby="consejos-heading">
                 <h2 id="consejos-heading" className="text-[28px] font-black tracking-[-0.04em] mb-5">
@@ -1450,7 +1314,7 @@ export default function CalculadoraDeNotas() {
                 </div>
               </section>
 
-              {/* ── FAQ SECTION — STEP 7 · AEO — 15 FAQs ── */}
+              {/* ── FAQ SECTION — STEP 7 · AEO ── */}
               <section
                 className="bg-gray-50 py-14 border-t -mx-7 md:-mx-9 -mb-9"
                 aria-labelledby="faq-heading"
@@ -1516,7 +1380,6 @@ export default function CalculadoraDeNotas() {
                         q: "¿Cómo afecta el peso del examen final a mi nota?",
                         a: "Un examen final con peso del 30–40% puede cambiar tu nota entre 5 y 15 puntos porcentuales. Cuanto mayor sea el peso del final, más determinante será para tu calificación. Por eso es clave calcularlo con anticipación.",
                       },
-                      // ── GAP 6: ADVANCED GRADING FAQS ────────────────────────────────────────
                       {
                         q: "¿Qué pasa si mi curso elimina la nota más baja?",
                         a: "Si el programa del curso permite eliminar la calificación más baja, esa evaluación normalmente no debe incluirse en el cálculo después de aplicar la regla. Comprueba siempre qué evaluaciones pueden descartarse y cómo se redistribuyen sus pesos.",
@@ -1540,6 +1403,22 @@ export default function CalculadoraDeNotas() {
                       {
                         q: "¿Cómo convierto mi nota a GPA?",
                         a: "Para convertir tu porcentaje a GPA en escala 4.0: A (90–100%) = 4.0, B (80–89%) = 3.0, C (70–79%) = 2.0, D (60–69%) = 1.0, F (menos del 60%) = 0.0. Usa nuestra Calculadora de GPA para una conversión más precisa con signos +/−.",
+                      },
+                      {
+                        q: "85 de 100, ¿qué nota es?",
+                        a: "85 de 100 equivale a 85%, que corresponde a una B en la escala A–F estándar, a un 4.25 en escala colombiana (0.0–5.0) y a un 6.0 aproximado en escala chilena (1.0–7.0).",
+                      },
+                      {
+                        q: "¿Cuánto es una C en nota del 1 al 20?",
+                        a: "Una C equivale aproximadamente a 70–79% en escala porcentual. Convertido a la escala de 1 al 20, corresponde a un rango de 14 a 15.8 puntos, dependiendo de la tabla de conversión de tu institución.",
+                      },
+                      {
+                        q: "¿Cuánto es una B en nota del 1 al 20?",
+                        a: "Una B equivale aproximadamente a 80–89% en escala porcentual, lo que corresponde a un rango de 16 a 17.8 puntos en la escala de 1 al 20.",
+                      },
+                      {
+                        q: "¿Cuánto necesito sacar en el examen final para pasar la materia?",
+                        a: "Ingresa tu nota actual, la nota mínima de aprobación como objetivo y el peso del examen final en la calculadora de arriba. El resultado te muestra exactamente el puntaje mínimo que necesitas sacar.",
                       },
                     ].map((faq, i) => (
                       <details

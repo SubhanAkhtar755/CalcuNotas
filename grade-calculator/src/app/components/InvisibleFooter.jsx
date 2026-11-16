@@ -41,6 +41,18 @@ const NAV_LINKS = [
   ["Contacto", "/contacto/"],
 ];
 
+// NEW: Calculadoras links section — sourced from sitemap.xml
+const CALCULATOR_LINKS = [
+  ["Calculadora de Notas", "/calculadora-de-notas/"],
+  ["Calculadora de Nota Final", "/nota-final/"],
+  ["Calculadora GPA", "/calculadora-gpa/"],
+  ["GPA Acumulado", "/gpa-acumulado/"],
+  ["Calificador Rápido", "/calificador-rapido/"],
+  ["Calculadora de Clase", "/calculadora-clase/"],
+  ["Calculadora Profesores", "/calculadora-profesores/"],
+  ["Nota Semestral", "/nota-semestral/"],
+];
+
 export default function InvisibleFooter() {
   const year = new Date().getFullYear();
 
@@ -50,7 +62,7 @@ export default function InvisibleFooter() {
   return (
     <footer className="bg-gray-50 border-t border-gray-200 text-black">
       <div className="px-8 mx-auto px-6 py-10">
-        <div className="grid md:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-5 gap-10">
           {/* BRAND */}
           <div>
             <Link
@@ -80,6 +92,25 @@ export default function InvisibleFooter() {
 
             <ul className="space-y-3 text-sm">
               {NAV_LINKS.map(([label, href]) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    className="text-gray-600 font-medium hover:text-[#2563eb] transition hover:pl-1 inline-block"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CALCULADORAS - NEW SECTION */}
+          <div>
+            <p className={title}>Calculadoras</p>
+
+            <ul className="space-y-3 text-sm">
+              {CALCULATOR_LINKS.map(([label, href]) => (
                 <li key={label}>
                   <Link
                     href={href}

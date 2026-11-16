@@ -23,7 +23,6 @@ const ORG_SCHEMA = {
     width: 512,
     height: 512,
   },
-  
 };
 
 const WEBSITE_SCHEMA = {
@@ -53,38 +52,29 @@ const FAQS_DATA = [
     q: "¿Cómo calculo mi nota actual?",
     a: "Multiplica la nota de cada evaluación por su peso, suma los puntajes ponderados y divide por el peso total.",
   },
-  // ── GAP 8: ADVANCED FAQ COVERAGE ─────────────────────────────────────────
-{
-  q: "¿Cuál es la nota máxima que todavía puedo obtener?",
-  a: "Puedes calcularla suponiendo que obtienes el 100% en todas las evaluaciones pendientes. El resultado depende de tu nota actual y del peso que todavía queda por completar.",
-},
-{
-  q: "¿Qué pasa si mi profesor elimina la nota más baja?",
-  a: "Si el curso permite descartar la calificación más baja, esa evaluación debe excluirse según las reglas del profesor antes de calcular el promedio. También debes comprobar si su peso se redistribuye entre las evaluaciones restantes.",
-},
-{
-  q: "¿Cómo funcionan los puntos extra o extra credit?",
-  a: "Depende del sistema de tu curso. Los puntos extra pueden sumarse a los puntos obtenidos o aplicarse como una bonificación después de calcular la nota base. Revisa las instrucciones del profesor para saber si existe un límite máximo.",
-},
-{
-  q: "¿Cómo calculo una nota cuando recibo crédito parcial?",
-  a: "Utiliza los puntos obtenidos y los puntos posibles. Por ejemplo, 40 puntos obtenidos de 50 posibles equivalen a 80%, aunque algunas preguntas hayan recibido solo crédito parcial.",
-},
   {
     q: "¿Qué es una nota ponderada?",
     a: "Una nota ponderada significa que algunas tareas o exámenes cuentan más que otros. Por ejemplo, un examen final que vale el 40% afecta más tu nota que una tarea que vale el 10%.",
   },
   {
-    q: "¿Esta calculadora funciona con notas con letras?",
-    a: "Sí. Puedes usar notas con letras si tu clase usa A, B, C, D o F. El resultado depende de la escala de calificación de tu colegio o profesor.",
-  },
-  {
-    q: "¿Esta calculadora soporta calificaciones por puntos?",
-    a: "Sí. Si tu clase usa puntos, divide los puntos obtenidos por el total de puntos posibles y multiplica por 100 para obtener el porcentaje.",
+    q: "¿Esta calculadora funciona con notas con letras o por puntos?",
+    a: "Sí, admite ambos formatos. Con letras usa la escala A–F de tu colegio. Con puntos, divide los puntos obtenidos por el total posible y multiplica por 100 para obtener el porcentaje.",
   },
   {
     q: "¿Cómo calculo la nota que necesito en el examen final?",
     a: "Ingresa tu nota actual, tu nota meta y el peso del examen final. La calculadora estima el puntaje que necesitas en el examen final para alcanzar tu objetivo.",
+  },
+  {
+    q: "¿Cuál es la nota máxima que todavía puedo obtener?",
+    a: "Súmale a tu nota actual el resultado de suponer 100% en todo lo que falta por calificar. Ese techo depende de cuánto peso del curso ya está evaluado y cuánto queda pendiente.",
+  },
+  {
+    q: "¿Qué pasa si mi profesor elimina la nota más baja?",
+    a: "Esa evaluación se excluye del cálculo antes de aplicar los pesos, según las reglas del curso. Confirma si su peso se redistribuye entre las evaluaciones restantes.",
+  },
+  {
+    q: "¿Cómo funcionan los puntos extra o extra credit?",
+    a: "Depende del profesor: algunos los suman directamente a los puntos obtenidos, otros los aplican como bonificación después de calcular la nota base. Revisa si existe un límite máximo.",
   },
   {
     q: "¿Las escalas de calificación son iguales en todos lados?",
@@ -92,8 +82,6 @@ const FAQS_DATA = [
   },
 ];
 
-// ── GAP FIX: this page had no schema markup — now has WebApplication,
-//    FAQPage, HowTo, BreadcrumbList and Article, matching the other pages ──
 const schemaMarkup = [
   ORG_SCHEMA,
   WEBSITE_SCHEMA,
@@ -197,13 +185,9 @@ export const metadata = {
     "como calcular mi nota actual",
     "calculadora de notas universitarias",
   ],
-
-  // ── GAP FIX: removed 19 fake per-country hreflang duplicates pointing to
-  //    the same URL. Just declare canonical. ──────────────────────────────
   alternates: {
     canonical: "https://calcunotas.com/calculadora-clase/",
   },
-
   openGraph: {
     title: "Calculadora de Calificaciones | CalcuNotas",
     description:
@@ -212,7 +196,6 @@ export const metadata = {
     siteName: "CalcuNotas",
     locale: "es_ES",
     type: "article",
-    // ── GAP FIX: og:image was missing ──────────────────────────────────
     images: [
       {
         url: "https://calcunotas.com/og/calculadora-clase.png",
@@ -234,7 +217,6 @@ export const metadata = {
   },
 };
 
-// ── GAP FIX: internal links + real outbound citation ────────────────────
 const RELACIONADOS = [
   { nombre: "Calculadora de Nota Final", url: "/nota-final/" },
   { nombre: "Calculadora de Notas para Profesores", url: "/calculadora-profesores/" },
@@ -244,12 +226,34 @@ const FUENTES = [
   { nombre: "National Center for Education Statistics (NCES) — escalas de calificación", url: "https://nces.ed.gov/" },
 ];
 
+const CASOS_ESPECIALES = [
+  {
+    titulo: "Nota máxima que todavía puedes alcanzar",
+    texto:
+      "Supón 100% en todo lo pendiente. Si llevas 76% con el 70% del curso ya calificado y el examen final vale el 30%: (76 × 0,70) + (100 × 0,30) = 83,2%. Ese es tu techo real — una meta de 90% ya no sería alcanzable solo con ese examen.",
+  },
+  {
+    titulo: "Si el profesor elimina la nota más baja",
+    texto:
+      "Esa evaluación se excluye del cálculo antes de aplicar los pesos. Confirma en el programa del curso si esta regla aplica y cómo se redistribuye el peso de la nota descartada entre las demás.",
+  },
+  {
+    titulo: "Puntos extra (extra credit)",
+    texto:
+      "Algunos profesores suman el bonus directamente a los puntos obtenidos; otros lo aplican después de calcular la nota base. Revisa si existe un límite máximo antes de sumarlo.",
+  },
+  {
+    titulo: "Preguntas con crédito parcial",
+    texto:
+      "Usa siempre puntos obtenidos ÷ puntos posibles, no el conteo de respuestas correctas. Ejemplo: 10/10 + 6/10 + 15/15 + 9/15 = 40 de 50 puntos → 80%, aunque algunas respuestas solo recibieron crédito parcial.",
+  },
+];
+
 export default function CalculadoraClasePage() {
   return (
     <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
-      {/* ── GAP FIX: this page had no JSON-LD at all — now it does ───────── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
@@ -258,7 +262,6 @@ export default function CalculadoraClasePage() {
       {/* HERO */}
       <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
         <div className=" mx-auto">
-          {/* ── GAP FIX: breadcrumb was plain text, now linked + schema ──── */}
           <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
             <ol className="flex flex-wrap gap-1 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
               <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
@@ -279,7 +282,6 @@ export default function CalculadoraClasePage() {
             Calculadora de calificaciones de clase
           </h1>
 
-          {/* ── GAP FIX: visible last-updated + reviewed-by trust line ────── */}
           <p className="text-[13px] text-[#8a94a6] mb-4">
             Actualizado el 25 de julio de 2026 · Revisado por el{" "}
             <a href="/sobre-nosotros/" className="underline underline-offset-2 hover:text-blue-600">
@@ -366,12 +368,8 @@ export default function CalculadoraClasePage() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="rounded-2xl border border-gray-200 bg-white p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                        1
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Elige el Tipo de Calificación
-                      </h3>
+                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">1</div>
+                      <h3 className="text-lg font-bold text-gray-900">Elige el Tipo de Calificación</h3>
                     </div>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Selecciona porcentaje, nota con letra o puntos según cómo tu profesor registra los puntajes.
@@ -380,12 +378,8 @@ export default function CalculadoraClasePage() {
 
                   <div className="rounded-2xl border border-gray-200 bg-white p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                        2
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Agrega Tareas y Exámenes
-                      </h3>
+                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">2</div>
+                      <h3 className="text-lg font-bold text-gray-900">Agrega Tareas y Exámenes</h3>
                     </div>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Agrega tareas, quizzes, pruebas, proyectos, laboratorios, participación o cualquier otro ítem calificado.
@@ -394,12 +388,8 @@ export default function CalculadoraClasePage() {
 
                   <div className="rounded-2xl border border-gray-200 bg-white p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                        3
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Ingresa Nota y Peso
-                      </h3>
+                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">3</div>
+                      <h3 className="text-lg font-bold text-gray-900">Ingresa Nota y Peso</h3>
                     </div>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Escribe tu puntaje y cuánto cuenta ese ítem en la calificación final del curso.
@@ -408,12 +398,8 @@ export default function CalculadoraClasePage() {
 
                   <div className="rounded-2xl border border-gray-200 bg-white p-5">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                        4
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Ve tu Nota General
-                      </h3>
+                      <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">4</div>
+                      <h3 className="text-lg font-bold text-gray-900">Ve tu Nota General</h3>
                     </div>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       La calculadora combina tus puntajes y pesos para mostrar tu nota actual en el curso al instante.
@@ -432,13 +418,8 @@ export default function CalculadoraClasePage() {
                   <p>
                     Una calculadora de calificaciones es una herramienta en línea que estima tu nota en el curso a partir de tareas, pruebas, quizzes, proyectos y exámenes completados. Te ayuda a entender tu progreso académico antes de que se publiquen las notas oficiales.
                   </p>
-
                   <p>
                     En algunos cursos, cada tarea cuenta por igual. En otros, evaluaciones más grandes como parciales, examen final y proyectos cuentan más que pequeñas tareas. Una calculadora de promedio ponderado maneja esas diferencias usando el peso de cada ítem calificado.
-                  </p>
-
-                  <p>
-                    Esto la hace útil para estudiantes que quieren seguir sus notas actuales, planificar para una meta de calificación, calcular la nota necesaria en el examen final o ver cómo las futuras tareas pueden afectar el resultado final.
                   </p>
                 </div>
               </section>
@@ -482,7 +463,6 @@ export default function CalculadoraClasePage() {
                         <th className="px-5 py-4 text-left font-bold">Puntaje Ponderado</th>
                       </tr>
                     </thead>
-
                     <tbody>
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">Tareas</td>
@@ -490,21 +470,18 @@ export default function CalculadoraClasePage() {
                         <td className="px-5 py-4 text-gray-700">20%</td>
                         <td className="px-5 py-4 text-gray-700">18.4</td>
                       </tr>
-
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">Quizzes</td>
                         <td className="px-5 py-4 text-gray-700">85%</td>
                         <td className="px-5 py-4 text-gray-700">15%</td>
                         <td className="px-5 py-4 text-gray-700">12.75</td>
                       </tr>
-
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">Proyecto</td>
                         <td className="px-5 py-4 text-gray-700">95%</td>
                         <td className="px-5 py-4 text-gray-700">25%</td>
                         <td className="px-5 py-4 text-gray-700">23.75</td>
                       </tr>
-
                       <tr>
                         <td className="px-5 py-4 text-gray-700">Examen Final</td>
                         <td className="px-5 py-4 text-gray-700">80%</td>
@@ -541,10 +518,7 @@ export default function CalculadoraClasePage() {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                  <h3 className="text-2xl font-bold mb-3">
-                    Ejemplo del Examen Final
-                  </h3>
-
+                  <h3 className="text-2xl font-bold mb-3">Ejemplo del Examen Final</h3>
                   <p className="text-gray-700 leading-8">
                     Si tu nota actual es 84%, tu meta es 90% y el examen final vale el 30% del curso, la calculadora puede estimar el puntaje que necesitas en el examen final para llegar a esa meta. Esto te ayuda a saber si tu objetivo es realista antes de la semana de exámenes. Para un desglose completo de esta fórmula, revisa la{" "}
                     <a href="/nota-final/" className="text-green-600 hover:text-green-700 font-semibold underline-offset-4 underline">
@@ -555,7 +529,7 @@ export default function CalculadoraClasePage() {
                 </div>
               </section>
 
-              {/* TIPOS */}
+              {/* TIPOS DE CALIFICACIÓN (incluye fórmula por puntos) */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
                   Calificaciones por Porcentaje, Letra y Puntos
@@ -565,50 +539,34 @@ export default function CalculadoraClasePage() {
                   Distintos profesores usan diferentes métodos de calificación. Esta calculadora funciona con porcentajes, notas con letras y calificaciones por puntos.
                 </p>
 
-                <div className="grid gap-5 md:grid-cols-3">
+                <div className="grid gap-5 md:grid-cols-3 mb-8">
                   <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Calificaciones en Porcentaje
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Calificaciones en Porcentaje</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Usa esta opción cuando tu nota se muestra como porcentaje, por ejemplo 88%, 92% o 76%.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Notas con Letras
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Notas con Letras</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Usa esta opción cuando tu profesor da notas como A, B, C, D o F.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Calificaciones por Puntos
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Calificaciones por Puntos</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Usa esta opción cuando tu puntaje se basa en puntos obtenidos sobre el total de puntos posibles.
                     </p>
                   </div>
                 </div>
-              </section>
 
-              {/* FORMULA PUNTOS */}
-              <section className="mb-12">
-                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
-                  Fórmula de Calificación por Puntos
-                </h2>
-
+                <h3 className="text-[22px] font-bold mb-4">Fórmula de Calificación por Puntos</h3>
                 <p className="text-gray-700 leading-8 mb-5">
                   Algunos cursos no usan pesos por asignación. En cambio, las notas se basan en el total de puntos obtenidos. En ese caso, divide los puntos obtenidos por el total de puntos posibles y multiplica por 100.
                 </p>
-
                 <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mb-6 text-center text-[15px]">
                   Porcentaje de Calificación = Puntos Obtenidos ÷ Total de Puntos Posibles × 100
                 </div>
-
                 <p className="text-gray-700 leading-8">
                   Por ejemplo, si obtuviste 450 puntos de 500 posibles, tu nota sería 90%. Este método es común cuando cada tarea suma a un total general de puntos.
                 </p>
@@ -622,18 +580,13 @@ export default function CalculadoraClasePage() {
 
                 <div className="grid gap-5 md:grid-cols-2">
                   <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                    <h3 className="text-2xl font-bold mb-3">
-                      Promedio Simple
-                    </h3>
+                    <h3 className="text-2xl font-bold mb-3">Promedio Simple</h3>
                     <p className="text-gray-700 leading-8">
                       Un promedio simple trata todas las notas por igual. Funciona mejor cuando todas las tareas, quizzes o exámenes tienen la misma importancia.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-                    <h3 className="text-2xl font-bold mb-3">
-                      Promedio Ponderado
-                    </h3>
+                    <h3 className="text-2xl font-bold mb-3">Promedio Ponderado</h3>
                     <p className="text-gray-700 leading-8">
                       Un promedio ponderado da más importancia a exámenes mayores, proyectos o categorías que cuentan más en la nota final del curso.
                     </p>
@@ -660,32 +613,27 @@ export default function CalculadoraClasePage() {
                         <th className="px-5 py-4 text-left font-bold">Rendimiento</th>
                       </tr>
                     </thead>
-
                     <tbody>
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">90% - 100%</td>
                         <td className="px-5 py-4 text-gray-700">A</td>
                         <td className="px-5 py-4 text-gray-700">Excelente</td>
                       </tr>
-
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">80% - 89%</td>
                         <td className="px-5 py-4 text-gray-700">B</td>
                         <td className="px-5 py-4 text-gray-700">Bien</td>
                       </tr>
-
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">70% - 79%</td>
                         <td className="px-5 py-4 text-gray-700">C</td>
                         <td className="px-5 py-4 text-gray-700">Regular</td>
                       </tr>
-
                       <tr className="border-b border-gray-200">
                         <td className="px-5 py-4 text-gray-700">60% - 69%</td>
                         <td className="px-5 py-4 text-gray-700">D</td>
                         <td className="px-5 py-4 text-gray-700">Necesita mejorar</td>
                       </tr>
-
                       <tr>
                         <td className="px-5 py-4 text-gray-700">Menos del 60%</td>
                         <td className="px-5 py-4 text-gray-700">F</td>
@@ -694,7 +642,6 @@ export default function CalculadoraClasePage() {
                     </tbody>
                   </table>
                 </div>
-                {/* ── GAP FIX: real outbound citation ────────────────────── */}
                 <p className="text-[12px] text-gray-500 mt-3">
                   Fuente de referencia:{" "}
                   {FUENTES.map((f, i) => (
@@ -709,6 +656,64 @@ export default function CalculadoraClasePage() {
                 </p>
               </section>
 
+              {/* INTERPRETAR TU NOTA */}
+              <section className="mb-16">
+                <div className="rounded-2xl border border-purple-100 bg-purple-50 p-6 mb-8">
+                  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-4">
+                    Cómo Interpretar tu Nota Actual
+                  </h2>
+                  <p className="text-gray-700 leading-8">
+                    Tu nota actual representa el rendimiento de las evaluaciones ya calificadas — no siempre equivale a la nota final que aparecerá en tu expediente, sobre todo si aún quedan exámenes o proyectos importantes por evaluar.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 mb-8">
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <h3 className="font-bold text-gray-900 mb-2">Nota alta con mucho curso pendiente</h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Un 90% puede cambiar bastante si todavía falta un examen que representa una parte importante de la calificación.
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <h3 className="font-bold text-gray-900 mb-2">Revisa siempre los pesos restantes</h3>
+                    <p className="text-gray-700 leading-7 text-[15px]">
+                      Cuanto mayor sea el peso de una evaluación pendiente, mayor será su capacidad para cambiar tu nota final.
+                    </p>
+                  </div>
+                </div>
+
+                <h3 className="text-[22px] font-bold mb-4">Cómo Afectan los Exámenes Finales a tu Calificación</h3>
+                <p className="text-gray-700 leading-8 mb-5">
+                  El impacto del examen final depende de su peso. Si tienes 80% antes del examen y este vale el 20%, obtener 100% no convierte tu nota en 100%: la parte ya completada conserva el 80% de su peso.
+                </p>
+                <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mb-8 text-center text-[15px]">
+                  Nota Final = (80 × 0.80) + (100 × 0.20) = 84%
+                </div>
+
+                <h3 className="text-[22px] font-bold mb-4">Diferencia entre GPA y Calificación Porcentual</h3>
+                <p className="text-gray-700 leading-8 mb-5">
+                  Un porcentaje describe el rendimiento dentro de un curso; el GPA normalmente resume calificaciones de varias materias mediante una escala de puntos de la institución. No conviene convertir directamente un porcentaje a GPA sin conocer la escala oficial de tu colegio o universidad.
+                </p>
+              </section>
+
+              {/* CASOS ESPECIALES */}
+              <section className="mb-12">
+                <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
+                  Casos Especiales: Nota Máxima, Notas Eliminadas y Puntos Extra
+                </h2>
+                <p className="text-gray-700 leading-8 mb-6">
+                  Algunas situaciones comunes requieren un ajuste antes de aplicar la fórmula estándar del promedio ponderado.
+                </p>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {CASOS_ESPECIALES.map((c) => (
+                    <div key={c.titulo} className="rounded-2xl border border-gray-200 bg-white p-5">
+                      <h3 className="font-bold text-gray-900 mb-2">{c.titulo}</h3>
+                      <p className="text-gray-700 leading-7 text-[15px]">{c.texto}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               {/* POR QUE USAR */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
@@ -717,36 +722,25 @@ export default function CalculadoraClasePage() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="font-bold text-gray-900 mb-2">
-                      Seguir la Nota Actual del Curso
-                    </h3>
+                    <h3 className="font-bold text-gray-900 mb-2">Seguir la Nota Actual del Curso</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Ve tu nota estimada en el curso antes de que se publiquen las notas oficiales.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="font-bold text-gray-900 mb-2">
-                      Planificar para una Nota Meta
-                    </h3>
+                    <h3 className="font-bold text-gray-900 mb-2">Planificar para una Nota Meta</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Descubre qué puntajes puedes necesitar en futuras tareas o exámenes.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="font-bold text-gray-900 mb-2">
-                      Entender las Categorías Ponderadas
-                    </h3>
+                    <h3 className="font-bold text-gray-900 mb-2">Entender las Categorías Ponderadas</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Aprende cómo las tareas, quizzes, exámenes y proyectos afectan tu nota final.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="font-bold text-gray-900 mb-2">
-                      Reducir Errores de Cálculo
-                    </h3>
+                    <h3 className="font-bold text-gray-900 mb-2">Reducir Errores de Cálculo</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Evita errores manuales cuando las notas tienen diferentes pesos.
                     </p>
@@ -760,7 +754,6 @@ export default function CalculadoraClasePage() {
                   <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
                     Errores Comunes al Calcular Calificaciones
                   </h2>
-
                   <ul className="space-y-3 text-gray-700 leading-8">
                     <li>• Olvidar incluir todas las tareas o exámenes calificados.</li>
                     <li>• Ingresar pesos que no suman correctamente.</li>
@@ -770,474 +763,8 @@ export default function CalculadoraClasePage() {
                     <li>• Asumir que todos los profesores usan la misma escala de notas con letras.</li>
                   </ul>
                 </div>
-              </section>{/* ── GAP 1: SECTION 3 — INTERPRETAR Y ANALIZAR CALIFICACIONES ────────── */}
-<section className="mb-16">
-  <div className="rounded-2xl border border-purple-100 bg-purple-50 p-6 mb-8">
-    <h2 className="text-[34px] font-black tracking-[-0.04em] mb-4">
-      Comprender y Analizar tus Calificaciones
-    </h2>
+              </section>
 
-    <p className="text-gray-700 leading-8">
-      Calcular tu nota es solo el primer paso. También es importante entender
-      qué significa ese resultado, qué evaluaciones pueden cambiarlo y cómo
-      interpretar tu progreso durante el curso.
-    </p>
-  </div>
-
-  {/* ¿Cómo Interpretar tu Nota Actual? */}
-  <section className="mb-8">
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      ¿Cómo Interpretar tu Nota Actual?
-    </h3>
-
-    <p className="text-gray-700 leading-8 mb-4">
-      Tu nota actual representa el rendimiento de las evaluaciones que ya han
-      sido calificadas. No siempre equivale a la nota final que aparecerá en tu
-      expediente, especialmente si todavía quedan exámenes, proyectos o tareas
-      importantes.
-    </p>
-
-    <div className="grid gap-4 md:grid-cols-3">
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Nota alta con mucho curso pendiente
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Una nota de 90% puede cambiar bastante si todavía falta un examen que
-          representa una parte importante de la calificación.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Nota media con evaluaciones pendientes
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Una nota actual de 75% no significa necesariamente que terminarás
-          con 75%. Las próximas evaluaciones pueden elevar o reducir el
-          promedio.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Revisa los pesos restantes
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Cuanto mayor sea el peso de una evaluación pendiente, mayor será su
-          capacidad para cambiar tu nota final.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  {/* Cómo Afectan los Exámenes Finales a tu Calificación */}
-  <section className="mb-8">
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Cómo Afectan los Exámenes Finales a tu Calificación
-    </h3>
-
-    <p className="text-gray-700 leading-8 mb-5">
-      El impacto del examen final depende de su peso. Un examen que representa
-      el 10% del curso tendrá un efecto muy diferente al de uno que representa
-      el 40%.
-    </p>
-
-    <div className="rounded-2xl border border-gray-200 bg-white p-6">
-      <h4 className="text-xl font-bold mb-4">
-        Ejemplo rápido
-      </h4>
-
-      <p className="text-gray-700 leading-8">
-        Si tienes un 80% antes del examen y el examen final vale el 20%,
-        obtener 100% en el examen no convierte automáticamente tu nota en
-        100%. La parte ya completada conserva el 80% de su peso y el examen
-        aporta el 20% restante.
-      </p>
-
-      <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mt-5 text-center text-[15px]">
-        Nota Final = (80 × 0.80) + (100 × 0.20) = 84%
-      </div>
-    </div>
-  </section>
-
-  {/* Diferencia entre GPA y Calificación Porcentual */}
-  <section className="mb-8">
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Diferencia entre GPA y Calificación Porcentual
-    </h3>
-
-    <p className="text-gray-700 leading-8 mb-5">
-      Una calificación porcentual y un GPA no son exactamente lo mismo. El
-      porcentaje describe el rendimiento dentro de una evaluación o curso,
-      mientras que el GPA normalmente resume calificaciones de varias materias
-      mediante una escala de puntos establecida por la institución.
-    </p>
-
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Calificación porcentual
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Puede aparecer como 92%, 84% o 76% y normalmente se calcula a partir
-          de las evaluaciones del curso.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          GPA
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Resume el rendimiento académico mediante una escala de puntos y puede
-          depender de los créditos, cursos y reglas de la institución.
-        </p>
-      </div>
-    </div>
-
-    <p className="text-gray-700 leading-8 mt-5">
-      Por eso, no conviene convertir directamente cualquier porcentaje a GPA
-      sin conocer la escala oficial de tu colegio o universidad.
-    </p>
-  </section>
-
-  {/* Cómo Saber si Vas Aprobando una Materia */}
-  <section>
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Cómo Saber si Vas Aprobando una Materia
-    </h3>
-
-    <p className="text-gray-700 leading-8">
-      Compara tu nota actual con la calificación mínima necesaria para aprobar
-      según el programa de tu curso. Después, revisa cuánto peso queda por
-      completar. Una nota actual por encima del mínimo no garantiza que la nota
-      final también lo estará si todavía quedan evaluaciones importantes.
-    </p>
-
-    <div className="rounded-2xl bg-purple-50 border border-purple-100 p-5 mt-5">
-      <p className="text-gray-700 leading-7">
-        <strong>Consejo:</strong> no mires solamente tu porcentaje actual.
-        Comprueba también cuánto del curso ya está calificado y qué peso tienen
-        las evaluaciones restantes.
-      </p>
-    </div>
-  </section>
-</section>{/* ── GAP 2: SECTION 5 — SISTEMAS DE CALIFICACIÓN ─────────────────────── */}
-<section className="mb-16">
-  <div className="rounded-2xl border border-teal-100 bg-teal-50 p-6 mb-8">
-    <h2 className="text-[34px] font-black tracking-[-0.04em] mb-4">
-      Sistemas de Calificación y Educación
-    </h2>
-
-    <p className="text-gray-700 leading-8">
-      Las instituciones pueden utilizar porcentajes, letras, puntos, categorías
-      ponderadas o GPA. Entender qué sistema utiliza tu curso es fundamental
-      para introducir correctamente tus notas y evitar resultados incorrectos.
-    </p>
-  </div>
-
-  {/* Cómo Calcular una Nota Acumulada del Semestre */}
-  <section className="mb-8">
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Cómo Calcular una Nota Acumulada del Semestre
-    </h3>
-
-    <p className="text-gray-700 leading-8 mb-5">
-      Para calcular una nota acumulada del semestre, primero necesitas conocer
-      las calificaciones de cada materia y, cuando corresponda, los créditos o
-      pesos asociados. No siempre es correcto hacer un promedio simple de todas
-      las notas si las materias tienen diferente número de créditos.
-    </p>
-
-    <div className="rounded-2xl border border-gray-200 bg-white p-6">
-      <h4 className="text-xl font-bold mb-3">
-        Ejemplo
-      </h4>
-
-      <p className="text-gray-700 leading-8">
-        Supón que una materia tiene 4 créditos y otra tiene 2 créditos. Si ambas
-        tienen notas diferentes, la materia de 4 créditos puede tener mayor
-        influencia en el promedio acumulado cuando el sistema de tu institución
-        utiliza créditos para calcularlo.
-      </p>
-
-      <div className="rounded-2xl bg-teal-50 border border-teal-100 p-5 mt-5">
-        <p className="text-gray-700 leading-7">
-          <strong>Importante:</strong> el cálculo exacto del promedio acumulado
-          depende de las reglas de tu institución y de cómo convierte las notas
-          a puntos de GPA.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  {/* Métodos de Calificación Más Utilizados */}
-  <section className="mb-8">
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Métodos de Calificación Más Utilizados en Escuelas y Universidades
-    </h3>
-
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Porcentaje
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          La nota se expresa como un porcentaje, como 85% o 92%, y puede
-          calcularse mediante puntos o categorías ponderadas.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Notas con letras
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          El resultado se representa con letras como A, B, C, D o F según la
-          escala definida por la institución.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Sistema por puntos
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Cada evaluación aporta puntos a un total acumulado. La calificación
-          puede obtenerse dividiendo los puntos obtenidos entre los puntos
-          posibles.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h4 className="font-bold text-gray-900 mb-2">
-          Categorías ponderadas
-        </h4>
-        <p className="text-gray-700 leading-7 text-[15px]">
-          Tareas, quizzes, proyectos y exámenes reciben diferentes pesos dentro
-          de la calificación final del curso.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  {/* Conclusión */}
-  <section>
-    <h3 className="text-[26px] font-black tracking-[-0.03em] mb-4">
-      Conclusión
-    </h3>
-
-    <p className="text-gray-700 leading-8">
-      Conocer el sistema de calificación de tu curso te permite interpretar
-      mejor tu rendimiento y utilizar la calculadora correctamente. Antes de
-      calcular una meta, confirma si tu profesor utiliza porcentajes, puntos,
-      categorías ponderadas, letras o un sistema específico de GPA.
-    </p>
-
-    <div className="rounded-2xl bg-teal-50 border border-teal-100 p-5 mt-5">
-      <p className="text-gray-700 leading-7">
-        <strong>Regla práctica:</strong> utiliza siempre las reglas oficiales
-        del curso como referencia cuando exista una diferencia entre tu cálculo
-        personal y la nota publicada por tu profesor.
-      </p>
-    </div>
-  </section>
-</section>{/* ── GAP 3: NOTA MÁXIMA ALCANZABLE ───────────────────────────────────── */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
-    ¿Cuál es la Nota Máxima que Puedo Obtener?
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    Antes de establecer una meta para el examen final, también puedes calcular
-    la nota máxima que todavía puedes alcanzar. Esto es especialmente útil
-    cuando ya has completado una gran parte del curso.
-  </p>
-
-  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-    <h3 className="text-2xl font-bold mb-4">
-      Ejemplo de Nota Máxima
-    </h3>
-
-    <p className="text-gray-700 leading-8">
-      Si tienes una nota actual de 76%, ya completaste el 70% del curso y el
-      examen final representa el 30%, incluso un 100% en el examen tendría un
-      límite específico.
-    </p>
-
-    <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mt-5 text-center text-[15px]">
-      (76 × 0.70) + (100 × 0.30) = 83.2%
-    </div>
-
-    <p className="text-gray-700 leading-8 mt-5">
-      En este ejemplo, 83.2% sería la nota máxima posible si no quedan otras
-      evaluaciones. Por eso, una meta de 90% no sería alcanzable únicamente
-      mediante ese examen final.
-    </p>
-  </div>
-
-  <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5 mt-5">
-    <p className="text-gray-700 leading-7">
-      <strong>Consejo:</strong> calcula primero tu límite máximo y después la
-      nota requerida. Así sabrás si tu objetivo es difícil, realista o
-      matemáticamente imposible.
-    </p>
-  </div>
-</section>{/* ── GAP 5: DROP LOWEST GRADE ────────────────────────────────────────── */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
-    ¿Qué Pasa si se Elimina la Nota Más Baja?
-  </h2>
-
-  <div className="space-y-5 text-gray-700 leading-8">
-    <p>
-      Algunos profesores permiten eliminar la calificación más baja de una
-      serie de quizzes, tareas o exámenes. Esta regla puede cambiar tu promedio
-      de forma importante y debe aplicarse antes de realizar el cálculo final.
-    </p>
-
-    <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-      <h3 className="text-xl font-bold mb-4">
-        Ejemplo
-      </h3>
-
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {["60%", "80%", "90%", "95%"].map((grade) => (
-          <div
-            key={grade}
-            className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center"
-          >
-            <p className="font-bold text-gray-800">
-              {grade}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <p className="text-gray-700 leading-8 mt-5">
-        Si el curso permite eliminar la nota más baja, el 60% se excluye y se
-        utilizan las demás calificaciones según las reglas y pesos del curso.
-      </p>
-    </div>
-
-    <div className="rounded-2xl bg-blue-50 border border-blue-100 p-5">
-      <p className="text-gray-700 leading-7">
-        <strong>Importante:</strong> no elimines automáticamente una nota baja.
-        Primero confirma en el programa del curso si la regla permite descartar
-        esa evaluación y cómo se redistribuye su peso.
-      </p>
-    </div>
-  </div>
-</section>{/* ── GAP 6: EXTRA CREDIT ─────────────────────────────────────────────── */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
-    Cómo Funcionan los Puntos Extra o Extra Credit
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-6">
-    Los puntos extra pueden utilizarse en algunos cursos para recompensar
-    actividades adicionales, preguntas de bonificación o trabajos opcionales.
-    Sin embargo, no existe una única forma de aplicar el extra credit.
-  </p>
-
-  <div className="grid gap-5 md:grid-cols-2">
-    <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Bonus añadido a los puntos
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Algunos sistemas agregan los puntos extra a los puntos obtenidos. Por
-        ejemplo, 90 puntos obtenidos más 5 puntos de bonus pueden producir 95
-        puntos antes de aplicar cualquier límite establecido.
-      </p>
-    </div>
-
-    <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Bonus aplicado después del cálculo
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Otros profesores añaden una bonificación después de calcular la nota
-        base. En ese caso, no debes tratar el extra credit como una evaluación
-        normal con peso propio.
-      </p>
-    </div>
-  </div>
-
-  <div className="rounded-2xl bg-amber-50 border border-amber-100 p-5 mt-6">
-    <p className="text-gray-700 leading-7">
-      <strong>Importante:</strong> revisa si el curso permite superar el 100%
-      y cómo deben aplicarse los puntos extra antes de introducirlos en una
-      calculadora.
-    </p>
-  </div>
-</section>{/* ── GAP 7: CRÉDITO PARCIAL ──────────────────────────────────────────── */}
-<section className="mb-12">
-  <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
-    Cómo Calcular una Nota con Crédito Parcial
-  </h2>
-
-  <p className="text-gray-700 leading-8 mb-5">
-    En algunos exámenes y proyectos, una pregunta puede recibir solo una parte
-    de los puntos disponibles. En estos casos, contar solamente el número de
-    respuestas correctas no siempre representa la nota real.
-  </p>
-
-  <div className="rounded-2xl border border-gray-200 p-6 bg-white">
-    <h3 className="text-xl font-bold mb-4">
-      Ejemplo de Crédito Parcial
-    </h3>
-
-    <ul className="space-y-2 text-gray-700 leading-7">
-      <li>Pregunta 1: 10/10 puntos</li>
-      <li>Pregunta 2: 6/10 puntos</li>
-      <li>Pregunta 3: 15/15 puntos</li>
-      <li>Pregunta 4: 9/15 puntos</li>
-    </ul>
-
-    <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto mt-5 text-center text-[15px]">
-      40 ÷ 50 × 100 = 80%
-    </div>
-
-    <p className="text-gray-700 leading-8 mt-5">
-      Aunque algunas respuestas recibieron crédito parcial, el estudiante
-      obtuvo 40 de 50 puntos posibles, por lo que la calificación es 80%.
-    </p>
-  </div>
-</section>
-{/* SECTION 3 */}
-<section className="mb-16">
-  <div className="rounded-2xl border border-purple-100 bg-purple-50 p-6 mb-8">
-    <h2 className="text-[34px] font-black tracking-[-0.04em] mb-4">
-      Comprender y Analizar tus Calificaciones
-    </h2>
-
-    <p className="text-gray-700 leading-8">
-      Aprende a interpretar tu nota actual, entender cómo afectan los exámenes finales a tu promedio y conocer la diferencia entre porcentajes, GPA y otros sistemas de evaluación académica.
-    </p>
-  </div>
-
-  {/* ¿Cómo Interpretar tu Nota Actual? */}
-  {/* Cómo Afectan los Exámenes Finales a tu Calificación */}
-  {/* Diferencia entre GPA y Calificación Porcentual */}
-  {/* Cómo Saber si Vas Aprobando una Materia */}
-</section>{/* SECTION 5 */}
-<section className="mb-16">
-  <div className="rounded-2xl border border-teal-100 bg-teal-50 p-6 mb-8">
-    <h2 className="text-[34px] font-black tracking-[-0.04em] mb-4">
-      Sistemas de Calificación y Educación
-    </h2>
-
-    <p className="text-gray-700 leading-8">
-      Explora los métodos de evaluación más utilizados en escuelas y universidades, cómo calcular promedios acumulados y cómo se comparan diferentes escalas de calificación.
-    </p>
-  </div>
-
-  {/* Cómo Calcular una Nota Acumulada del Semestre */}
-  {/* Métodos de Calificación Más Utilizados en Escuelas y Universidades */}
-  {/* Conclusión */}
-</section>
               {/* CONSEJOS */}
               <section className="mb-12">
                 <h2 className="text-[30px] font-black tracking-[-0.04em] mb-5">
@@ -1246,36 +773,25 @@ export default function CalculadoraClasePage() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Enfócate en las Tareas de Mayor Peso
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Enfócate en las Tareas de Mayor Peso</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Los exámenes mayores y proyectos pueden mover tu nota más que pequeñas tareas, así que prioriza los ítems de mayor peso primero.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Actualiza tus Notas Regularmente
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Actualiza tus Notas Regularmente</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Agrega nuevos puntajes tan pronto como se publiquen para que tu nota actual sea precisa.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Revisa los Puntajes Bajos
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Revisa los Puntajes Bajos</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Identifica las tareas donde perdiste más puntos y repasa esos temas antes del próximo examen.
                     </p>
                   </div>
-
                   <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-                    <h3 className="text-xl font-bold mb-3">
-                      Usa el Resultado de Nota Requerida en el Final
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Usa el Resultado de Nota Requerida en el Final</h3>
                     <p className="text-gray-700 leading-7 text-[15px]">
                       Antes de la semana de exámenes, calcula el puntaje que necesitas para tener una meta de estudio clara y realista.
                     </p>
@@ -1283,7 +799,7 @@ export default function CalculadoraClasePage() {
                 </div>
               </section>
 
-              {/* ── GAP FIX: visible author/E-E-A-T block ────────────────── */}
+              {/* AUTOR / E-E-A-T */}
               <section className="mb-12" aria-labelledby="autor-heading">
                 <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
                   <h2 id="autor-heading" className="text-[22px] font-bold tracking-[-0.02em] mb-3">
@@ -1301,7 +817,7 @@ export default function CalculadoraClasePage() {
                 </div>
               </section>
 
-              {/* ── GAP FIX: internal links for topical authority ──────────── */}
+              {/* RELACIONADOS */}
               <section className="mb-12" aria-labelledby="relacionados-heading">
                 <h2 id="relacionados-heading" className="text-[20px] font-bold tracking-[-0.02em] mb-3">
                   Herramientas relacionadas
@@ -1317,7 +833,7 @@ export default function CalculadoraClasePage() {
                 </ul>
               </section>
 
-              {/* FAQ — now wrapped in FAQPage microdata to match JSON-LD ──── */}
+              {/* FAQ */}
               <section className="bg-gray-50 py-14 border-t -mx-7 md:-mx-9 -mb-9">
                 <div className="xl:px-[69px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
@@ -1325,7 +841,6 @@ export default function CalculadoraClasePage() {
                     <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
                       Preguntas Frecuentes
                     </h2>
-
                     <p className="text-gray-700 text-base leading-relaxed">
                       Los estudiantes suelen tener preguntas sobre notas actuales, promedios ponderados, calificación por puntos, puntajes de exámenes finales y escalas de notas con letras. Esta sección responde las dudas más comunes sobre el uso de una calculadora de calificaciones.
                     </p>

@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 const DATE_PUBLISHED = "2024-01-15";
-const DATE_MODIFIED = "2026-07-25";
+const DATE_MODIFIED = "2026-08-30";
 
 // TODO: replace sameAs URLs and logo with real assets — same entity used
 // across all calcunotas.com pages, so keep this identical everywhere.
@@ -27,7 +27,6 @@ const ORG_SCHEMA = {
     width: 512,
     height: 512,
   },
-
 };
 
 const WEBSITE_SCHEMA = {
@@ -53,6 +52,10 @@ const AUTHOR_SCHEMA = {
   worksFor: { "@id": "https://calcunotas.com/#organization" },
 };
 
+// FAQ recortado: se eliminaron 2 preguntas que duplicaban al 100% una
+// sección completa del cuerpo del artículo (redondeo, escala por país ya
+// están cubiertas en prosa con tabla). El resto se mantiene porque cada
+// FAQ responde algo que no se repite en otra parte de la página.
 const FAQS_DATA = [
   {
     q: "¿Cómo calculan los profesores las notas de los exámenes?",
@@ -62,27 +65,18 @@ const FAQS_DATA = [
     q: "¿Pueden usar esta calculadora los estudiantes?",
     a: "Sí. Los estudiantes pueden usarla para estimar su nota, porcentaje y calificación en letra antes de recibir los resultados oficiales.",
   },
-  // ── GAP 9: advanced FAQ coverage ────────────────────────────────────────
-{
-  q: "¿Cómo calculo una nota si las preguntas tienen diferentes valores?",
-  a: "Utiliza los puntos obtenidos y los puntos posibles en lugar de contar únicamente las preguntas. La fórmula es: (Puntos obtenidos ÷ Puntos posibles) × 100.",
-},
-{
-  q: "¿Cómo se calcula una nota ponderada?",
-  a: "Multiplica cada nota por el peso que tiene dentro de la evaluación y suma los resultados. Por ejemplo, un examen que vale 50 % y una tarea que vale 30 % deben contribuir a la nota final según esos porcentajes.",
-},
-{
-  q: "¿Las preguntas sin responder cuentan como incorrectas?",
-  a: "Depende de las reglas del examen. En algunos sistemas una pregunta en blanco recibe 0 puntos, mientras que otros pueden aplicar reglas diferentes. Comprueba siempre las instrucciones de la evaluación.",
-},
-{
-  q: "¿Debo redondear el porcentaje de la nota?",
-  a: "Solo si las normas de evaluación lo permiten. Es recomendable conservar los decimales durante el cálculo y aplicar el redondeo al final según la política de la institución.",
-},
-{
-  q: "¿La escala de calificación es igual en todos los países?",
-  a: "No. La correspondencia entre porcentaje, letra y nota numérica puede variar según el país, centro educativo o profesor. Utiliza siempre la escala oficial de tu institución.",
-},
+  {
+    q: "¿Cómo calculo una nota si las preguntas tienen diferentes valores?",
+    a: "Utiliza los puntos obtenidos y los puntos posibles en lugar de contar únicamente las preguntas. La fórmula es: (Puntos obtenidos ÷ Puntos posibles) × 100.",
+  },
+  {
+    q: "¿Cómo se calcula una nota ponderada?",
+    a: "Multiplica cada nota por el peso que tiene dentro de la evaluación y suma los resultados. Por ejemplo, un examen que vale 50 % y una tarea que vale 30 % deben contribuir a la nota final según esos porcentajes.",
+  },
+  {
+    q: "¿Las preguntas sin responder cuentan como incorrectas?",
+    a: "Depende de las reglas del examen. En algunos sistemas una pregunta en blanco recibe 0 puntos, mientras que otros pueden aplicar reglas diferentes. Comprueba siempre las instrucciones de la evaluación.",
+  },
   {
     q: "¿Funciona para pruebas cortas y tareas?",
     a: "Sí. La calculadora es válida para pruebas cortas, exámenes, tareas, ejercicios de clase y hojas de práctica.",
@@ -97,8 +91,6 @@ const FAQS_DATA = [
   },
 ];
 
-// ── GAP FIX: this page had no schema markup — now has WebApplication,
-//    FAQPage, HowTo, BreadcrumbList and Article, matching the other pages ──
 const schemaMarkup = [
   ORG_SCHEMA,
   WEBSITE_SCHEMA,
@@ -193,18 +185,14 @@ export const metadata = {
     "calculadora de notas para profesores",
     "calculadora de calificaciones para docentes",
     "calcular porcentaje de examen",
-    "herramienta de calificacion para profesores",
+    "como sacan las notas los profesores",
+    "como los profesores sacan las notas",
     "calificador de pruebas",
     "nota en letra para profesores",
-    "calculadora de notas gratis",
     "corregir examen online",
-    "calculadora de test para docentes",
     "calcular nota examen online",
   ],
 
-  // ── GAP FIX: removed 19 fake per-country hreflang duplicates pointing to
-  //    the same URL. Just declare canonical; add real hreflang only when
-  //    genuinely distinct localized pages exist. ──────────────────────────
   alternates: {
     canonical: "https://calcunotas.com/calculadora-profesores/",
   },
@@ -217,7 +205,6 @@ export const metadata = {
     siteName: "CalcuNotas",
     locale: "es_ES",
     type: "article",
-    // ── GAP FIX: og:image was missing ──────────────────────────────────
     images: [
       {
         url: "https://calcunotas.com/og/calculadora-profesores.png",
@@ -239,7 +226,6 @@ export const metadata = {
   },
 };
 
-// ── GAP FIX: real outbound citation instead of an unattributed "quote" ─────
 const FUENTES = [
   { nombre: "Ministerio de Educación, Formación Profesional y Deportes — España", url: "https://www.educacionfpydeportes.gob.es/" },
 ];
@@ -249,7 +235,6 @@ export default function CalculadoraProfesores() {
     <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
       <InvisibleHeader />
 
-      {/* ── GAP FIX: this page had no JSON-LD at all — now it does ───────── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
@@ -259,7 +244,6 @@ export default function CalculadoraProfesores() {
       <section className="pt-10 pb-10 bg-gradient-to-b px-8 from-blue-50 to-[#f7f9fc]">
         <div className=" mx-auto">
 
-          {/* ── GAP FIX: breadcrumb was plain text, now linked + schema ──── */}
           <nav aria-label="Ruta de navegación" className="text-sm text-[#667085] mb-3">
             <ol className="flex flex-wrap gap-1 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
               <li itemScope itemProp="itemListElement" itemType="https://schema.org/ListItem">
@@ -280,9 +264,8 @@ export default function CalculadoraProfesores() {
             Calculadora de Notas para Profesores
           </h1>
 
-          {/* ── GAP FIX: visible last-updated + reviewed-by trust line ────── */}
           <p className="text-[13px] text-[#8a94a6] mb-4">
-            Actualizado el 25 de julio de 2026 · Revisado por el{" "}
+            Actualizado el 30 de agosto de 2026 · Revisado por el{" "}
             <a href="/sobre-nosotros/" className="underline underline-offset-2 hover:text-blue-600">
               equipo editorial de CalcuNotas
             </a>
@@ -377,7 +360,9 @@ export default function CalculadoraProfesores() {
                     letra en cuestión de segundos.
                   </p>
                 </div>
-              </section><section className="mb-14">
+              </section>
+
+              <section className="mb-14">
                 <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
                   Cómo calcular respuestas incorrectas
                 </h2>
@@ -401,38 +386,28 @@ export default function CalculadoraProfesores() {
                     y temas que requieren más práctica.
                   </p>
                 </div>
-              </section><section className="mb-14">
+              </section>
+
+              <section className="mb-14">
                 <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
                   Ejemplos de cálculo de notas
                 </h2>
 
                 <div className="grid gap-5 md:grid-cols-3">
                   {[
-                    {
-                      preguntas: "20 preguntas",
-                      resultado: "18 correctas = 90%",
-                    },
-                    {
-                      preguntas: "50 preguntas",
-                      resultado: "42 correctas = 84%",
-                    },
-                    {
-                      preguntas: "100 preguntas",
-                      resultado: "76 correctas = 76%",
-                    },
+                    { preguntas: "20 preguntas", resultado: "18 correctas = 90%" },
+                    { preguntas: "50 preguntas", resultado: "42 correctas = 84%" },
+                    { preguntas: "100 preguntas", resultado: "76 correctas = 76%" },
                   ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-white p-6"
-                    >
-                      <h3 className="font-semibold text-gray-800 mb-3">
-                        {item.preguntas}
-                      </h3>
+                    <div key={index} className="rounded-2xl border border-gray-200 bg-white p-6">
+                      <h3 className="font-semibold text-gray-800 mb-3">{item.preguntas}</h3>
                       <p className="text-gray-700">{item.resultado}</p>
                     </div>
                   ))}
                 </div>
-              </section><section className="mb-14">
+              </section>
+
+              <section className="mb-14">
                 <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
                   Tipos de evaluaciones compatibles
                 </h2>
@@ -446,15 +421,14 @@ export default function CalculadoraProfesores() {
                     "Proyectos escolares",
                     "Actividades prácticas",
                   ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-slate-50 p-5"
-                    >
+                    <div key={index} className="rounded-2xl border border-gray-200 bg-slate-50 p-5">
                       <div className="text-gray-800 font-medium">✓ {item}</div>
                     </div>
                   ))}
                 </div>
-              </section><section className="mb-14">
+              </section>
+
+              <section className="mb-14">
                 <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
                   Diferencia entre porcentaje y nota final
                 </h2>
@@ -479,427 +453,178 @@ export default function CalculadoraProfesores() {
                   </p>
                 </div>
               </section>
-{/* ── GAP 1: visible step-by-step instructions ───────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Cómo usar la calculadora de notas para profesores
-  </h2>
 
-  <div className="space-y-5">
-    {[
-      {
-        step: "1",
-        title: "Introduce el total de preguntas",
-        text: "Indica cuántas preguntas tiene el examen, prueba, cuestionario o tarea. Si la evaluación se califica por puntos, utiliza el total de puntos posibles.",
-      },
-      {
-        step: "2",
-        title: "Añade las respuestas correctas",
-        text: "Escribe cuántas preguntas respondió correctamente el estudiante. El número de respuestas correctas no puede ser mayor que el total de preguntas.",
-      },
-      {
-        step: "3",
-        title: "Comprueba el porcentaje",
-        text: "La herramienta convierte automáticamente el resultado en un porcentaje. Por ejemplo, 24 respuestas correctas de 30 preguntas equivalen a un 80%.",
-      },
-      {
-        step: "4",
-        title: "Interpreta la calificación",
-        text: "Utiliza el porcentaje obtenido junto con la escala de calificación de tu centro educativo para determinar la nota correspondiente.",
-      },
-    ].map((item) => (
-      <div
-        key={item.step}
-        className="rounded-2xl border border-gray-200 bg-white p-6 flex gap-5 items-start"
-      >
-        <div className="shrink-0 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-          {item.step}
-        </div>
+              {/* Cómo usar — visible steps matching the HowTo schema */}
+              <section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Cómo usar la calculadora de notas para profesores
+                </h2>
 
-        <div>
-          <h3 className="text-[18px] font-semibold text-gray-800 mb-2">
-            {item.title}
-          </h3>
-          <p className="text-gray-700 leading-8">
-            {item.text}
-          </p>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>{/* ── GAP 2: points-based grading worked example ──────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Cómo calcular una nota cuando el examen usa puntos
-  </h2>
+                <div className="space-y-5">
+                  {[
+                    {
+                      step: "1",
+                      title: "Introduce el total de preguntas",
+                      text: "Indica cuántas preguntas tiene el examen, prueba, cuestionario o tarea. Si la evaluación se califica por puntos, utiliza el total de puntos posibles.",
+                    },
+                    {
+                      step: "2",
+                      title: "Añade las respuestas correctas",
+                      text: "Escribe cuántas preguntas respondió correctamente el estudiante. El número de respuestas correctas no puede ser mayor que el total de preguntas.",
+                    },
+                    {
+                      step: "3",
+                      title: "Comprueba el porcentaje",
+                      text: "La herramienta convierte automáticamente el resultado en un porcentaje. Por ejemplo, 24 respuestas correctas de 30 preguntas equivalen a un 80%.",
+                    },
+                    {
+                      step: "4",
+                      title: "Interpreta la calificación",
+                      text: "Utiliza el porcentaje obtenido junto con la escala de calificación de tu centro educativo para determinar la nota correspondiente.",
+                    },
+                  ].map((item) => (
+                    <div key={item.step} className="rounded-2xl border border-gray-200 bg-white p-6 flex gap-5 items-start">
+                      <div className="shrink-0 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                        {item.step}
+                      </div>
+                      <div>
+                        <h3 className="text-[18px] font-semibold text-gray-800 mb-2">{item.title}</h3>
+                        <p className="text-gray-700 leading-8">{item.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      No todos los exámenes tienen preguntas con el mismo valor. En algunas
-      evaluaciones, cada ejercicio puede tener una cantidad diferente de
-      puntos. En ese caso, el porcentaje se calcula comparando los puntos
-      obtenidos con el total de puntos posibles.
-    </p>
+              {/* Puntos-based grading — unique formula, not covered elsewhere */}
+              <section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Cómo calcular una nota cuando el examen usa puntos
+                </h2>
 
-    <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto text-center text-[16px]">
-      Porcentaje = (Puntos Obtenidos ÷ Puntos Posibles) × 100
-    </div>
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    No todos los exámenes tienen preguntas con el mismo valor. En algunas
+                    evaluaciones, cada ejercicio puede tener una cantidad diferente de
+                    puntos. En ese caso, el porcentaje se calcula comparando los puntos
+                    obtenidos con el total de puntos posibles.
+                  </p>
 
-    <div className="grid gap-5 md:grid-cols-2">
-      <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6">
-        <h3 className="font-semibold text-gray-800 mb-3">
-          Ejemplo
-        </h3>
-        <p>
-          Un examen tiene un máximo de 80 puntos y el estudiante obtiene
-          68 puntos.
-        </p>
-      </div>
+                  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto text-center text-[16px]">
+                    Porcentaje = (Puntos Obtenidos ÷ Puntos Posibles) × 100
+                  </div>
 
-      <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
-        <h3 className="font-semibold text-gray-800 mb-3">
-          Resultado
-        </h3>
-        <p className="font-bold text-gray-800">
-          (68 ÷ 80) × 100 = 85%
-        </p>
-      </div>
-    </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6">
+                      <h3 className="font-semibold text-gray-800 mb-3">Ejemplo</h3>
+                      <p>Un examen tiene un máximo de 80 puntos y el estudiante obtiene 68 puntos.</p>
+                    </div>
 
-    <p>
-      Este método es especialmente útil cuando una pregunta de desarrollo,
-      problema matemático o proyecto vale más puntos que una pregunta de
-      respuesta corta. Lo importante es utilizar el total real de puntos
-      posibles de la evaluación.
-    </p>
-  </div>
-</section>{/* ── GAP 3: weighted grade calculation ───────────────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Cómo calcular una nota ponderada
-  </h2>
+                    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
+                      <h3 className="font-semibold text-gray-800 mb-3">Resultado</h3>
+                      <p className="font-bold text-gray-800">(68 ÷ 80) × 100 = 85%</p>
+                    </div>
+                  </div>
 
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      Cuando un profesor utiliza diferentes porcentajes para cada actividad,
-      no basta con promediar las notas directamente. Cada componente debe
-      multiplicarse por el peso que tiene dentro de la calificación final.
-    </p>
+                  <p>
+                    Este método es especialmente útil cuando una pregunta de desarrollo,
+                    problema matemático o proyecto vale más puntos que una pregunta de
+                    respuesta corta. Lo importante es utilizar el total real de puntos
+                    posibles de la evaluación.
+                  </p>
+                </div>
+              </section>
 
-    <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto text-center text-[16px]">
-      Nota Final = (Nota × Peso) + (Nota × Peso) + ...
-    </div>
+              {/* Weighted grading — unique formula, not covered elsewhere */}
+              <section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  Cómo calcular una nota ponderada
+                </h2>
 
-    <div className="grid gap-5 md:grid-cols-3">
-      {[
-        {
-          title: "Examen",
-          result: "85% × 50% = 42,5%",
-        },
-        {
-          title: "Tareas",
-          result: "90% × 30% = 27%",
-        },
-        {
-          title: "Participación",
-          result: "80% × 20% = 16%",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className="rounded-2xl border border-gray-200 bg-white p-6"
-        >
-          <h3 className="font-semibold text-gray-800 mb-3">
-            {item.title}
-          </h3>
-          <p className="text-gray-700 font-medium">
-            {item.result}
-          </p>
-        </div>
-      ))}
-    </div>
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    Cuando un profesor utiliza diferentes porcentajes para cada actividad,
+                    no basta con promediar las notas directamente. Cada componente debe
+                    multiplicarse por el peso que tiene dentro de la calificación final.
+                  </p>
 
-    <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-bold text-center">
-      42,5% + 27% + 16% = 85,5%
-    </div>
+                  <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold overflow-x-auto text-center text-[16px]">
+                    Nota Final = (Nota × Peso) + (Nota × Peso) + ...
+                  </div>
 
-    <p>
-      En este ejemplo, la calificación final ponderada sería del 85,5%.
-      La escala utilizada para convertir ese porcentaje en una letra o nota
-      numérica debe coincidir con las reglas de la institución educativa.
-    </p>
-  </div>
-</section>{/* ── GAP 4: unanswered vs incorrect answers ──────────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    ¿Las preguntas sin responder cuentan como incorrectas?
-  </h2>
+                  <div className="grid gap-5 md:grid-cols-3">
+                    {[
+                      { title: "Examen", result: "85% × 50% = 42,5%" },
+                      { title: "Tareas", result: "90% × 30% = 27%" },
+                      { title: "Participación", result: "80% × 20% = 16%" },
+                    ].map((item, index) => (
+                      <div key={index} className="rounded-2xl border border-gray-200 bg-white p-6">
+                        <h3 className="font-semibold text-gray-800 mb-3">{item.title}</h3>
+                        <p className="text-gray-700 font-medium">{item.result}</p>
+                      </div>
+                    ))}
+                  </div>
 
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      Depende del sistema de evaluación. En muchos exámenes, una pregunta
-      sin responder no recibe puntos y termina teniendo el mismo efecto sobre
-      el porcentaje que una respuesta incorrecta. Sin embargo, algunos
-      sistemas aplican penalizaciones diferentes por dejar preguntas en
-      blanco.
-    </p>
+                  <div className="bg-blue-600 text-white rounded-2xl px-6 py-5 font-bold text-center">
+                    42,5% + 27% + 16% = 85,5%
+                  </div>
 
-    <div className="grid gap-5 md:grid-cols-2">
-      <div className="rounded-2xl border border-gray-200 bg-white p-6">
-        <h3 className="font-semibold text-gray-800 mb-3">
-          Sin penalización adicional
-        </h3>
-        <p className="text-gray-700">
-          Si las preguntas en blanco simplemente reciben 0 puntos, el
-          porcentaje puede calcularse utilizando las respuestas correctas
-          frente al total de preguntas.
-        </p>
-      </div>
+                  <p>
+                    En este ejemplo, la calificación final ponderada sería del 85,5%.
+                    La escala utilizada para convertir ese porcentaje en una letra o nota
+                    numérica debe coincidir con las reglas de la institución educativa.
+                  </p>
+                </div>
+              </section>
 
-      <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6">
-        <h3 className="font-semibold text-gray-800 mb-3">
-          Con penalización
-        </h3>
-        <p className="text-gray-700">
-          Si el examen resta puntos por respuestas incorrectas o utiliza una
-          regla especial para preguntas en blanco, debe aplicarse primero esa
-          regla antes de convertir el resultado en porcentaje.
-        </p>
-      </div>
-    </div>
+              {/* Regional scale awareness — unique table, referenced by FAQ */}
+              <section className="mb-14">
+                <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
+                  ¿La misma nota significa lo mismo en todos los países?
+                </h2>
 
-    <p>
-      Antes de calificar una prueba, comprueba siempre las instrucciones del
-      examen. La calculadora estándar de porcentaje no sustituye las reglas
-      específicas de una evaluación con penalización.
-    </p>
-  </div>
-</section>{/* ── GAP 5: regional grading scale context ───────────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    ¿La misma nota significa lo mismo en todos los países?
-  </h2>
+                <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
+                  <p>
+                    No necesariamente. El porcentaje obtenido en un examen puede ser el
+                    mismo, pero la forma de convertirlo en una letra, una nota numérica o
+                    una categoría de rendimiento puede cambiar según el país, el colegio,
+                    la universidad o el profesor.
+                  </p>
 
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      No necesariamente. El porcentaje obtenido en un examen puede ser el
-      mismo, pero la forma de convertirlo en una letra, una nota numérica o
-      una categoría de rendimiento puede cambiar según el país, el colegio,
-      la universidad o el profesor.
-    </p>
+                  <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                    <table className="w-full min-w-[700px] border-collapse">
+                      <thead>
+                        <tr className="bg-blue-600 text-white">
+                          <th className="px-5 py-4 text-left font-semibold">Elemento</th>
+                          <th className="px-5 py-4 text-left font-semibold">Puede variar</th>
+                          <th className="px-5 py-4 text-left font-semibold">Qué comprobar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          ["Escala de porcentaje", "Sí", "Intervalos definidos por la institución"],
+                          ["Nota en letra", "Sí", "Correspondencia entre porcentaje y letra"],
+                          ["Redondeo", "Sí", "Número de decimales permitido"],
+                          ["Penalización", "Sí", "Reglas para errores o preguntas en blanco"],
+                        ].map((row, index) => (
+                          <tr key={index} className="border-b border-gray-200 bg-white">
+                            {row.map((cell, i) => (
+                              <td key={i} className="px-5 py-4 text-gray-700">{cell}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-    <div className="overflow-x-auto rounded-2xl border border-gray-200">
-      <table className="w-full min-w-[700px] border-collapse">
-        <thead>
-          <tr className="bg-blue-600 text-white">
-            <th className="px-5 py-4 text-left font-semibold">
-              Elemento
-            </th>
-            <th className="px-5 py-4 text-left font-semibold">
-              Puede variar
-            </th>
-            <th className="px-5 py-4 text-left font-semibold">
-              Qué comprobar
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {[
-            [
-              "Escala de porcentaje",
-              "Sí",
-              "Intervalos definidos por la institución",
-            ],
-            [
-              "Nota en letra",
-              "Sí",
-              "Correspondencia entre porcentaje y letra",
-            ],
-            [
-              "Redondeo",
-              "Sí",
-              "Número de decimales permitido",
-            ],
-            [
-              "Penalización",
-              "Sí",
-              "Reglas para errores o preguntas en blanco",
-            ],
-          ].map((row, index) => (
-            <tr
-              key={index}
-              className="border-b border-gray-200 bg-white"
-            >
-              {row.map((cell, i) => (
-                <td key={i} className="px-5 py-4 text-gray-700">
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      Por eso, el porcentaje calculado por esta herramienta debe considerarse
-      el resultado matemático de la evaluación. Para asignar una letra o una
-      nota oficial, utiliza siempre la escala publicada por tu centro
-      educativo.
-    </p>
-  </div>
-</section>{/* ── GAP 6: practical classroom workflow / original use case ─────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Ejemplo práctico para un profesor con una clase completa
-  </h2>
-
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      Imagina que un profesor corrige una prueba de 25 preguntas para una
-      clase completa. Después de contar las respuestas correctas de cada
-      estudiante, puede convertir rápidamente cada resultado en porcentaje
-      sin repetir la fórmula manualmente.
-    </p>
-
-    <div className="grid gap-5 md:grid-cols-3">
-      {[
-        {
-          title: "Estudiante A",
-          result: "23 de 25 = 92%",
-        },
-        {
-          title: "Estudiante B",
-          result: "20 de 25 = 80%",
-        },
-        {
-          title: "Estudiante C",
-          result: "17 de 25 = 68%",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className="rounded-2xl border border-gray-200 bg-white p-6"
-        >
-          <h3 className="font-semibold text-gray-800 mb-3">
-            {item.title}
-          </h3>
-          <p className="text-gray-700">
-            {item.result}
-          </p>
-        </div>
-      ))}
-    </div>
-
-    <p>
-      Este flujo permite identificar rápidamente qué estudiantes alcanzaron
-      los objetivos de la prueba y cuáles pueden necesitar refuerzo. También
-      facilita comparar resultados entre diferentes evaluaciones siempre que
-      se utilice una escala coherente.
-    </p>
-
-    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
-      <h3 className="font-semibold text-gray-800 mb-2">
-        Consejo para docentes
-      </h3>
-      <p className="text-gray-700 leading-8">
-        Guarda por separado el número de respuestas correctas y el porcentaje
-        final. Así puedes revisar el cálculo posteriormente y detectar con
-        mayor facilidad errores de entrada o diferencias entre evaluaciones.
-      </p>
-    </div>
-  </div>
-</section>{/* ── GAP 7: rounding and decimal handling ────────────────────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Cómo manejar porcentajes con decimales
-  </h2>
-
-  <div className="space-y-6 text-gray-700 leading-8 text-[17px]">
-    <p>
-      No todos los resultados producen un porcentaje entero. Cuando el número
-      de respuestas correctas no divide exactamente entre el total de
-      preguntas, el resultado puede contener decimales.
-    </p>
-
-    <div className="bg-[#111827] text-white rounded-2xl px-6 py-5 font-bold text-center">
-      (17 ÷ 23) × 100 = 73,91%
-    </div>
-
-    <p>
-      Si la política de evaluación permite redondear al número entero más
-      cercano, este resultado podría mostrarse como 74%. Sin embargo, el
-      profesor debe seguir la regla de redondeo establecida por su institución
-      y evitar cambiar manualmente el resultado si los decimales tienen
-      importancia para la calificación.
-    </p>
-
-    <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6">
-      <h3 className="font-semibold text-gray-800 mb-3">
-        Buena práctica
-      </h3>
-      <p className="text-gray-700">
-        Conserva el porcentaje exacto durante el cálculo y aplica el redondeo
-        solamente al final, de acuerdo con las normas de evaluación.
-      </p>
-    </div>
-  </div>
-</section>{/* ── GAP 8: tool limitations and special grading cases ──────────────── */}
-<section className="mb-14">
-  <h2 className="text-[30px] font-bold tracking-[-0.03em] mb-5">
-    Cuándo necesitas un cálculo diferente
-  </h2>
-
-  <div className="space-y-5 text-gray-700 leading-8 text-[17px]">
-    <p>
-      La fórmula de porcentaje funciona perfectamente cuando todas las
-      preguntas o puntos siguen el mismo sistema de evaluación. Sin embargo,
-      algunas pruebas utilizan reglas adicionales que requieren un cálculo
-      específico.
-    </p>
-
-    <div className="grid gap-5 md:grid-cols-2">
-      {[
-        {
-          title: "Exámenes con penalización",
-          text: "Si una respuesta incorrecta resta puntos, primero debes aplicar la penalización definida por el examen.",
-        },
-        {
-          title: "Evaluaciones ponderadas",
-          text: "Cuando examen, tareas y proyectos tienen pesos diferentes, necesitas calcular cada componente según su porcentaje.",
-        },
-        {
-          title: "Escalas institucionales especiales",
-          text: "Algunas instituciones convierten los porcentajes a notas mediante intervalos propios o fórmulas específicas.",
-        },
-        {
-          title: "Preguntas con valores diferentes",
-          text: "Si unas preguntas valen más puntos que otras, calcula utilizando puntos obtenidos y puntos posibles en lugar de contar solamente preguntas.",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className="rounded-2xl border border-gray-200 bg-white p-6"
-        >
-          <h3 className="font-semibold text-gray-800 mb-3">
-            {item.title}
-          </h3>
-          <p className="text-gray-700">
-            {item.text}
-          </p>
-        </div>
-      ))}
-    </div>
-
-    <p>
-      En estos casos, la calculadora puede seguir siendo útil como referencia,
-      pero el resultado final debe ajustarse a las reglas oficiales de la
-      evaluación.
-    </p>
-  </div>
-</section>
-
+                  <p>
+                    Por eso, el porcentaje calculado por esta herramienta debe considerarse
+                    el resultado matemático de la evaluación. Para asignar una letra o una
+                    nota oficial, utiliza siempre la escala publicada por tu centro
+                    educativo.
+                  </p>
+                </div>
+              </section>
 
               {/* QUÉ ES */}
               <section className="mb-14">
@@ -929,10 +654,6 @@ export default function CalculadoraProfesores() {
                     </a>
                     .
                   </p>
-                  {/* ── GAP FIX: removed the unattributed "quote" — it had no
-                      real source, which reads as a fabricated citation and
-                      actively hurts trust. Replaced with a plainly-stated,
-                      cited claim instead. ──────────────────────────────── */}
                   <p className="text-gray-700 leading-8">
                     Este tipo de herramientas digitales de calificación es
                     cada vez más común en la gestión de aula: reduce el tiempo
@@ -985,10 +706,7 @@ export default function CalculadoraProfesores() {
                     "Válida para pruebas, tareas y exámenes",
                     "Reduce los errores de cálculo manual",
                   ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-white p-5"
-                    >
+                    <div key={index} className="rounded-2xl border border-gray-200 bg-white p-5">
                       <div className="font-medium text-gray-800">✓ {item}</div>
                     </div>
                   ))}
@@ -1035,7 +753,6 @@ export default function CalculadoraProfesores() {
                     </tbody>
                   </table>
                 </div>
-                {/* ── GAP FIX: real outbound citation ────────────────────── */}
                 <p className="text-[12px] text-gray-500 mt-3">
                   Fuente de referencia:{" "}
                   {FUENTES.map((f, i) => (
@@ -1080,10 +797,7 @@ export default function CalculadoraProfesores() {
                     "Empieza por los temas más difíciles",
                     "Estudia de forma constante antes de los exámenes",
                   ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="rounded-2xl border border-gray-200 bg-slate-50 p-5"
-                    >
+                    <div key={index} className="rounded-2xl border border-gray-200 bg-slate-50 p-5">
                       <div className="text-gray-800 font-medium">✔ {item}</div>
                     </div>
                   ))}
@@ -1131,7 +845,7 @@ export default function CalculadoraProfesores() {
                 </div>
               </section>
 
-              {/* ── GAP FIX: visible author/E-E-A-T block ────────────────── */}
+              {/* Author / E-E-A-T block */}
               <section className="mb-14" aria-labelledby="autor-heading">
                 <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
                   <h2 id="autor-heading" className="text-[22px] font-bold tracking-[-0.02em] mb-3">
@@ -1144,17 +858,15 @@ export default function CalculadoraProfesores() {
                     </a>
                     , especializado en herramientas de cálculo académico.
                     Publicado el 15 de enero de 2024 y actualizado por última
-                    vez el 25 de julio de 2026.
+                    vez el 30 de agosto de 2026.
                   </p>
                 </div>
               </section>
 
-              {/* FAQ — now wrapped in FAQPage microdata to match the
-                  JSON-LD, eligible for FAQ rich results ─────────────────── */}
+              {/* FAQ */}
               <section className="bg-gray-50 py-14 border-t">
                 <div className="xl:px-[69px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
-                  {/* LEFT */}
                   <div>
                     <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
                       Preguntas Frecuentes
@@ -1168,7 +880,6 @@ export default function CalculadoraProfesores() {
                     </p>
                   </div>
 
-                  {/* RIGHT — Accordion */}
                   <div
                     className="bg-slate-800 rounded p-6 space-y-4 shadow-xl"
                     itemScope

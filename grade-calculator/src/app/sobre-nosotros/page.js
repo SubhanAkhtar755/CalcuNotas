@@ -2,7 +2,7 @@ import InvisibleHeader from "@/app/components/InvisibleHeader";
 import InvisibleFooter from "@/app/components/InvisibleFooter";
 import RightSidebar from "@/app/components/RightSidebar";
 import BlogSidebar from "@/app/components/BlogSidebar";
-import { FaEnvelope, FaGlobe } from "react-icons/fa";
+import { FaEnvelope, FaGlobe, FaUser, FaLinkedin, FaGithub } from "react-icons/fa";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -10,7 +10,7 @@ export const revalidate = false;
 export const metadata = {
   title: "Sobre Nosotros | CalcuNotas",
   description:
-    "Conoce CalcuNotas, un sitio web gratuito de calculadoras educativas para calcular notas, GPA, nota final, nota semestral, calificación de exámenes y herramientas de calificación rápida.",
+    "Conoce CalcuNotas, un sitio web gratuito de calculadoras educativas para calcular notas, GPA, nota final, nota semestral, calificación de exámenes y herramientas de calificación rápida. Fundado en 2024 por Subhan Akhtar.",
   keywords: [
     "sobre calcunotas",
     "sitio web calculadora de notas",
@@ -24,12 +24,10 @@ export const metadata = {
     "calculadoras educativas",
   ],
 
-  // GAP FIX: robots + openGraph tags add kiye (pehle missing thay)
-  
   openGraph: {
     title: "Sobre Nosotros | CalcuNotas",
     description:
-      "Conoce CalcuNotas, un sitio web gratuito de calculadoras educativas para notas, GPA y exámenes.",
+      "Conoce CalcuNotas, un sitio web gratuito de calculadoras educativas para notas, GPA y exámenes. Fundado por Subhan Akhtar.",
     url: "https://calcunotas.com/sobre-nosotros/",
     type: "website",
   },
@@ -40,9 +38,9 @@ export const metadata = {
 };
 
 // ────────────────────────────────────────────────────────────
-// GAP FIX: About page par pehle koi JSON-LD nahi tha.
-// AboutPage + Organization + BreadcrumbList add kiya — "who runs this site"
-// wali entity clarity dene ke liye, jo E-E-A-T ke liye About page ka core kaam hai.
+// E-E-A-T: AboutPage + Organization + Person (founder) + BreadcrumbList
+// Person schema is what was missing vs. the InvisibleMsg pattern —
+// ties the site to a real, named, verifiable individual.
 // ────────────────────────────────────────────────────────────
 const pageSchema = [
   {
@@ -55,6 +53,29 @@ const pageSchema = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Subhan Akhtar",
+    url: "https://calcunotas.com/sobre-nosotros/",
+    worksFor: {
+      "@type": "Organization",
+      name: "CalcuNotas",
+      url: "https://calcunotas.com",
+    },
+    jobTitle: "Fundador y Desarrollador",
+    sameAs: [
+      "https://www.linkedin.com/in/subhan-akhtar-109246329/",
+      "https://github.com/SubhanAkhtar755",
+    ],
+    knowsAbout: [
+      "Cálculo de notas",
+      "GPA",
+      "Promedios ponderados",
+      "Desarrollo web",
+      "Herramientas educativas",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "Organization",
     name: "CalcuNotas",
     url: "https://calcunotas.com",
@@ -62,6 +83,19 @@ const pageSchema = [
     description:
       "Sitio web gratuito de calculadoras educativas para estudiantes, profesores y padres: notas, GPA, nota final y calificación rápida.",
     email: "info@calcunotas.com",
+    founder: {
+      "@type": "Person",
+      name: "Subhan Akhtar",
+    },
+    author: {
+      "@type": "Person",
+      name: "Subhan Akhtar",
+      url: "https://calcunotas.com/sobre-nosotros/",
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/subhan-akhtar-109246329/",
+      "https://github.com/SubhanAkhtar755",
+    ],
     knowsAbout: [
       "Cálculo de notas",
       "GPA",
@@ -83,7 +117,6 @@ const pageSchema = [
 export default function AboutPage() {
   return (
     <main className=" min-h-screen bg-[#f7f9fc] text-[#111827]">
-      {/* GAP FIX: schema script tag page me pehli baar add hua */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
@@ -139,6 +172,70 @@ export default function AboutPage() {
                   amigables para estudiantes y calculadoras rápidas que funcionan para
                   situaciones comunes de calificación en escuelas, colegios y universidades.
                 </p>
+              </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════
+                FOUNDER SECTION — E-E-A-T (Experience)
+                Real named person, matches InvisibleMsg pattern
+            ══════════════════════════════════════════════════ */}
+            <section className="mb-10 bg-gradient-to-r from-blue-50 to-white border border-blue-100 rounded-2xl p-6">
+              <h2 className="text-2xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Detrás de CalcuNotas
+              </h2>
+              <div className="flex flex-col sm:flex-row gap-5 items-start">
+                <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+                  <FaUser className="text-white text-2xl" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900 text-base mb-0.5">
+                    Subhan Akhtar
+                  </p>
+                  <p className="text-xs text-blue-600 font-semibold mb-3">
+                    Fundador de CalcuNotas
+                  </p>
+                  <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                    CalcuNotas nació de un problema simple: calcular notas ponderadas,
+                    GPA o la nota necesaria en un examen final manualmente es lento y
+                    fácil de hacer mal, y la mayoría de calculadoras existentes solo
+                    trabajaban con la escala 0-100 o A-F, sin cubrir las escalas usadas
+                    en España, México y el resto de Latinoamérica.
+                  </p>
+                  <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                    Ese problema se convirtió en un proyecto: construir calculadoras
+                    claras, gratuitas y sin registro, que expliquen la fórmula detrás
+                    de cada resultado en lugar de mostrar solo un número.
+                  </p>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    Cada calculadora y guía publicada en CalcuNotas se revisa
+                    manualmente para comprobar que las fórmulas sean correctas antes
+                    de publicarse.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 mt-4">
+                    <a
+                      href="mailto:info@calcunotas.com"
+                      className="inline-flex items-center gap-2 text-xs text-blue-600 hover:underline"
+                    >
+                      <FaEnvelope /> info@calcunotas.com
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/subhan-akhtar-109246329/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs text-blue-700 hover:underline"
+                    >
+                      <FaLinkedin /> LinkedIn
+                    </a>
+                    <a
+                      href="https://github.com/SubhanAkhtar755"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs text-gray-800 hover:underline"
+                    >
+                      <FaGithub /> GitHub
+                    </a>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -209,383 +306,356 @@ export default function AboutPage() {
                 </div>
               </div>
             </section>
-{/* GAP FIX: E-E-A-T — WHO IS BEHIND CALCUNOTAS */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Quién Está Detrás de CalcuNotas
-  </h2>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    CalcuNotas es un proyecto independiente enfocado en crear herramientas
-    educativas de cálculo simples, comprensibles y útiles para el uso académico
-    diario. El sitio se desarrolla y mantiene con un enfoque centrado en la
-    claridad de las fórmulas, la facilidad de uso y la transparencia sobre los
-    límites de cada cálculo.
-  </p>
+            {/* E-E-A-T — CALCULATION REVIEW AND QUALITY CONTROL */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Cómo Revisamos la Precisión de las Calculadoras
+              </h2>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    Nuestro trabajo combina desarrollo web, implementación de fórmulas de
-    calificación y creación de contenido educativo. Cada herramienta está
-    diseñada para resolver una necesidad concreta, desde calcular una nota
-    ponderada hasta estimar un GPA o determinar qué puntuación se necesita en
-    un examen final.
-  </p>
+              <p className="text-gray-700 leading-8 mb-5">
+                La precisión es una parte fundamental del desarrollo de CalcuNotas. Antes
+                de publicar o modificar una calculadora, comprobamos que las fórmulas,
+                entradas y resultados sean coherentes con el método matemático que la
+                herramienta pretende representar.
+              </p>
 
-  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-    <h3 className="text-xl font-bold text-gray-900 mb-3">
-      Responsable del proyecto
-    </h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Revisión de Fórmulas
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Revisamos las operaciones utilizadas para porcentajes, promedios
+                    ponderados, GPA, notas objetivo y conversiones de puntuaciones para
+                    comprobar que correspondan al propósito de cada calculadora.
+                  </p>
+                </div>
 
-    <p className="text-gray-700 leading-7">
-      CalcuNotas es administrado como un proyecto independiente. Para preguntas
-      sobre el funcionamiento del sitio, correcciones, contenido o herramientas,
-      puedes comunicarte directamente con nosotros a través de la página de
-      contacto.
-    </p>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Pruebas con Ejemplos
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Probamos las herramientas con diferentes combinaciones de valores,
+                    incluyendo resultados sencillos y casos en los que los pesos o
+                    puntuaciones cambian.
+                  </p>
+                </div>
 
-    <a
-      href="/contacto/"
-      className="inline-flex mt-4 items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold underline underline-offset-4 transition"
-    >
-      Contactar con CalcuNotas →
-    </a>
-  </div>
-</section>{/* GAP FIX: E-E-A-T — CALCULATION REVIEW AND QUALITY CONTROL */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Cómo Revisamos la Precisión de las Calculadoras
-  </h2>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Validación de Entradas
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Las calculadoras deben manejar correctamente valores incompletos,
+                    límites numéricos y diferentes combinaciones de datos para reducir
+                    resultados inesperados.
+                  </p>
+                </div>
 
-  <p className="text-gray-700 leading-8 mb-5">
-    La precisión es una parte fundamental del desarrollo de CalcuNotas. Antes
-    de publicar o modificar una calculadora, comprobamos que las fórmulas,
-    entradas y resultados sean coherentes con el método matemático que la
-    herramienta pretende representar.
-  </p>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Revisión Después de Cambios
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Cuando una herramienta recibe cambios importantes, volvemos a comprobar
+                    sus cálculos y comportamiento para reducir el riesgo de introducir
+                    errores durante una actualización.
+                  </p>
+                </div>
+              </div>
 
-  <div className="grid gap-4 md:grid-cols-2">
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Revisión de Fórmulas
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Revisamos las operaciones utilizadas para porcentajes, promedios
-        ponderados, GPA, notas objetivo y conversiones de puntuaciones para
-        comprobar que correspondan al propósito de cada calculadora.
-      </p>
-    </div>
+              <p className="text-gray-700 leading-8 mt-5">
+                Estas comprobaciones ayudan a mejorar la confiabilidad de las herramientas,
+                pero no convierten los resultados en registros académicos oficiales. Las
+                políticas de calificación de cada institución siempre tienen prioridad.
+              </p>
+            </section>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Pruebas con Ejemplos
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Probamos las herramientas con diferentes combinaciones de valores,
-        incluyendo resultados sencillos y casos en los que los pesos o
-        puntuaciones cambian.
-      </p>
-    </div>
+            {/* E-E-A-T — EDITORIAL STANDARDS */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Nuestros Estándares de Contenido
+              </h2>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Validación de Entradas
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Las calculadoras deben manejar correctamente valores incompletos,
-        límites numéricos y diferentes combinaciones de datos para reducir
-        resultados inesperados.
-      </p>
-    </div>
+              <p className="text-gray-700 leading-8 mb-5">
+                El contenido educativo de CalcuNotas busca explicar los cálculos de forma
+                práctica, clara y verificable. No queremos publicar páginas que simplemente
+                repitan una fórmula; nuestro objetivo es explicar cuándo utilizarla, qué
+                datos necesitas y cómo interpretar el resultado.
+              </p>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Revisión Después de Cambios
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Cuando una herramienta recibe cambios importantes, volvemos a comprobar
-        sus cálculos y comportamiento para reducir el riesgo de introducir
-        errores durante una actualización.
-      </p>
-    </div>
-  </div>
+              <ul className="space-y-3 text-gray-700 leading-8">
+                <li>
+                  • <strong>Claridad:</strong> explicamos los términos y pasos importantes
+                  con lenguaje sencillo.
+                </li>
+                <li>
+                  • <strong>Transparencia:</strong> indicamos cuándo un resultado depende
+                  de una escala o política específica.
+                </li>
+                <li>
+                  • <strong>Utilidad práctica:</strong> utilizamos ejemplos y situaciones
+                  comunes para mostrar cómo funcionan los cálculos.
+                </li>
+                <li>
+                  • <strong>Precisión matemática:</strong> las fórmulas deben ser coherentes
+                  con el tipo de cálculo que realiza cada herramienta.
+                </li>
+                <li>
+                  • <strong>Actualización:</strong> revisamos el contenido cuando una
+                  herramienta, fórmula, explicación o política descrita necesita cambios.
+                </li>
+                <li>
+                  • <strong>Independencia:</strong> el contenido no pretende representar
+                  las políticas oficiales de una escuela, universidad o sistema educativo
+                  específico.
+                </li>
+              </ul>
+            </section>
 
-  <p className="text-gray-700 leading-8 mt-5">
-    Estas comprobaciones ayudan a mejorar la confiabilidad de las herramientas,
-    pero no convierten los resultados en registros académicos oficiales. Las
-    políticas de calificación de cada institución siempre tienen prioridad.
-  </p>
-</section>{/* GAP FIX: E-E-A-T — EDITORIAL STANDARDS */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Nuestros Estándares de Contenido
-  </h2>
+            {/* E-E-A-T — CONTENT AND TOOL UPDATE POLICY */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Cómo Mantenemos Actualizado CalcuNotas
+              </h2>
 
-  <p className="text-gray-700 leading-8 mb-5">
-    El contenido educativo de CalcuNotas busca explicar los cálculos de forma
-    práctica, clara y verificable. No queremos publicar páginas que simplemente
-    repitan una fórmula; nuestro objetivo es explicar cuándo utilizarla, qué
-    datos necesitas y cómo interpretar el resultado.
-  </p>
+              <p className="text-gray-700 leading-8 mb-4">
+                Las herramientas educativas deben mantenerse claras y funcionales a medida
+                que cambian las necesidades de los usuarios. Por eso revisamos periódicamente
+                nuestras calculadoras, explicaciones y páginas informativas.
+              </p>
 
-  <ul className="space-y-3 text-gray-700 leading-8">
-    <li>
-      • <strong>Claridad:</strong> explicamos los términos y pasos importantes
-      con lenguaje sencillo.
-    </li>
-    <li>
-      • <strong>Transparencia:</strong> indicamos cuándo un resultado depende
-      de una escala o política específica.
-    </li>
-    <li>
-      • <strong>Utilidad práctica:</strong> utilizamos ejemplos y situaciones
-      comunes para mostrar cómo funcionan los cálculos.
-    </li>
-    <li>
-      • <strong>Precisión matemática:</strong> las fórmulas deben ser coherentes
-      con el tipo de cálculo que realiza cada herramienta.
-    </li>
-    <li>
-      • <strong>Actualización:</strong> revisamos el contenido cuando una
-      herramienta, fórmula, explicación o política descrita necesita cambios.
-    </li>
-    <li>
-      • <strong>Independencia:</strong> el contenido no pretende representar
-      las políticas oficiales de una escuela, universidad o sistema educativo
-      específico.
-    </li>
-  </ul>
-</section>{/* GAP FIX: E-E-A-T — CONTENT AND TOOL UPDATE POLICY */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Cómo Mantenemos Actualizado CalcuNotas
-  </h2>
+              <p className="text-gray-700 leading-8 mb-4">
+                Las actualizaciones pueden incluir correcciones de errores, mejoras de
+                funcionamiento, cambios en la explicación de una fórmula, nuevos ejemplos,
+                mejoras de accesibilidad o ajustes de contenido cuando una explicación
+                anterior puede resultar confusa.
+              </p>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    Las herramientas educativas deben mantenerse claras y funcionales a medida
-    que cambian las necesidades de los usuarios. Por eso revisamos periódicamente
-    nuestras calculadoras, explicaciones y páginas informativas.
-  </p>
+              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Qué buscamos con cada actualización
+                </h3>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    Las actualizaciones pueden incluir correcciones de errores, mejoras de
-    funcionamiento, cambios en la explicación de una fórmula, nuevos ejemplos,
-    mejoras de accesibilidad o ajustes de contenido cuando una explicación
-    anterior puede resultar confusa.
-  </p>
+                <ul className="space-y-3 text-gray-700 leading-7">
+                  <li>• Mantener las fórmulas y cálculos coherentes.</li>
+                  <li>• Hacer las instrucciones más fáciles de seguir.</li>
+                  <li>• Corregir errores técnicos o de contenido cuando se detecten.</li>
+                  <li>• Añadir ejemplos que ayuden a comprender los resultados.</li>
+                  <li>• Mantener una experiencia rápida y clara en dispositivos móviles.</li>
+                </ul>
+              </div>
 
-  <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
-    <h3 className="text-xl font-bold text-gray-900 mb-3">
-      Qué buscamos con cada actualización
-    </h3>
+              <p className="text-gray-700 leading-8 mt-5">
+                Cuando una institución utiliza una política de calificación diferente,
+                recomendamos comprobar siempre sus reglas oficiales antes de tomar una
+                decisión académica basada en una estimación.
+              </p>
+            </section>
 
-    <ul className="space-y-3 text-gray-700 leading-7">
-      <li>• Mantener las fórmulas y cálculos coherentes.</li>
-      <li>• Hacer las instrucciones más fáciles de seguir.</li>
-      <li>• Corregir errores técnicos o de contenido cuando se detecten.</li>
-      <li>• Añadir ejemplos que ayuden a comprender los resultados.</li>
-      <li>• Mantener una experiencia rápida y clara en dispositivos móviles.</li>
-    </ul>
-  </div>
+            {/* E-E-A-T — CORRECTIONS AND ERROR REPORTING */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Correcciones y Reporte de Errores
+              </h2>
 
-  <p className="text-gray-700 leading-8 mt-5">
-    Cuando una institución utiliza una política de calificación diferente,
-    recomendamos comprobar siempre sus reglas oficiales antes de tomar una
-    decisión académica basada en una estimación.
-  </p>
-</section>{/* GAP FIX: E-E-A-T — CORRECTIONS AND ERROR REPORTING */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Correcciones y Reporte de Errores
-  </h2>
+              <p className="text-gray-700 leading-8 mb-4">
+                Aunque probamos nuestras herramientas, ningún sitio web está completamente
+                libre de errores. Si encuentras un resultado inesperado, una explicación
+                confusa, un enlace roto o un problema técnico, agradecemos que nos lo
+                informes.
+              </p>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    Aunque probamos nuestras herramientas, ningún sitio web está completamente
-    libre de errores. Si encuentras un resultado inesperado, una explicación
-    confusa, un enlace roto o un problema técnico, agradecemos que nos lo
-    informes.
-  </p>
+              <p className="text-gray-700 leading-8 mb-5">
+                Cuando recibimos un reporte útil, podemos revisar la fórmula, los datos de
+                entrada, el comportamiento de la calculadora o el contenido relacionado.
+                Si confirmamos un problema, trabajamos para corregirlo y mejorar la
+                explicación para evitar confusiones similares en el futuro.
+              </p>
 
-  <p className="text-gray-700 leading-8 mb-5">
-    Cuando recibimos un reporte útil, podemos revisar la fórmula, los datos de
-    entrada, el comportamiento de la calculadora o el contenido relacionado.
-    Si confirmamos un problema, trabajamos para corregirlo y mejorar la
-    explicación para evitar confusiones similares en el futuro.
-  </p>
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  ¿Encontraste un problema?
+                </h3>
 
-  <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-    <h3 className="text-xl font-bold text-gray-900 mb-3">
-      ¿Encontraste un problema?
-    </h3>
+                <p className="text-gray-700 leading-7 mb-4">
+                  Indica qué calculadora estabas utilizando, los valores que introdujiste,
+                  el resultado obtenido y qué resultado esperabas. Esta información nos
+                  ayuda a reproducir el problema y revisarlo con mayor precisión.
+                </p>
 
-    <p className="text-gray-700 leading-7 mb-4">
-      Indica qué calculadora estabas utilizando, los valores que introdujiste,
-      el resultado obtenido y qué resultado esperabas. Esta información nos
-      ayuda a reproducir el problema y revisarlo con mayor precisión.
-    </p>
+                <a
+                  href="/contacto/"
+                  className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-3 rounded-xl font-bold text-sm transition-colors"
+                >
+                  Reportar un Problema →
+                </a>
+              </div>
+            </section>
 
-    <a
-      href="/contacto/"
-      className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-3 rounded-xl font-bold text-sm transition-colors"
-    >
-      Reportar un Problema →
-    </a>
-  </div>
-</section>{/* GAP FIX: E-E-A-T — FORMULA AND METHODOLOGY TRANSPARENCY */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Transparencia de Fórmulas y Métodos
-  </h2>
+            {/* E-E-A-T — FORMULA AND METHODOLOGY TRANSPARENCY */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Transparencia de Fórmulas y Métodos
+              </h2>
 
-  <p className="text-gray-700 leading-8 mb-4">
-    CalcuNotas utiliza métodos matemáticos comunes para convertir puntuaciones,
-    porcentajes, pesos y créditos en resultados académicos estimados. Siempre
-    que sea útil, nuestras páginas explican la fórmula utilizada para que el
-    usuario pueda comprobar cómo se obtiene el resultado.
-  </p>
+              <p className="text-gray-700 leading-8 mb-4">
+                CalcuNotas utiliza métodos matemáticos comunes para convertir puntuaciones,
+                porcentajes, pesos y créditos en resultados académicos estimados. Siempre
+                que sea útil, nuestras páginas explican la fórmula utilizada para que el
+                usuario pueda comprobar cómo se obtiene el resultado.
+              </p>
 
-  <div className="grid gap-4 md:grid-cols-2">
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Porcentajes
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Los cálculos de porcentaje normalmente comparan los puntos obtenidos
-        con los puntos posibles para determinar el porcentaje de rendimiento.
-      </p>
-    </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Porcentajes
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Los cálculos de porcentaje normalmente comparan los puntos obtenidos
+                    con los puntos posibles para determinar el porcentaje de rendimiento.
+                  </p>
+                </div>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Promedios Ponderados
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Las categorías se combinan teniendo en cuenta el peso asignado a cada
-        una, de modo que una evaluación con mayor peso tenga mayor influencia.
-      </p>
-    </div>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Promedios Ponderados
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Las categorías se combinan teniendo en cuenta el peso asignado a cada
+                    una, de modo que una evaluación con mayor peso tenga mayor influencia.
+                  </p>
+                </div>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        GPA
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Los cálculos de GPA pueden utilizar puntos de calificación y créditos,
-        pero la escala exacta debe coincidir con las reglas de la institución.
-      </p>
-    </div>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    GPA
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Los cálculos de GPA pueden utilizar puntos de calificación y créditos,
+                    pero la escala exacta debe coincidir con las reglas de la institución.
+                  </p>
+                </div>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Nota Objetivo
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Las calculadoras de nota final utilizan la nota actual, el peso
-        restante y la nota objetivo para estimar el resultado necesario.
-      </p>
-    </div>
-  </div>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Nota Objetivo
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Las calculadoras de nota final utilizan la nota actual, el peso
+                    restante y la nota objetivo para estimar el resultado necesario.
+                  </p>
+                </div>
+              </div>
 
-  <p className="text-gray-700 leading-8 mt-5">
-    Una fórmula matemática puede ser correcta y aun así producir un resultado
-    diferente al de una institución si esta utiliza redondeos, curvas,
-    créditos extra, categorías especiales o una escala personalizada. Por
-    eso explicamos también las limitaciones cuando son relevantes.
-  </p>
-</section>{/* GAP FIX: TRUST — INDEPENDENCE AND LIMITATIONS */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Qué Es y Qué No Es CalcuNotas
-  </h2>
+              <p className="text-gray-700 leading-8 mt-5">
+                Una fórmula matemática puede ser correcta y aun así producir un resultado
+                diferente al de una institución si esta utiliza redondeos, curvas,
+                créditos extra, categorías especiales o una escala personalizada. Por
+                eso explicamos también las limitaciones cuando son relevantes.
+              </p>
+            </section>
 
-  <div className="grid gap-4 md:grid-cols-2">
-    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-3">
-        CalcuNotas Es
-      </h3>
+            {/* TRUST — INDEPENDENCE AND LIMITATIONS */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Qué Es y Qué No Es CalcuNotas
+              </h2>
 
-      <ul className="space-y-3 text-gray-700 leading-7">
-        <li>• Una colección de herramientas educativas gratuitas.</li>
-        <li>• Un recurso para estimar notas, porcentajes y GPA.</li>
-        <li>• Una ayuda para comprender fórmulas de calificación.</li>
-        <li>• Un recurso de apoyo para estudiantes y profesores.</li>
-      </ul>
-    </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    CalcuNotas Es
+                  </h3>
 
-    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-3">
-        CalcuNotas No Es
-      </h3>
+                  <ul className="space-y-3 text-gray-700 leading-7">
+                    <li>• Una colección de herramientas educativas gratuitas.</li>
+                    <li>• Un recurso para estimar notas, porcentajes y GPA.</li>
+                    <li>• Una ayuda para comprender fórmulas de calificación.</li>
+                    <li>• Un recurso de apoyo para estudiantes y profesores.</li>
+                  </ul>
+                </div>
 
-      <ul className="space-y-3 text-gray-700 leading-7">
-        <li>• Un sistema oficial de registros académicos.</li>
-        <li>• Una universidad, escuela o autoridad educativa.</li>
-        <li>• Un sustituto de las políticas de calificación institucionales.</li>
-        <li>• Una fuente que puede modificar o confirmar tus notas oficiales.</li>
-      </ul>
-    </div>
-  </div>
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    CalcuNotas No Es
+                  </h3>
 
-  <p className="text-gray-700 leading-8 mt-5">
-    Las instituciones educativas pueden utilizar escalas, políticas y reglas
-    diferentes. Cuando exista una diferencia entre una estimación de CalcuNotas
-    y el sistema oficial de tu institución, la información institucional debe
-    considerarse la fuente de referencia.
-  </p>
-</section>{/* GAP FIX: E-E-A-T — TRUST AND TRANSPARENCY SUMMARY */}
-<section className="mb-10">
-  <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
-    Nuestro Compromiso con la Transparencia
-  </h2>
+                  <ul className="space-y-3 text-gray-700 leading-7">
+                    <li>• Un sistema oficial de registros académicos.</li>
+                    <li>• Una universidad, escuela o autoridad educativa.</li>
+                    <li>• Un sustituto de las políticas de calificación institucionales.</li>
+                    <li>• Una fuente que puede modificar o confirmar tus notas oficiales.</li>
+                  </ul>
+                </div>
+              </div>
 
-  <p className="text-gray-700 leading-8 mb-5">
-    Queremos que los usuarios sepan no solo qué calcula CalcuNotas, sino también
-    cuáles son los límites de sus resultados. Por eso procuramos explicar las
-    fórmulas, indicar cuándo las reglas pueden variar y ofrecer una forma directa
-    de reportar errores o solicitar mejoras.
-  </p>
+              <p className="text-gray-700 leading-8 mt-5">
+                Las instituciones educativas pueden utilizar escalas, políticas y reglas
+                diferentes. Cuando exista una diferencia entre una estimación de CalcuNotas
+                y el sistema oficial de tu institución, la información institucional debe
+                considerarse la fuente de referencia.
+              </p>
+            </section>
 
-  <div className="grid gap-4 md:grid-cols-2">
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Fórmulas Explicadas
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Siempre que sea relevante, explicamos cómo se obtiene un resultado y qué
-        valores necesita la calculadora.
-      </p>
-    </div>
+            {/* E-E-A-T — TRUST AND TRANSPARENCY SUMMARY */}
+            <section className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">
+                Nuestro Compromiso con la Transparencia
+              </h2>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Límites Claros
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        No presentamos las estimaciones como sustituto de las notas o registros
-        oficiales de una institución educativa.
-      </p>
-    </div>
+              <p className="text-gray-700 leading-8 mb-5">
+                Queremos que los usuarios sepan no solo qué calcula CalcuNotas, sino también
+                cuáles son los límites de sus resultados. Por eso procuramos explicar las
+                fórmulas, indicar cuándo las reglas pueden variar y ofrecer una forma directa
+                de reportar errores o solicitar mejoras.
+              </p>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Correcciones
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Los usuarios pueden informar errores o resultados inesperados para que
-        podamos revisarlos.
-      </p>
-    </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Fórmulas Explicadas
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Siempre que sea relevante, explicamos cómo se obtiene un resultado y qué
+                    valores necesita la calculadora.
+                  </p>
+                </div>
 
-    <div className="rounded-2xl border border-gray-200 p-5 bg-white">
-      <h3 className="text-xl font-bold mb-3">
-        Comunicación Directa
-      </h3>
-      <p className="text-gray-700 leading-7 text-[15px]">
-        Mantenemos un canal de contacto para preguntas, sugerencias y problemas
-        relacionados con nuestras herramientas.
-      </p>
-    </div>
-  </div>
-</section>
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Límites Claros
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    No presentamos las estimaciones como sustituto de las notas o registros
+                    oficiales de una institución educativa.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Correcciones
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Los usuarios pueden informar errores o resultados inesperados para que
+                    podamos revisarlos.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-5 bg-white">
+                  <h3 className="text-xl font-bold mb-3">
+                    Comunicación Directa
+                  </h3>
+                  <p className="text-gray-700 leading-7 text-[15px]">
+                    Mantenemos un canal de contacto para preguntas, sugerencias y problemas
+                    relacionados con nuestras herramientas.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             {/* MISSION */}
             <section className="mb-10">
               <h2 className="text-2xl md:text-3xl font-black tracking-[-0.03em] text-gray-900 mb-4">

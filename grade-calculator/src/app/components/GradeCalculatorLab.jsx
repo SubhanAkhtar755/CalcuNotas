@@ -2,6 +2,20 @@
 
 import { useMemo, useState } from "react";
 
+const COMPONENT_NAME = "GradeCalculatorLab";
+
+function trackEvent(action, params = {}) {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.gtag === "function"
+  ) {
+    window.gtag("event", action, {
+      component: COMPONENT_NAME,
+      ...params,
+    });
+  }
+}
+
 const LETTER_OPTIONS = [
   { label: "A+", value: 98 },
   { label: "A", value: 95 },
@@ -67,6 +81,12 @@ export default function GradeCalculatorLab() {
   };
 
   const changeType = (type) => {
+    trackEvent("grade_type_change", {
+      control: "Tipo de Calificación",
+      grade_type: type,
+      label: typeLabels[type],
+    });
+
     setGradeType(type);
     setRows(defaultRows[type]);
 
@@ -89,6 +109,12 @@ export default function GradeCalculatorLab() {
   };
 
   const addRow = () => {
+    trackEvent("add_evaluation", {
+      button: "Agregar Evaluación",
+      grade_type: gradeType,
+      evaluation_number: rows.length + 1,
+    });
+
     if (gradeType === "points") {
       setRows([
         ...rows,
@@ -104,6 +130,13 @@ export default function GradeCalculatorLab() {
 
   const removeRow = (index) => {
     if (rows.length === 1) return;
+
+    trackEvent("remove_evaluation", {
+      button: "Eliminar Evaluación",
+      grade_type: gradeType,
+      evaluation_number: index + 1,
+    });
+
     setRows(rows.filter((_, i) => i !== index));
   };
 
@@ -132,6 +165,12 @@ export default function GradeCalculatorLab() {
   };
 
   const calculateGrade = () => {
+    trackEvent("calculate_grade", {
+      button: "Calcular Calificación",
+      grade_type: gradeType,
+      evaluation_count: rows.length,
+    });
+
     let weightedSum = 0;
     let totalWeight = 0;
     let validRows = 0;
@@ -177,10 +216,25 @@ export default function GradeCalculatorLab() {
       }
     });
 
-    if (validRows === 0) return;
+    if (validRows === 0) {
+      trackEvent("calculate_grade_invalid", {
+        grade_type: gradeType,
+        evaluation_count: rows.length,
+      });
+
+      return;
+    }
 
     const finalGrade = weightedSum / totalWeight;
     const letter = getLetterGrade(finalGrade);
+
+    trackEvent("grade_result_generated", {
+      grade_type: gradeType,
+      final_grade: Number(finalGrade.toFixed(2)),
+      letter_grade: letter,
+      total_weight: Number(totalWeight.toFixed(2)),
+      valid_evaluations: validRows,
+    });
 
     setResult({
       percent: `${finalGrade.toFixed(2)}%`,
@@ -201,6 +255,10 @@ export default function GradeCalculatorLab() {
   };
 
   const calculateFinalNeeded = () => {
+    trackEvent("calculate_final_exam", {
+      button: "Calcular Nota del Examen Final",
+    });
+
     const currentGrade = Number(finalData.current);
     const targetGrade = Number(finalData.target);
     const finalWeight = Number(finalData.finalWeight);
@@ -213,6 +271,10 @@ export default function GradeCalculatorLab() {
       finalWeight <= 0 ||
       finalWeight > 100
     ) {
+      trackEvent("calculate_final_exam_invalid", {
+        button: "Calcular Nota del Examen Final",
+      });
+
       return;
     }
 
@@ -237,6 +299,13 @@ export default function GradeCalculatorLab() {
         "Ya has asegurado tu calificación objetivo.";
     }
 
+    trackEvent("final_exam_result_generated", {
+      current_grade: currentGrade,
+      target_grade: targetGrade,
+      final_exam_weight: finalWeight,
+      needed_grade: Number(neededGrade.toFixed(2)),
+    });
+
     setFinalData((prev) => ({
       ...prev,
       result: `${neededGrade.toFixed(2)}%`,
@@ -245,6 +314,11 @@ export default function GradeCalculatorLab() {
   };
 
   const resetAll = () => {
+    trackEvent("reset_grade_calculator", {
+      button: "Restablecer",
+      grade_type: gradeType,
+    });
+
     setRows(defaultRows[gradeType]);
 
     setResult({
@@ -265,6 +339,21 @@ export default function GradeCalculatorLab() {
       result: "--%",
       message:
         "Ingresa tu calificación actual, calificación objetivo y el peso del examen final.",
+    });
+  };
+
+  const resetFinalExam = () => {
+    trackEvent("reset_final_exam", {
+      button: "Restablecer Examen Final",
+    });
+
+    setFinalData({
+      current: "",
+      target: "",
+      finalWeight: "",
+      result: "--%",
+      message:
+        "Ingresa tu calificación actual, calificación objetivo y el peso del examen final para ver la nota requerida.",
     });
   };
 
@@ -384,7 +473,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.grade}
                           onChange={(e) =>
-                            updateRow(index, "grade", e.target.value)
+                            updateRow(
+                              index,
+                              "grade",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -395,7 +488,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.weight}
                           onChange={(e) =>
-                            updateRow(index, "weight", e.target.value)
+                            updateRow(
+                              index,
+                              "weight",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -408,9 +505,20 @@ export default function GradeCalculatorLab() {
                         <select
                           className={inputClass}
                           value={row.grade}
-                          onChange={(e) =>
-                            updateRow(index, "grade", e.target.value)
-                          }
+                          onChange={(e) => {
+                            const value = e.target.value;
+
+                            trackEvent("evaluation_letter_change", {
+                              evaluation_number: index + 1,
+                              value,
+                            });
+
+                            updateRow(
+                              index,
+                              "grade",
+                              value
+                            );
+                          }}
                         >
                           <option value="">Seleccionar</option>
 
@@ -431,7 +539,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.weight}
                           onChange={(e) =>
-                            updateRow(index, "weight", e.target.value)
+                            updateRow(
+                              index,
+                              "weight",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -446,7 +558,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.earned}
                           onChange={(e) =>
-                            updateRow(index, "earned", e.target.value)
+                            updateRow(
+                              index,
+                              "earned",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -457,7 +573,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.total}
                           onChange={(e) =>
-                            updateRow(index, "total", e.target.value)
+                            updateRow(
+                              index,
+                              "total",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -468,7 +588,11 @@ export default function GradeCalculatorLab() {
                           className={inputClass}
                           value={row.weight}
                           onChange={(e) =>
-                            updateRow(index, "weight", e.target.value)
+                            updateRow(
+                              index,
+                              "weight",
+                              e.target.value
+                            )
                           }
                         />
                       </td>
@@ -511,6 +635,8 @@ export default function GradeCalculatorLab() {
             Restablecer
           </button>
         </div>
+
+       
 
         <div className="mt-6 rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
           <div className="mb-5 flex items-center justify-between gap-5">
@@ -587,7 +713,6 @@ export default function GradeCalculatorLab() {
           </div>
 
           <div className="grid gap-4 mb-4">
-            {/* Calificación Actual */}
             <div>
               <label className="mb-2 block text-sm font-extrabold text-zinc-700">
                 Tu Calificación Actual en la Materia
@@ -613,6 +738,10 @@ export default function GradeCalculatorLab() {
                   className="w-full rounded-[9px] border border-zinc-200 bg-white px-3 py-[10px] text-[15px] outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
                   onChange={(e) => {
                     if (e.target.value) {
+                      trackEvent("final_current_grade_letter", {
+                        value: e.target.value,
+                      });
+
                       setFinalData({
                         ...finalData,
                         current: e.target.value,
@@ -634,7 +763,6 @@ export default function GradeCalculatorLab() {
               </div>
             </div>
 
-            {/* Calificación Objetivo */}
             <div>
               <label className="mb-2 block text-sm font-extrabold text-zinc-700">
                 Calificación Objetivo que Deseas
@@ -660,6 +788,10 @@ export default function GradeCalculatorLab() {
                   className="w-full rounded-[9px] border border-zinc-200 bg-white px-3 py-[10px] text-[15px] outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
                   onChange={(e) => {
                     if (e.target.value) {
+                      trackEvent("final_target_grade_letter", {
+                        value: e.target.value,
+                      });
+
                       setFinalData({
                         ...finalData,
                         target: e.target.value,
@@ -681,7 +813,6 @@ export default function GradeCalculatorLab() {
               </div>
             </div>
 
-            {/* Peso del Examen Final */}
             <div>
               <label className="mb-2 block text-sm font-extrabold text-zinc-700">
                 Peso del Examen Final
@@ -719,16 +850,7 @@ export default function GradeCalculatorLab() {
             </button>
 
             <button
-              onClick={() =>
-                setFinalData({
-                  current: "",
-                  target: "",
-                  finalWeight: "",
-                  result: "--%",
-                  message:
-                    "Ingresa tu calificación actual, calificación objetivo y el peso del examen final para ver la nota requerida.",
-                })
-              }
+              onClick={resetFinalExam}
               className="rounded-[10px] bg-zinc-100 px-4 py-3 text-[15px] font-extrabold text-zinc-700"
             >
               Restablecer
@@ -747,6 +869,8 @@ export default function GradeCalculatorLab() {
             {finalData.message}
           </p>
         </div>
+
+       
       </div>
     </section>
   );

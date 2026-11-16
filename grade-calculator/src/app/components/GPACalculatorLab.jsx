@@ -2,6 +2,20 @@
 
 import { useState } from "react";
 
+const COMPONENT_NAME = "GpaCalculatorLab";
+
+function trackEvent(action, params = {}) {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.gtag === "function"
+  ) {
+    window.gtag("event", action, {
+      component: COMPONENT_NAME,
+      ...params,
+    });
+  }
+}
+
 const gradeOptions = [
   { label: "A+", value: 4.0 },
   { label: "A", value: 4.0 },
@@ -14,6 +28,7 @@ const gradeOptions = [
   { label: "C-", value: 1.7 },
   { label: "D+", value: 1.3 },
   { label: "D", value: 1.0 },
+  { label: "D-", value: 0.7 },
   { label: "F", value: 0 },
 ];
 
@@ -70,6 +85,11 @@ export default function GpaCalculatorLab() {
   };
 
   const addSemester = () => {
+    trackEvent("add_semester", {
+      button: "Agregar Semestre",
+      semester_number: semesters.length + 1,
+    });
+
     setSemesters((prev) => [
       ...prev,
       createSemester(prev.length + 1),
@@ -82,12 +102,27 @@ export default function GpaCalculatorLab() {
       return;
     }
 
+    trackEvent("remove_semester", {
+      button: "Eliminar",
+      semester_id: semesterId,
+    });
+
     setSemesters((prev) =>
       prev.filter((semester) => semester.id !== semesterId)
     );
   };
 
   const addCourse = (semesterId) => {
+    const semester = semesters.find(
+      (item) => item.id === semesterId
+    );
+
+    trackEvent("add_course", {
+      button: "Agregar Materia",
+      semester_id: semesterId,
+      course_number: semester ? semester.courses.length + 1 : undefined,
+    });
+
     setSemesters((prev) =>
       prev.map((semester) => {
         if (semester.id !== semesterId) return semester;
@@ -101,14 +136,26 @@ export default function GpaCalculatorLab() {
   };
 
   const removeCourse = (semesterId, courseIndex) => {
+    const semester = semesters.find(
+      (item) => item.id === semesterId
+    );
+
+    if (!semester) return;
+
+    if (semester.courses.length <= 1) {
+      alert("Se requiere al menos una materia.");
+      return;
+    }
+
+    trackEvent("remove_course", {
+      button: "Eliminar Materia",
+      semester_id: semesterId,
+      course_number: courseIndex + 1,
+    });
+
     setSemesters((prev) =>
       prev.map((semester) => {
         if (semester.id !== semesterId) return semester;
-
-        if (semester.courses.length <= 1) {
-          alert("Se requiere al menos una materia.");
-          return semester;
-        }
 
         return {
           ...semester,
@@ -121,6 +168,16 @@ export default function GpaCalculatorLab() {
   };
 
   const calculateGPA = () => {
+    trackEvent("calculate_gpa", {
+      button: "Calcular GPA",
+      gpa_type: weighted ? "Ponderado" : "Regular",
+      semester_count: semesters.length,
+      course_count: semesters.reduce(
+        (total, semester) => total + semester.courses.length,
+        0
+      ),
+    });
+
     let totalGradePoints = 0;
     let totalCreditHours = 0;
     let totalCourses = 0;
@@ -187,6 +244,10 @@ export default function GpaCalculatorLab() {
   };
 
   const resetAll = () => {
+    trackEvent("reset_gpa", {
+      button: "Restablecer",
+    });
+
     setWeighted(false);
 
     setSemesters([createSemester(1)]);
@@ -196,7 +257,8 @@ export default function GpaCalculatorLab() {
       totalCredits: "0",
       totalCourses: "0",
       gpaType: "Regular",
-      message: "Ingresa tus materias y haz clic en calcular para ver tu GPA.",
+      message:
+        "Ingresa tus materias y haz clic en calcular para ver tu GPA.",
     });
   };
 
@@ -224,7 +286,16 @@ export default function GpaCalculatorLab() {
             <input
               type="checkbox"
               checked={weighted}
-              onChange={(e) => setWeighted(e.target.checked)}
+              onChange={(e) => {
+                const value = e.target.checked;
+
+                trackEvent("weighted_gpa_toggle", {
+                  input: "GPA Ponderado",
+                  enabled: value,
+                });
+
+                setWeighted(value);
+              }}
             />
 
             <label>GPA Ponderado</label>
@@ -297,14 +368,22 @@ export default function GpaCalculatorLab() {
                         <td className="border-b border-gray-200 p-[10px]">
                           <select
                             value={course.grade}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                              const value = e.target.value;
+
+                              trackEvent("course_grade_change", {
+                                semester_id: semester.id,
+                                course_number: index + 1,
+                                value,
+                              });
+
                               updateCourse(
                                 semester.id,
                                 index,
                                 "grade",
-                                e.target.value
-                              )
-                            }
+                                value
+                              );
+                            }}
                             className="w-full border border-gray-200 rounded-[9px] px-[10px] py-[10px] text-[15px] outline-none focus:border-blue-600 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.10)]"
                           >
                             <option value="">Calificación</option>
@@ -342,14 +421,22 @@ export default function GpaCalculatorLab() {
                           <select
                             value={course.weight}
                             disabled={!weighted}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                              const value = e.target.value;
+
+                              trackEvent("course_weight_change", {
+                                semester_id: semester.id,
+                                course_number: index + 1,
+                                value,
+                              });
+
                               updateCourse(
                                 semester.id,
                                 index,
                                 "weight",
-                                e.target.value
-                              )
-                            }
+                                value
+                              );
+                            }}
                             className="w-full border border-gray-200 rounded-[9px] px-[10px] py-[10px] text-[15px] outline-none disabled:bg-gray-100 disabled:text-gray-400 focus:border-blue-600 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.10)]"
                           >
                             {weightOptions.map((weight) => (
@@ -366,7 +453,10 @@ export default function GpaCalculatorLab() {
                         <td className="border-b border-gray-200 p-[10px]">
                           <button
                             onClick={() =>
-                              removeCourse(semester.id, index)
+                              removeCourse(
+                                semester.id,
+                                index
+                              )
                             }
                             className="border-0 bg-red-100 text-red-700 rounded-lg px-[10px] py-[9px] font-extrabold"
                           >
@@ -421,6 +511,8 @@ export default function GpaCalculatorLab() {
           </button>
         </div>
 
+       
+
         <div className="border border-gray-200 bg-[#f8fafc] rounded-[14px] p-[18px] text-center">
           <div className="w-[132px] h-[132px] rounded-full border-[12px] border-gray-200 bg-white mx-auto my-[10px] grid place-items-center">
             <div>
@@ -470,6 +562,8 @@ export default function GpaCalculatorLab() {
             {result.message}
           </p>
         </div>
+
+       
       </div>
     </div>
   );

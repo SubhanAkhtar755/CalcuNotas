@@ -2,6 +2,17 @@
 
 import { useState } from "react";
 
+const GA_EVENT = "TestGradeCalculator";
+
+function trackGA4(action, params = {}) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", GA_EVENT, {
+      action,
+      ...params,
+    });
+  }
+}
+
 export default function TestGradeCalculator() {
   const [currentMode, setCurrentMode] = useState("wrong");
   const [inputOne, setInputOne] = useState("");
@@ -90,15 +101,21 @@ export default function TestGradeCalculator() {
 
   function getMessage(percent, letter) {
     if (percent >= 90) {
-      return `Resultado excelente. Tu calificación es ${percent.toFixed(2)}% con letra ${letter}.`;
+      return `Resultado excelente. Tu calificación es ${percent.toFixed(
+        2
+      )}% con letra ${letter}.`;
     }
 
     if (percent >= 80) {
-      return `Buena puntuación. Tu calificación es ${percent.toFixed(2)}% con letra ${letter}.`;
+      return `Buena puntuación. Tu calificación es ${percent.toFixed(
+        2
+      )}% con letra ${letter}.`;
     }
 
     if (percent >= 70) {
-      return `Aprobado. Tu calificación es ${percent.toFixed(2)}% con letra ${letter}.`;
+      return `Aprobado. Tu calificación es ${percent.toFixed(
+        2
+      )}% con letra ${letter}.`;
     }
 
     if (percent >= 60) {
@@ -109,6 +126,11 @@ export default function TestGradeCalculator() {
   }
 
   const calculateGrade = () => {
+    trackGA4("calculate", {
+      calculator_mode: currentMode,
+      grade_scale: gradeScale,
+    });
+
     const firstValue = Number(inputOne);
     const secondValue = Number(inputTwo);
 
@@ -128,7 +150,9 @@ export default function TestGradeCalculator() {
 
     if (currentMode === "wrong") {
       if (secondValue > firstValue) {
-        alert("Las respuestas incorrectas no pueden ser más que el total de preguntas.");
+        alert(
+          "Las respuestas incorrectas no pueden ser más que el total de preguntas."
+        );
         return;
       }
 
@@ -139,7 +163,9 @@ export default function TestGradeCalculator() {
 
     if (currentMode === "correct") {
       if (secondValue > firstValue) {
-        alert("Las respuestas correctas no pueden ser más que el total de preguntas.");
+        alert(
+          "Las respuestas correctas no pueden ser más que el total de preguntas."
+        );
         return;
       }
 
@@ -150,7 +176,9 @@ export default function TestGradeCalculator() {
 
     if (currentMode === "points") {
       if (secondValue > firstValue) {
-        alert("Los puntos obtenidos no pueden ser más que el total de puntos.");
+        alert(
+          "Los puntos obtenidos no pueden ser más que el total de puntos."
+        );
         return;
       }
 
@@ -173,6 +201,10 @@ export default function TestGradeCalculator() {
   };
 
   const resetCalculator = () => {
+    trackGA4("reset", {
+      calculator_mode: currentMode,
+    });
+
     setInputOne("");
     setInputTwo("");
 
@@ -196,7 +228,8 @@ export default function TestGradeCalculator() {
         </h2>
 
         <p className="text-sm text-gray-500">
-          Selecciona el tipo de cálculo, ingresa los detalles del examen y obtén tu calificación al instante.
+          Selecciona el tipo de cálculo, ingresa los detalles del examen y
+          obtén tu calificación al instante.
         </p>
       </div>
 
@@ -206,6 +239,10 @@ export default function TestGradeCalculator() {
             <button
               key={mode}
               onClick={() => {
+                trackGA4("change_mode", {
+                  calculator_mode: mode,
+                });
+
                 setCurrentMode(mode);
                 resetCalculator();
               }}
@@ -260,7 +297,16 @@ export default function TestGradeCalculator() {
 
             <select
               value={gradeScale}
-              onChange={(e) => setGradeScale(e.target.value)}
+              onChange={(e) => {
+                const newScale = e.target.value;
+
+                trackGA4("change_grade_scale", {
+                  grade_scale: newScale,
+                  calculator_mode: currentMode,
+                });
+
+                setGradeScale(newScale);
+              }}
               className="w-full border border-gray-200 rounded-[10px] px-4 py-3 outline-none focus:border-blue-600"
             >
               <option value="standard">
@@ -293,6 +339,7 @@ export default function TestGradeCalculator() {
             Restablecer
           </button>
         </div>
+
 
         <div className="border border-gray-200 bg-slate-50 rounded-[14px] p-4">
           <div className="grid md:grid-cols-[1fr_92px] gap-4 items-center mb-4">
@@ -348,6 +395,8 @@ export default function TestGradeCalculator() {
             {result.message}
           </p>
         </div>
+
+       
       </div>
     </div>
   );

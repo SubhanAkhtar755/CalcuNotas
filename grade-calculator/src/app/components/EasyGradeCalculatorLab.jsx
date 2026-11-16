@@ -2,6 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+const COMPONENT_NAME = "EasyGradeCalculatorLab";
+
+function trackEvent(action, params = {}) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", action, {
+      component: COMPONENT_NAME,
+      ...params,
+    });
+  }
+}
+
 export default function EasyGradeCalculatorLab() {
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [gradeScale, setGradeScale] = useState("standard");
@@ -57,6 +68,13 @@ export default function EasyGradeCalculatorLab() {
   }
 
   function generateChart() {
+    trackEvent("calculate", {
+      button: "Calcular",
+      total_questions: totalQuestions,
+      grade_scale: gradeScale,
+      decimals: decimals,
+    });
+
     if (!totalQuestions || totalQuestions <= 0) {
       setMessage("Por favor ingresa un número válido de preguntas.");
       return;
@@ -92,6 +110,11 @@ export default function EasyGradeCalculatorLab() {
   }
 
   function copyChart() {
+    trackEvent("copy_table", {
+      button: "Copiar Tabla",
+      rows: rows.length,
+    });
+
     if (!rows.length) {
       setMessage("Por favor genera la tabla primero.");
       return;
@@ -118,6 +141,10 @@ export default function EasyGradeCalculatorLab() {
   }
 
   function resetChart() {
+    trackEvent("reset_chart", {
+      button: "Restablecer",
+    });
+
     setTotalQuestions("");
     setGradeScale("standard");
     setDecimals(2);
@@ -175,7 +202,16 @@ export default function EasyGradeCalculatorLab() {
               type="number"
               min="1"
               value={totalQuestions}
-              onChange={(e) => setTotalQuestions(Number(e.target.value))}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+
+                setTotalQuestions(value);
+
+                trackEvent("questions_input", {
+                  input: "total_questions",
+                  value,
+                });
+              }}
               placeholder="Ingresa el total de preguntas"
               className="w-full px-4 py-4 outline-none text-[18px]"
             />
@@ -197,7 +233,16 @@ export default function EasyGradeCalculatorLab() {
 
             <select
               value={gradeScale}
-              onChange={(e) => setGradeScale(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                setGradeScale(value);
+
+                trackEvent("grade_scale_change", {
+                  input: "grade_scale",
+                  value,
+                });
+              }}
               className="border border-gray-200 rounded-lg px-2 py-2 outline-none"
             >
               <option value="standard">Estándar</option>
@@ -213,7 +258,16 @@ export default function EasyGradeCalculatorLab() {
 
             <select
               value={decimals}
-              onChange={(e) => setDecimals(Number(e.target.value))}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+
+                setDecimals(value);
+
+                trackEvent("decimal_change", {
+                  input: "decimals",
+                  value,
+                });
+              }}
               className="border border-gray-200 rounded-lg px-2 py-2 outline-none"
             >
               <option value={0}>0</option>
@@ -285,6 +339,8 @@ export default function EasyGradeCalculatorLab() {
           </table>
         </div>
       )}
+
+     
 
       <div className="px-5 py-4 border-t border-gray-200 bg-[#f8fafc] text-[#374151] font-semibold text-sm">
         {message}

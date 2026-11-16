@@ -3,6 +3,26 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 
+// All calculator pages (from sitemap)
+const CALCULATOR_LINKS = [
+  ["Calculadora de Notas", "/calculadora-de-notas/"],
+  ["Calculadora de Nota Final", "/nota-final/"],
+  ["Calculadora GPA", "/calculadora-gpa/"],
+  ["GPA Acumulado", "/gpa-acumulado/"],
+  ["Calificador Rápido", "/calificador-rapido/"],
+  ["Calculadora de Clase", "/calculadora-clase/"],
+  ["Calculadora Profesores", "/calculadora-profesores/"],
+  ["Nota Semestral", "/nota-semestral/"],
+];
+
+// E-E-A-T trust pages, shown on the right of the header
+const EEAT_LINKS = [
+  ["Sobre Nosotros", "/sobre-nosotros/"],
+  ["Privacidad", "/privacidad/"],
+  ["Términos", "/terminos/"],
+  ["Contacto", "/contacto/"],
+];
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -26,6 +46,20 @@ export default function Header() {
 
   return (
     <header className="bg-white border-b border-[#e5e7eb] shadow-sm sticky top-0 z-50">
+      {/* E-E-A-T strip - top right, desktop only */}
+      <div className="hidden md:flex items-center justify-end gap-5 px-8 pt-2 text-xs text-gray-500 border-b border-gray-100">
+        {EEAT_LINKS.map(([label, href]) => (
+          <Link
+            key={label}
+            href={href}
+            prefetch={false}
+            className="hover:text-[#2563eb] transition pb-1"
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+
       <div className="px-8 mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -62,27 +96,16 @@ export default function Header() {
                   : "opacity-0 translate-y-2 invisible"
               }`}
             >
-              <Link
-                href="/calculadora-de-notas/"
-                className="block px-4 py-3 hover:bg-[#f3f6fb]"
-                prefetch={false}
-              >
-                Calculadora de Notas
-              </Link>
-              <Link
-                href="/nota-final/"
-                className="block px-4 py-3 hover:bg-[#f3f6fb]"
-                prefetch={false}
-              >
-                Calculadora de Nota Final
-              </Link>
-              <Link
-                href="/calculadora-gpa/"
-                className="block px-4 py-3 hover:bg-[#f3f6fb]"
-                prefetch={false}
-              >
-                Calculadora GPA
-              </Link>
+              {CALCULATOR_LINKS.map(([label, href]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="block px-4 py-3 hover:bg-[#f3f6fb]"
+                  prefetch={false}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -122,7 +145,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <nav className="md:hidden fixed inset-0 bg-black/90 flex flex-col justify-center items-center gap-6 z-40 text-white">
+        <nav className="md:hidden fixed inset-0 bg-black/90 flex flex-col justify-center items-center gap-6 z-40 text-white overflow-y-auto py-10">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="flex items-center gap-1 text-2xl font-bold"
@@ -132,15 +155,16 @@ export default function Header() {
 
           {dropdownOpen && (
             <div className="flex flex-col gap-2 mt-2 text-center">
-              <Link href="/calculadora-de-notas/" onClick={() => setMobileOpen(false)} prefetch={false}>
-                Calculadora de Notas
-              </Link>
-              <Link href="/nota-final/" onClick={() => setMobileOpen(false)} prefetch={false}>
-                Calculadora de Nota Final
-              </Link>
-              <Link href="/calculadora-gpa/" onClick={() => setMobileOpen(false)} prefetch={false}>
-                Calculadora GPA
-              </Link>
+              {CALCULATOR_LINKS.map(([label, href]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  prefetch={false}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           )}
 
@@ -161,6 +185,20 @@ export default function Header() {
           >
             FAQ
           </Link>
+
+          {/* E-E-A-T links - mobile menu */}
+          <div className="flex flex-col gap-2 mt-4 text-center text-sm text-gray-300">
+            {EEAT_LINKS.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                prefetch={false}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
 
           <button
             onClick={() => {

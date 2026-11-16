@@ -1,7 +1,20 @@
-// components/FinalGradeCalculatorLab.jsx
 "use client";
 
 import { useState } from "react";
+
+const COMPONENT_NAME = "FinalGradeCalculatorLab";
+
+function trackEvent(action, params = {}) {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.gtag === "function"
+  ) {
+    window.gtag("event", action, {
+      component: COMPONENT_NAME,
+      ...params,
+    });
+  }
+}
 
 const gradeOptions = [
   { label: "A+", value: 98 },
@@ -45,6 +58,13 @@ export default function FinalGradeCalculatorLab() {
   );
 
   const calculateSimpleFinal = () => {
+    trackEvent("calculate_simple_final", {
+      button: "Calcular",
+      current_grade: currentGrade,
+      target_grade: targetGrade,
+      final_weight: finalWeight,
+    });
+
     const current = Number(currentGrade);
     const target = Number(targetGrade);
     const weight = Number(finalWeight);
@@ -85,12 +105,18 @@ export default function FinalGradeCalculatorLab() {
       );
     } else {
       setSimpleMessage(
-        `Necesitas ${needed.toFixed(2)}% en el examen final para alcanzar tu nota objetivo.`
+        `Necesitas ${needed.toFixed(
+          2
+        )}% en el examen final para alcanzar tu nota objetivo.`
       );
     }
   };
 
   const resetSimpleFinal = () => {
+    trackEvent("reset_simple_final", {
+      button: "Restablecer",
+    });
+
     setCurrentGrade("");
     setTargetGrade("");
     setFinalWeight("");
@@ -101,6 +127,11 @@ export default function FinalGradeCalculatorLab() {
   };
 
   const addRow = () => {
+    trackEvent("add_evaluation", {
+      button: "Agregar Evaluación",
+      evaluation_number: rows.length + 1,
+    });
+
     setRows([
       ...rows,
       {
@@ -113,6 +144,12 @@ export default function FinalGradeCalculatorLab() {
 
   const removeRow = (index) => {
     if (rows.length <= 1) return;
+
+    trackEvent("remove_evaluation", {
+      button: "Remove Evaluation",
+      evaluation_number: index + 1,
+    });
+
     setRows(rows.filter((_, i) => i !== index));
   };
 
@@ -123,6 +160,14 @@ export default function FinalGradeCalculatorLab() {
   };
 
   const calculateMultiFinal = () => {
+    trackEvent("calculate_multi_final", {
+      button: "Calcular Nota Final Necesaria",
+      evaluation_count: rows.length,
+      grade_type: multiType,
+      target_grade: multiTargetGrade,
+      final_weight: multiFinalWeight,
+    });
+
     let currentContribution = 0;
     let currentWeightTotal = 0;
 
@@ -145,7 +190,9 @@ export default function FinalGradeCalculatorLab() {
     }
 
     if (!multiFinalWeight || finalWeightNum <= 0) {
-      setMultiMessage("Por favor ingresa un peso válido para el examen final.");
+      setMultiMessage(
+        "Por favor ingresa un peso válido para el examen final."
+      );
       return;
     }
 
@@ -154,7 +201,9 @@ export default function FinalGradeCalculatorLab() {
 
     setMultiResult(`${needed.toFixed(2)}%`);
 
-    let note = `Necesitas ${needed.toFixed(2)}% en el examen final para alcanzar tu nota objetivo.`;
+    let note = `Necesitas ${needed.toFixed(
+      2
+    )}% en el examen final para alcanzar tu nota objetivo.`;
 
     if (needed > 100) {
       note =
@@ -169,13 +218,19 @@ export default function FinalGradeCalculatorLab() {
     const totalWeight = currentWeightTotal + finalWeightNum;
 
     if (totalWeight !== 100) {
-      note += ` El peso total ingresado es ${totalWeight.toFixed(2)}%, por favor verifica tus pesos.`;
+      note += ` El peso total ingresado es ${totalWeight.toFixed(
+        2
+      )}%, por favor verifica tus pesos.`;
     }
 
     setMultiMessage(note);
   };
 
   const resetMulti = () => {
+    trackEvent("reset_multi_final", {
+      button: "Restablecer",
+    });
+
     setRows([
       { name: "Evaluación 1", grade: "85", weight: "30" },
       { name: "Evaluación 2", grade: "90", weight: "30" },
@@ -216,14 +271,25 @@ export default function FinalGradeCalculatorLab() {
                 <input
                   type="number"
                   value={currentGrade}
-                  onChange={(e) => setCurrentGrade(e.target.value)}
+                  onChange={(e) =>
+                    setCurrentGrade(e.target.value)
+                  }
                   placeholder="85"
                   className="h-12 rounded-xl border border-slate-300 px-4 outline-none focus:border-blue-500"
                 />
 
                 <select
                   className="h-12 rounded-xl border border-slate-300 px-3 outline-none focus:border-blue-500"
-                  onChange={(e) => setCurrentGrade(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    trackEvent("simple_current_grade_letter", {
+                      field: "current_grade",
+                      value,
+                    });
+
+                    setCurrentGrade(value);
+                  }}
                 >
                   <option value="">Letra</option>
 
@@ -245,14 +311,25 @@ export default function FinalGradeCalculatorLab() {
                 <input
                   type="number"
                   value={targetGrade}
-                  onChange={(e) => setTargetGrade(e.target.value)}
+                  onChange={(e) =>
+                    setTargetGrade(e.target.value)
+                  }
                   placeholder="90"
                   className="h-12 rounded-xl border border-slate-300 px-4 outline-none focus:border-blue-500"
                 />
 
                 <select
                   className="h-12 rounded-xl border border-slate-300 px-3 outline-none focus:border-blue-500"
-                  onChange={(e) => setTargetGrade(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    trackEvent("simple_target_grade_letter", {
+                      field: "target_grade",
+                      value,
+                    });
+
+                    setTargetGrade(value);
+                  }}
                 >
                   <option value="">Letra</option>
 
@@ -273,7 +350,9 @@ export default function FinalGradeCalculatorLab() {
               <input
                 type="number"
                 value={finalWeight}
-                onChange={(e) => setFinalWeight(e.target.value)}
+                onChange={(e) =>
+                  setFinalWeight(e.target.value)
+                }
                 placeholder="30"
                 className="h-12 rounded-xl border border-slate-300 px-4 outline-none focus:border-blue-500"
               />
@@ -312,6 +391,8 @@ export default function FinalGradeCalculatorLab() {
         </div>
       </div>
 
+    
+
       {/* MULTI */}
       <div className="rounded-3xl border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 p-6">
@@ -336,7 +417,13 @@ export default function FinalGradeCalculatorLab() {
                 <input
                   type="radio"
                   checked={multiType === "percentage"}
-                  onChange={() => setMultiType("percentage")}
+                  onChange={() => {
+                    trackEvent("grade_type_change", {
+                      value: "percentage",
+                    });
+
+                    setMultiType("percentage");
+                  }}
                 />
                 Porcentaje
               </label>
@@ -345,7 +432,13 @@ export default function FinalGradeCalculatorLab() {
                 <input
                   type="radio"
                   checked={multiType === "letters"}
-                  onChange={() => setMultiType("letters")}
+                  onChange={() => {
+                    trackEvent("grade_type_change", {
+                      value: "letters",
+                    });
+
+                    setMultiType("letters");
+                  }}
                 />
                 Letras
               </label>
@@ -397,16 +490,27 @@ export default function FinalGradeCalculatorLab() {
                           type="number"
                           value={row.grade}
                           onChange={(e) =>
-                            updateRow(index, "grade", e.target.value)
+                            updateRow(
+                              index,
+                              "grade",
+                              e.target.value
+                            )
                           }
                           className="h-11 w-full rounded-xl border border-slate-300 px-3"
                         />
                       ) : (
                         <select
                           value={row.grade}
-                          onChange={(e) =>
-                            updateRow(index, "grade", e.target.value)
-                          }
+                          onChange={(e) => {
+                            const value = e.target.value;
+
+                            trackEvent("evaluation_letter_change", {
+                              evaluation_number: index + 1,
+                              value,
+                            });
+
+                            updateRow(index, "grade", value);
+                          }}
                           className="h-11 w-full rounded-xl border border-slate-300 px-3"
                         >
                           <option value="">Seleccionar</option>
@@ -428,7 +532,11 @@ export default function FinalGradeCalculatorLab() {
                         type="number"
                         value={row.weight}
                         onChange={(e) =>
-                          updateRow(index, "weight", e.target.value)
+                          updateRow(
+                            index,
+                            "weight",
+                            e.target.value
+                          )
                         }
                         className="h-11 w-full rounded-xl border border-slate-300 px-3"
                       />
@@ -446,7 +554,9 @@ export default function FinalGradeCalculatorLab() {
                 ))}
 
                 <tr className="border-t border-slate-200 bg-slate-50">
-                  <td className="p-4 font-bold">Examen Final</td>
+                  <td className="p-4 font-bold">
+                    Examen Final
+                  </td>
 
                   <td className="p-4 text-sm text-slate-500">
                     Nota necesaria
@@ -486,9 +596,15 @@ export default function FinalGradeCalculatorLab() {
               />
 
               <select
-                onChange={(e) =>
-                  setMultiTargetGrade(e.target.value)
-                }
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  trackEvent("multi_target_grade_letter", {
+                    value,
+                  });
+
+                  setMultiTargetGrade(value);
+                }}
                 className="h-12 rounded-xl border border-slate-300 px-3"
               >
                 <option value="">Letra</option>
@@ -540,6 +656,8 @@ export default function FinalGradeCalculatorLab() {
           </div>
         </div>
       </div>
+
+     
     </div>
   );
 }
